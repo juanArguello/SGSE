@@ -9,17 +9,29 @@
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:util="http://www.springframework.org/schema/util"
     xsi:schemaLocation="http://www.springframework.org/schema/beans 
-    http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
-    http://www.springframework.org/schema/aop 
-    http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
-    http://www.springframework.org/schema/tx 
-    http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
-    http://www.springframework.org/schema/mvc
-	http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
-	http://www.springframework.org/schema/context
-	http://www.springframework.org/schema/context/spring-context-4.0.xsd
-	http://www.springframework.org/schema/util
-	http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/aop 
+        http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+        http://www.springframework.org/schema/tx 
+        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+    
+    <context:annotation-config />
+    
+    <!-- Se especifica los paquete base del proyecto 
+        Busca los paquetes de las clases beans anotados con @Components, @Service, @Controller -->
+    <context:component-scan base-package="com.sgse.controller" />
+    <context:component-scan base-package="com.sgse.dao" />
+    <context:component-scan base-package="com.sgse.service" />
+ 
+    
+    <!--    Habilita la anotacion de Spring MVC @Controller -->
+    <mvc:annotation-driven/>
 
     <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"/>
 
@@ -31,7 +43,8 @@
     <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
         <property name="mappings">
             <props>
-                <prop key="index.htm">indexController</prop>
+                <prop key="index.html">indexController</prop>
+                <prop key="login.html">loginController</prop>
             </props>
         </property>
     </bean>
@@ -41,11 +54,8 @@
           p:prefix="/WEB-INF/jsp/"
           p:suffix=".jsp" />
 
-    <!--
-    The index controller.
-    -->
-    <bean name="indexController"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          p:viewName="index" />
+    <!-- Los beans controladores: index, login -->
+    <bean name="indexController" class="com.sgse.controller.IndexController"/>
+    <bean name="loginController" class="com.sgse.controller.LoginController"/>
 
 </beans>

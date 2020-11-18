@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+  Clase entidad Seguro correspondiente a la tabla relacional seguro
+  con sus respectivo atributos, getters y setters.
  */
 package com.sgse.model.entities;
 
@@ -18,7 +17,7 @@ import javax.persistence.Table;
 
 /**
  *
- * @author Juan Carlos Arguello
+ * @author Juan Carlos Argüello Ortiz
  * @version 1.0
  */
 @Entity

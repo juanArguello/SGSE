@@ -1,0 +1,20 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 03-mar-2020, 21:51:33
+    Author     : Juan Carlos Argüello Ortiz
+*/
+body{
+    background: url(../../resources/images/cementerio-parque.png) no-repeat center center fixed;
+    background-size: cover;
+}
+
+.container{
+    background-color: silver;
+    border-radius: 10px;
+    padding: 25px;
+    margin-top: 50px;
+}

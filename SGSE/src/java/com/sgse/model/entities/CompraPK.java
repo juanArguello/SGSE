@@ -1,22 +1,21 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+  Clase embebible CompraPK correspondiente a las claves primarias de la entidad Compra
+*/
 package com.sgse.model.entities;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 /**
  *
- * @author Juan Carlos Arguello
+ * @author Juan Carlos Argüello Ortiz
  * @version 1.0
  */
 @Embeddable
 public class CompraPK implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Column(name = "id_cliente")
     private int idCliente;
