@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+    Clase UsuarioService que integra la capa servicio de la aplicacion
  */
 package com.sgse.service;
 

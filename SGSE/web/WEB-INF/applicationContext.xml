@@ -10,9 +10,12 @@
         http://www.springframework.org/schema/aop 
         http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
         http://www.springframework.org/schema/tx 
-        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd" >
+        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
   
-   
+    <!--  Importa el archivo de configuracion de seguridad de Spring -->
+    <import resource="security-context.xml" />
+    
+    
     <bean id="propertyConfigurer"
         class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
         p:location="/WEB-INF/jdbc.properties" />
@@ -26,7 +29,7 @@
 
     <!-- ADD PERSISTENCE SUPPORT HERE (jpa, hibernate, etc) -->
     
-    <!-- Hibernate 4 SessionFactory Bean definition -->
+    <!-- Definition de Bean Hibernate 4 SessionFactory -->
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
@@ -70,5 +73,7 @@
 	<!-- Activates annotation based transaction management -->
     <tx:annotation-driven transaction-manager="transactionManager" />
     
+    <bean id="exceptionTranslator"
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>        
     
 </beans>
