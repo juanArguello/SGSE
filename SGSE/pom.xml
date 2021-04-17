@@ -17,8 +17,17 @@
     
     <organization>
         <name>Futuro</name>
-        <url>https://www.futuro.com.py/</url>
+        <url>https://www.futuro.com.py</url>
     </organization>
+    
+    <developers>
+        <developer>
+            <email>juanarguello092@fpuna.edu.py</email>
+            <name>Juan Carlos Arguello Ortiz</name>
+            <organization>Futuro</organization>
+            <organizationUrl>https://www.futuro.com.py</organizationUrl>
+        </developer>
+    </developers>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -46,6 +55,11 @@
         <dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
+			<version>5.2.13.RELEASE</version>
+		</dependency>
+        <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
 			<version>5.2.13.RELEASE</version>
 		</dependency>
         <dependency>
@@ -109,11 +123,6 @@
 			<artifactId>spring-websocket</artifactId>
 			<version>5.2.13.RELEASE</version>
 		</dependency>
-        <dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context-support</artifactId>
-			<version>5.2.13.RELEASE</version>
-		</dependency>
         <!-- Spring Security-->
         <dependency>
 			<groupId>org.springframework.security</groupId>
@@ -173,15 +182,12 @@
             <artifactId>jstl</artifactId>
             <version>1.2</version>
         </dependency>
-        
-
         <!-- BootStrap-->
 <!--        <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>bootstrap</artifactId>
             <version>4.6.0</version>
         </dependency>-->
-        
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>

@@ -19,10 +19,16 @@
         http://www.springframework.org/schema/tx/spring-tx.xsd">
     
     <context:component-scan base-package="com.sgse.configuration" />
+    <context:component-scan base-package="com.sgse.model" />
+    <context:component-scan base-package="com.sgse.model.entities" />
+    <context:component-scan base-package="com.sgse.dao" />
+    <context:component-scan base-package="com.sgse.service" />
     
     <!-- Activa las anotaciones para ser detectadas en las clases bean de Spring
         @Required, @Autowired y @Resourse -->
     <context:annotation-config/>
+    
+    <!--  Importa el archivo xml de configuracion de la seguridad -->
     <import resource="security-context.xml" />
     
     <!--  Definicion del bean DataSource de la aplicacion -->
@@ -33,6 +39,57 @@
         <property name="username" value="postgres"/>
         <property name="password" value="ABC+-*xyz123"/>
     </bean>
+    
+    <!-- Definicion de Bean Hibernate 5 SessionFactory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+<!--        <property name="configLocation">
+            <value>classpath:com/sgse/model/hibernate.cfg.xml</value>
+        </property>-->
+		<property name="annotatedClasses">
+			<list>
+				<value>com.sgse.model.entities.Cliente</value>
+                <value>com.sgse.model.entities.Compra</value>
+                <value>com.sgse.model.entities.ContratoVenta</value>
+                <value>com.sgse.model.entities.Empresa</value>
+                <value>com.sgse.model.entities.Factura</value>
+                <value>com.sgse.model.entities.Inventario</value>
+                <value>com.sgse.model.entities.Permisos</value>
+                <value>com.sgse.model.entities.Plan</value>
+                <value>com.sgse.model.entities.RegistrarVenta</value>
+                <value>com.sgse.model.entities.Reporte</value>
+                <value>com.sgse.model.entities.Rol</value>
+                <value>com.sgse.model.entities.Salon</value>
+                <value>com.sgse.model.entities.Seguro</value>
+                <value>com.sgse.model.entities.Servicios</value>
+                <value>com.sgse.model.entities.Sucursal</value>
+                <value>com.sgse.model.entities.Usuario</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQL94Dialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+	</bean>
+    
+    <!-- Hibernate Transaction Manager -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+ 
+	<!-- Activates annotation based transaction management -->
+    <tx:annotation-driven transaction-manager="transactionManager" />
+    
+    <bean id="exceptionTranslator"
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>        
+    
+    <bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate" > 
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>  
     
 
 </beans>

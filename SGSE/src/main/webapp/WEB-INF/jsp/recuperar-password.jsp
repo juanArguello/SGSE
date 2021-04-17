@@ -18,7 +18,8 @@
     </head>
     <body>
         <div class="container col-lg-3">
-            <form method="POST" action="" class="form-horinzontal" autocomplete="on">
+            <form method="POST" 
+                class="form-horinzontal" autocomplete="on">
                 <div class="form-group text-center">
                     <img src="<c:out value="resources/images/logo.jpg"/>" 
                          height="80" width="80"  />

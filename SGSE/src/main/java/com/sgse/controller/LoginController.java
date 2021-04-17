@@ -3,6 +3,7 @@
  */
 package com.sgse.controller;
 
+import com.sgse.mail.Contrasenha;
 import com.sgse.model.entities.Usuario;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -33,6 +34,15 @@ public class LoginController {
     @RequestMapping(value = "/recuperar-password",method = RequestMethod.GET)
     public String recuperarPassword(){
         return "recuperar-password";
+    }
+    
+    @RequestMapping(value = "/recuperar")
+    public String obtenerPassword(@ModelAttribute(value = "correo")String correo){
+        
+              
+        Contrasenha contrasenha = new Contrasenha();
+        contrasenha.generarContrasenha();
+        return "login";
     }
     
     
