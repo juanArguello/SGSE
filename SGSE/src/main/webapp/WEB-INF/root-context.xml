@@ -20,7 +20,7 @@
     
     <context:component-scan base-package="com.sgse.configuration" />
     <context:component-scan base-package="com.sgse.model" />
-    <context:component-scan base-package="com.sgse.model.entities" />
+    <context:component-scan base-package="com.sgse.entities" />
     <context:component-scan base-package="com.sgse.dao" />
     <context:component-scan base-package="com.sgse.service" />
     

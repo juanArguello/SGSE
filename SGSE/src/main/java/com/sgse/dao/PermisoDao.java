@@ -3,7 +3,7 @@
  */
 package com.sgse.dao;
 
-import com.sgse.model.entities.Permisos;
+import com.sgse.entities.Permisos;
 import java.util.List;
 
 /**

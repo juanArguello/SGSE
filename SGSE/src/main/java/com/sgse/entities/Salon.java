@@ -2,7 +2,7 @@
   Clase entidad Salon correspondiente a la tabla relacional salon
   con sus respectivo atributos, getters y setters.
  */
-package com.sgse.model.entities;
+package com.sgse.entities;
 
 import java.io.Serializable;
 import java.util.Date;

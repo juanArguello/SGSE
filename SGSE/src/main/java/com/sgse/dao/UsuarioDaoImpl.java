@@ -3,7 +3,7 @@
  */
 package com.sgse.dao;
 
-import com.sgse.model.entities.Usuario;
+import com.sgse.entities.Usuario;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;

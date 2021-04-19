@@ -5,7 +5,7 @@
  */
 package com.sgse.dao;
 
-import com.sgse.model.entities.Plan;
+import com.sgse.entities.Plan;
 import java.util.List;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;

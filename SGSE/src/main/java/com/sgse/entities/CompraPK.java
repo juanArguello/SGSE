@@ -1,7 +1,7 @@
 /*
   Clase embebible CompraPK correspondiente a las claves primarias de la entidad Compra
 */
-package com.sgse.model.entities;
+package com.sgse.entities;
 
 import java.io.Serializable;
 import javax.persistence.Column;

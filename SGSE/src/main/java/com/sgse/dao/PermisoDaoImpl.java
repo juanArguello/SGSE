@@ -3,7 +3,7 @@
  */
 package com.sgse.dao;
 
-import com.sgse.model.entities.Permisos;
+import com.sgse.entities.Permisos;
 import java.util.List;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;

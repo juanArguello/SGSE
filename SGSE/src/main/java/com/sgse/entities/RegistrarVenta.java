@@ -1,8 +1,8 @@
 /*
-  Clase entidad Compra correspondiente a la tabla relacional compra
+  Clase entidad RegistrarVenta correspondiente a la tabla relacional registrar_venta
   con sus respectivo atributos, getters y setters.
  */
-package com.sgse.model.entities;
+package com.sgse.entities;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -21,13 +21,13 @@ import javax.persistence.TemporalType;
  * @version 1.0
  */
 @Entity
-@Table(name = "compra")
-public class Compra implements Serializable {
+@Table(name = "registrar_venta")
+public class RegistrarVenta implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
     @EmbeddedId
-    protected CompraPK compraPK;
+    protected RegistrarVentaPK registrarVentaPK;
     
     @Column(name = "fecha")
     @Temporal(TemporalType.DATE)
@@ -36,37 +36,40 @@ public class Compra implements Serializable {
     @Column(name = "monto")
     private int monto;
     
-    @JoinColumn(name = "id_cliente", referencedColumnName = "id", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Cliente cliente;
+    @Column(name = "tipo_venta")
+    private String tipoVenta;
     
     @JoinColumn(name = "id_seguro", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Seguro seguro;
+    
+    @JoinColumn(name = "id_usuario", referencedColumnName = "id", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Usuario usuario;
 
-    public Compra() {
+    public RegistrarVenta() {
     }
 
-    public Compra(CompraPK compraPK) {
-        this.compraPK = compraPK;
+    public RegistrarVenta(RegistrarVentaPK registrarVentaPK) {
+        this.registrarVentaPK = registrarVentaPK;
     }
 
-    public Compra(CompraPK compraPK, Date fecha, int monto) {
-        this.compraPK = compraPK;
+    public RegistrarVenta(RegistrarVentaPK registrarVentaPK, Date fecha, int monto) {
+        this.registrarVentaPK = registrarVentaPK;
         this.fecha = fecha;
         this.monto = monto;
     }
 
-    public Compra(int idCliente, int idSeguro) {
-        this.compraPK = new CompraPK(idCliente, idSeguro);
+    public RegistrarVenta(int idUsuario, int idSeguro) {
+        this.registrarVentaPK = new RegistrarVentaPK(idUsuario, idSeguro);
     }
 
-    public CompraPK getCompraPK() {
-        return compraPK;
+    public RegistrarVentaPK getRegistrarVentaPK() {
+        return registrarVentaPK;
     }
 
-    public void setCompraPK(CompraPK compraPK) {
-        this.compraPK = compraPK;
+    public void setRegistrarVentaPK(RegistrarVentaPK registrarVentaPK) {
+        this.registrarVentaPK = registrarVentaPK;
     }
 
     public Date getFecha() {
@@ -85,12 +88,12 @@ public class Compra implements Serializable {
         this.monto = monto;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public String getTipoVenta() {
+        return tipoVenta;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setTipoVenta(String tipoVenta) {
+        this.tipoVenta = tipoVenta;
     }
 
     public Seguro getSeguro() {
@@ -101,5 +104,13 @@ public class Compra implements Serializable {
         this.seguro = seguro;
     }
 
-    
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+  
 }

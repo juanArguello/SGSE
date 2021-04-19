@@ -4,7 +4,7 @@
 package com.sgse.controller;
 
 import com.sgse.mail.Contrasenha;
-import com.sgse.model.entities.Usuario;
+import com.sgse.entities.Usuario;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;

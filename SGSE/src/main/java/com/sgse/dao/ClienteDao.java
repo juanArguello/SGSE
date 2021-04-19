@@ -3,7 +3,7 @@
  */
 package com.sgse.dao;
 
-import com.sgse.model.entities.Cliente;
+import com.sgse.entities.Cliente;
 import java.util.List;
 
 /**

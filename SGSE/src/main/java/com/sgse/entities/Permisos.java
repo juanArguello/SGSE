@@ -1,8 +1,8 @@
 /*
-  Clase entidad Servicios correspondiente a la tabla relacional servicios
+  Clase entidad Permisos correspondiente a la tabla relacional permisos
   con sus respectivo atributos, getters y setters.
  */
-package com.sgse.model.entities;
+package com.sgse.entities;
 
 import java.io.Serializable;
 import java.util.List;
@@ -20,8 +20,8 @@ import javax.persistence.Table;
  * @version 1.0
  */
 @Entity
-@Table(name = "servicios")
-public class Servicios implements Serializable {
+@Table(name = "permisos")
+public class Permisos implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
@@ -36,17 +36,17 @@ public class Servicios implements Serializable {
     @Column(name = "descripcion")
     private String descripcion;
     
-    @ManyToMany(mappedBy = "serviciosList")
-    private List<Plan> planList;
+    @ManyToMany(mappedBy = "permisosList")
+    private List<Rol> rolList;
 
-    public Servicios() {
+    public Permisos() {
     }
 
-    public Servicios(Integer id) {
+    public Permisos(Integer id) {
         this.id = id;
     }
 
-    public Servicios(Integer id, String nombre) {
+    public Permisos(Integer id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }
@@ -75,13 +75,13 @@ public class Servicios implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public List<Plan> getPlanList() {
-        return planList;
+    public List<Rol> getRolList() {
+        return rolList;
     }
 
-    public void setPlanList(List<Plan> planList) {
-        this.planList = planList;
+    public void setRolList(List<Rol> rolList) {
+        this.rolList = rolList;
     }
 
-    
+   
 }

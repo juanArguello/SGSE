@@ -4,7 +4,7 @@
 
 package com.sgse.dao;
 
-import com.sgse.model.entities.Cliente;
+import com.sgse.entities.Cliente;
 import java.util.List;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ public class ClienteDaoImpl implements ClienteDao{
 
     @Override
     public Cliente findById(int id) {
-        return (Cliente) sessionFactory.getCurrentSession().get(Cliente.class, id);
+        return sessionFactory.getCurrentSession().get(Cliente.class, id);
     }
 
     @Override

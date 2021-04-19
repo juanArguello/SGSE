@@ -3,7 +3,7 @@
  */
 package com.sgse.dao;
 
-import com.sgse.model.entities.Rol;
+import com.sgse.entities.Rol;
 import java.util.List;
 
 /**

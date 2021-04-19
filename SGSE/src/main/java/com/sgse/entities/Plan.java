@@ -1,8 +1,8 @@
 /*
-  Clase entidad Permisos correspondiente a la tabla relacional permisos
+  Clase entidad Plan correspondiente a la tabla relacional plan
   con sus respectivo atributos, getters y setters.
  */
-package com.sgse.model.entities;
+package com.sgse.entities;
 
 import java.io.Serializable;
 import java.util.List;
@@ -11,7 +11,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -20,8 +23,8 @@ import javax.persistence.Table;
  * @version 1.0
  */
 @Entity
-@Table(name = "permisos")
-public class Permisos implements Serializable {
+@Table(name = "plan")
+public class Plan implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
@@ -36,17 +39,24 @@ public class Permisos implements Serializable {
     @Column(name = "descripcion")
     private String descripcion;
     
-    @ManyToMany(mappedBy = "permisosList")
-    private List<Rol> rolList;
+    @JoinTable(name = "plan_servicios", joinColumns = {
+        @JoinColumn(name = "id_plan", referencedColumnName = "id")}, inverseJoinColumns = {
+        @JoinColumn(name = "id_servicio", referencedColumnName = "id")})
+    @ManyToMany
+    private List<Servicios> serviciosList;
+    
+    @JoinColumn(name = "id_seguro", referencedColumnName = "id")
+    @ManyToOne
+    private Seguro idSeguro;
 
-    public Permisos() {
+    public Plan() {
     }
 
-    public Permisos(Integer id) {
+    public Plan(Integer id) {
         this.id = id;
     }
 
-    public Permisos(Integer id, String nombre) {
+    public Plan(Integer id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }
@@ -75,13 +85,21 @@ public class Permisos implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public List<Rol> getRolList() {
-        return rolList;
+    public List<Servicios> getServiciosList() {
+        return serviciosList;
     }
 
-    public void setRolList(List<Rol> rolList) {
-        this.rolList = rolList;
+    public void setServiciosList(List<Servicios> serviciosList) {
+        this.serviciosList = serviciosList;
     }
 
-   
+    public Seguro getIdSeguro() {
+        return idSeguro;
+    }
+
+    public void setIdSeguro(Seguro idSeguro) {
+        this.idSeguro = idSeguro;
+    }
+
+    
 }

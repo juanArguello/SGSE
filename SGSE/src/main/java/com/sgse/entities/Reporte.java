@@ -2,7 +2,7 @@
   Clase entidad Reporte correspondiente a la tabla relacional reporte
   con sus respectivo atributos, getters y setters.
  */
-package com.sgse.model.entities;
+package com.sgse.entities;
 
 import java.io.Serializable;
 import java.util.List;

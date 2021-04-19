@@ -1,8 +1,8 @@
 /*
-  Clase entidad Plan correspondiente a la tabla relacional plan
+  Clase entidad Servicios correspondiente a la tabla relacional servicios
   con sus respectivo atributos, getters y setters.
  */
-package com.sgse.model.entities;
+package com.sgse.entities;
 
 import java.io.Serializable;
 import java.util.List;
@@ -11,10 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -23,8 +20,8 @@ import javax.persistence.Table;
  * @version 1.0
  */
 @Entity
-@Table(name = "plan")
-public class Plan implements Serializable {
+@Table(name = "servicios")
+public class Servicios implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
@@ -39,24 +36,17 @@ public class Plan implements Serializable {
     @Column(name = "descripcion")
     private String descripcion;
     
-    @JoinTable(name = "plan_servicios", joinColumns = {
-        @JoinColumn(name = "id_plan", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "id_servicio", referencedColumnName = "id")})
-    @ManyToMany
-    private List<Servicios> serviciosList;
-    
-    @JoinColumn(name = "id_seguro", referencedColumnName = "id")
-    @ManyToOne
-    private Seguro idSeguro;
+    @ManyToMany(mappedBy = "serviciosList")
+    private List<Plan> planList;
 
-    public Plan() {
+    public Servicios() {
     }
 
-    public Plan(Integer id) {
+    public Servicios(Integer id) {
         this.id = id;
     }
 
-    public Plan(Integer id, String nombre) {
+    public Servicios(Integer id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }
@@ -85,20 +75,12 @@ public class Plan implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public List<Servicios> getServiciosList() {
-        return serviciosList;
+    public List<Plan> getPlanList() {
+        return planList;
     }
 
-    public void setServiciosList(List<Servicios> serviciosList) {
-        this.serviciosList = serviciosList;
-    }
-
-    public Seguro getIdSeguro() {
-        return idSeguro;
-    }
-
-    public void setIdSeguro(Seguro idSeguro) {
-        this.idSeguro = idSeguro;
+    public void setPlanList(List<Plan> planList) {
+        this.planList = planList;
     }
 
     

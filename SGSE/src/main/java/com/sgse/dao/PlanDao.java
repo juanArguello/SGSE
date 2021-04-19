@@ -5,7 +5,7 @@
  */
 package com.sgse.dao;
 
-import com.sgse.model.entities.Plan;
+import com.sgse.entities.Plan;
 import java.util.List;
 
 /**

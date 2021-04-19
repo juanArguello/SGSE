@@ -2,7 +2,7 @@
   Clase entidad Empresa correspondiente a la tabla relacional empresa
   con sus respectivo atributos, getters y setters.
  */
-package com.sgse.model.entities;
+package com.sgse.entities;
 
 import java.io.Serializable;
 import java.util.List;

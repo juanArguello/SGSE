@@ -4,7 +4,7 @@
 package com.sgse.service;
 
 import com.sgse.dao.UsuarioDao;
-import com.sgse.model.entities.Usuario;
+import com.sgse.entities.Usuario;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
