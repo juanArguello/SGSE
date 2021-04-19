@@ -1,5 +1,5 @@
 /*
-    Clase UsuarioService que integra la capa servicio de la aplicacion
+    Clase UsuarioServiceImpl que integra la capa servicio de la aplicacion
  */
 package com.sgse.service;
 
@@ -20,6 +20,7 @@ public class UsuarioServiceImpl implements UsuarioService{
     @Autowired
     private UsuarioDao usuarioDao;
 
+    // Implementacion de los metodos CRUD
     @Override
     public void create(Usuario usuario) {
         usuarioDao.create(usuario);
@@ -50,5 +51,4 @@ public class UsuarioServiceImpl implements UsuarioService{
         usuarioDao.delete(id);
     }
 
-    
 }
