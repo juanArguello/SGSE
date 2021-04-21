@@ -30,7 +30,7 @@
             username-parameter="nombreUsuario" 
             password-parameter="contrasenha" 
             authentication-failure-url="/login?error=true" />
-        <security:logout logout-success-url="/login"  logout-url="/logout" />
+        <security:logout logout-url="/logout" logout-success-url="/login?logout=true" />
         <security:access-denied-handler error-page="/acceso_denegado" />
         <security:csrf/>
         <security:remember-me key="recordarme" />

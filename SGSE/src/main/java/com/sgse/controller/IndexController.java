@@ -7,6 +7,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -25,8 +26,9 @@ public class IndexController {
         return "index";
     }
     
-    @RequestMapping(value = "/logout")
-    public String procesarPassword(String correo){
+    @RequestMapping(value = "/login?logout=true",method = RequestMethod.GET)
+    public String cerrarSesion(ModelMap model) {
+        model.addAttribute("logout", true);
         return "login";
     }
     

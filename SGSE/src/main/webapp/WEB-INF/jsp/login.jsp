@@ -1,4 +1,4 @@
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -16,12 +16,22 @@
             type="text/css" /> 
         <link rel="stylesheet" href="<c:out value='resources/css/login-estilo.css'/>"
             type="text/css" /> 
+        <link rel="stylesheet" 
+              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"  />
         <title>Login</title>
+        <script type="text/javascript">
+            function mostrarPassword(){
+                var cambio = document.getElementById("contrasenha");
+                if(cambio.type === "password"){
+                    cambio.type = "text";
+                }else{
+                    cambio.type = "password";
+                }
+            } 
+        </script>
     </head>
     <body>
-        
         <div class="container col-lg-3">
-            <c:url var="loginVar" value="/login"/>
             <form:form modelAttribute="usuario" action="/login" method="POST"
                 class="form-horizontal" autocomplete="on"  >
                 <div class="form-group text-center">
@@ -32,18 +42,29 @@
                 <c:if test="${param.error != null}">
                     <div class="form-control alert-danger text-center">Usuario ó contraseña invalida</div>
                 </c:if>
+                <c:if test="${param.logout != null}">
+                    <div class="form-control alert-danger text-center">Sesión Cerrada</div>
+                </c:if>
                 <sec:authorize access="isAuthenticated()" url="https://localhost:8443/login">
                     <c:redirect url="/index" />                    
                 </sec:authorize>   
                 <div class="form-group">
                     <form:label path="nombreUsuario" class="h6" >Usuario:</form:label>
-                    <form:input path="nombreUsuario" class="form-control" 
+                    <form:input path="nombreUsuario" class="form-control"
                         placeholder="usuario" autofocus="on" required="on" />
                 </div>
                 <div class="form-group">
                     <form:label path="contrasenha" class="h6" >Password:</form:label>
-                    <form:password path="contrasenha" class="form-control" 
-                        placeholder="password" required="on"  />
+                    <div class="input-group">
+                    <form:password path="contrasenha" id="contrasenha" class="form-control" 
+                            placeholder="password" required="on"  />
+                       <div class="input-group-append">
+                            <button id="show_password" class="btn btn-primary" 
+                                    type="button" onclick="mostrarPassword()"> 
+                                <i id="icono" class="fa fa-eye"></i> 
+                            </button>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">

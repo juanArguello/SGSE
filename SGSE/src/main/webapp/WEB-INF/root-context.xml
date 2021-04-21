@@ -49,22 +49,22 @@
         </property>-->
 		<property name="annotatedClasses">
 			<list>
-				<value>com.sgse.model.entities.Cliente</value>
-                <value>com.sgse.model.entities.Compra</value>
-                <value>com.sgse.model.entities.ContratoVenta</value>
-                <value>com.sgse.model.entities.Empresa</value>
-                <value>com.sgse.model.entities.Factura</value>
-                <value>com.sgse.model.entities.Inventario</value>
-                <value>com.sgse.model.entities.Permisos</value>
-                <value>com.sgse.model.entities.Plan</value>
-                <value>com.sgse.model.entities.RegistrarVenta</value>
-                <value>com.sgse.model.entities.Reporte</value>
-                <value>com.sgse.model.entities.Rol</value>
-                <value>com.sgse.model.entities.Salon</value>
-                <value>com.sgse.model.entities.Seguro</value>
-                <value>com.sgse.model.entities.Servicios</value>
-                <value>com.sgse.model.entities.Sucursal</value>
-                <value>com.sgse.model.entities.Usuario</value>
+				<value>com.sgse.entities.Cliente</value>
+                <value>com.sgse.entities.Compra</value>
+                <value>com.sgse.entities.ContratoVenta</value>
+                <value>com.sgse.entities.Empresa</value>
+                <value>com.sgse.entities.Factura</value>
+                <value>com.sgse.entities.Inventario</value>
+                <value>com.sgse.entities.Permisos</value>
+                <value>com.sgse.entities.Plan</value>
+                <value>com.sgse.entities.RegistrarVenta</value>
+                <value>com.sgse.entities.Reporte</value>
+                <value>com.sgse.entities.Rol</value>
+                <value>com.sgse.entities.Salon</value>
+                <value>com.sgse.entities.Seguro</value>
+                <value>com.sgse.entities.Servicios</value>
+                <value>com.sgse.entities.Sucursal</value>
+                <value>com.sgse.entities.Usuario</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

@@ -1,7 +1,7 @@
 /*
   Clase embebible RegistrarVentaPK correspondiente a las claves primarias de la entidad RegistrarVenta
 */
-package com.sgse.model.entities;
+package com.sgse.entities;
 
 import java.io.Serializable;
 import javax.persistence.Column;
