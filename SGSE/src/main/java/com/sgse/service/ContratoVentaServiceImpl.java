@@ -8,6 +8,7 @@ import com.sgse.entities.ContratoVenta;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -22,26 +23,31 @@ public class ContratoVentaServiceImpl implements ContratoVentaService{
     
     // Implementacion de los metodos CRUD
     @Override
+    @Transactional
     public void create(ContratoVenta contratoVenta) {
         contratoVentaDao.create(contratoVenta);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public ContratoVenta findById(int id) {
         return contratoVentaDao.findById(id);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<ContratoVenta> findAll() {
         return contratoVentaDao.findAll();
     }
 
     @Override
+    @Transactional
     public void update(ContratoVenta contratoVenta) {
         contratoVentaDao.update(contratoVenta);
     }
 
     @Override
+    @Transactional
     public void delete(int id) {
         contratoVentaDao.delete(id);
     }

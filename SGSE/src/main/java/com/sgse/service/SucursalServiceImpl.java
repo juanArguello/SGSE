@@ -8,6 +8,7 @@ import com.sgse.entities.Sucursal;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -22,26 +23,31 @@ public class SucursalServiceImpl implements SucursalService{
     
     // Implementacion de los metodos CRUD
     @Override
+    @Transactional
     public void create(Sucursal sucursal) {
         sucursalDao.create(sucursal);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Sucursal findById(int id) {
         return sucursalDao.findById(id);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Sucursal> findAll() {
         return sucursalDao.findAll();
     }
 
     @Override
+    @Transactional
     public void update(Sucursal sucursal) {
         sucursalDao.update(sucursal);
     }
 
     @Override
+    @Transactional
     public void delete(int id) {
         sucursalDao.delete(id);
     }

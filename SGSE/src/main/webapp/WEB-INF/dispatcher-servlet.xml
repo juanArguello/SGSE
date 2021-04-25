@@ -25,6 +25,7 @@
     <!-- Se especifica los paquete base del proyecto 
         Busca los paquetes de las clases beans anotados con Controller -->
     <context:component-scan base-package="com.sgse.controller" />
+    <context:component-scan base-package="com.sgse.apirest.controller" />
     
     <!-- Mapea la ubicacion de los recursos estaticos de la Web App -->
     <mvc:resources mapping="/resources/css/**" location="/resources/css/"/>
@@ -39,6 +40,21 @@
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>
         <property name="exposeContextBeansAsAttributes" value="true" />
+    </bean>
+    
+    <!-- Bean javaMailSender especifica las propiedades de la configuracion del correo electronico -->
+    <bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="smtp.gmail.com"/>
+        <property name="port" value="587"/>
+        <property name="username" value="futuro.seguros.py@gmail.com"/>
+        <property name="password" value="futuro.seguros.py.2021"/>
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.transport.protocol">smtp</prop>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+            </props>
+        </property>
     </bean>
     
 <!--    <bean id="handlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">

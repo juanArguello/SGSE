@@ -8,6 +8,7 @@ import com.sgse.entities.Usuario;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -22,31 +23,37 @@ public class UsuarioServiceImpl implements UsuarioService{
 
     // Implementacion de los metodos CRUD
     @Override
+    @Transactional
     public void create(Usuario usuario) {
         usuarioDao.create(usuario);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Usuario findById(int id) {
         return usuarioDao.findById(id);
     }
-   
+  
     @Override
-    public Usuario buscarPorCorreo(String correo) {
+    @Transactional(readOnly = true)
+    public Usuario findByEmail(String correo) {
         return usuarioDao.findByEmail(correo);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Usuario> findAll() {
         return usuarioDao.findAll();
     }
 
     @Override
+    @Transactional
     public void update(Usuario usuario) {
         usuarioDao.update(usuario);
     }
 
     @Override
+    @Transactional
     public void delete(int id) {
         usuarioDao.delete(id);
     }

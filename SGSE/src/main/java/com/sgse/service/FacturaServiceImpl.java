@@ -8,6 +8,7 @@ import com.sgse.entities.Factura;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -22,26 +23,31 @@ public class FacturaServiceImpl implements FacturaService{
     
     // Implementacion de los metodos CRUD
     @Override
+    @Transactional
     public void create(Factura factura) {
         facturaDao.create(factura);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Factura findById(int id) {
         return facturaDao.findById(id);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Factura> findAll() {
         return facturaDao.findAll();
     }
 
     @Override
+    @Transactional
     public void update(Factura factura) {
         facturaDao.update(factura);
     }
 
     @Override
+    @Transactional
     public void delete(int id) {
         facturaDao.delete(id);
     }

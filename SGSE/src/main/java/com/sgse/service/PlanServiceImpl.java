@@ -8,6 +8,7 @@ import com.sgse.entities.Plan;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -22,26 +23,31 @@ public class PlanServiceImpl implements PlanService{
     
     // Implementacion de los metodos CRUD
     @Override
+    @Transactional
     public void create(Plan plan) {
         planDao.create(plan);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Plan findById(int id) {
         return planDao.findById(id);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Plan> findAll() {
         return planDao.findAll();
     }
 
     @Override
+    @Transactional
     public void update(Plan plan) {
         planDao.update(plan);
     }
 
     @Override
+    @Transactional
     public void delete(int id) {
         planDao.delete(id);
     }

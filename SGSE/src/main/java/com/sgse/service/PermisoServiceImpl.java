@@ -8,6 +8,7 @@ import com.sgse.entities.Permisos;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -22,26 +23,31 @@ public class PermisoServiceImpl implements PermisoService{
     
     // Implementacion de los metodos CRUD
     @Override
+    @Transactional
     public void create(Permisos permisos) {
         permisoDao.create(permisos);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Permisos findById(int id) {
         return permisoDao.findById(id);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Permisos> findAll() {
         return permisoDao.findAll();
     }
 
     @Override
+    @Transactional
     public void update(Permisos permisos) {
         permisoDao.update(permisos);
     }
 
     @Override
+    @Transactional
     public void delete(int id) {
         permisoDao.delete(id);
     }

@@ -8,6 +8,7 @@ import com.sgse.entities.RegistrarVenta;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -22,26 +23,31 @@ public class RegistrarVentaServiceImpl implements RegistrarVentaService{
     
     // Implementacion de los metodos CRUD
     @Override
+    @Transactional
     public void create(RegistrarVenta registrarVenta) {
         registrarVentaDao.create(registrarVenta);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public RegistrarVenta findById(int id) {
         return registrarVentaDao.findById(id);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<RegistrarVenta> findAll() {
         return registrarVentaDao.findAll();
     }
 
     @Override
+    @Transactional
     public void update(RegistrarVenta registrarVenta) {
         registrarVentaDao.update(registrarVenta);
     }
 
     @Override
+    @Transactional
     public void delete(int id) {
         registrarVentaDao.delete(id);
     }

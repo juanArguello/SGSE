@@ -45,6 +45,12 @@
                 <c:if test="${param.logout != null}">
                     <div class="form-control alert-danger text-center">Sesión Cerrada</div>
                 </c:if>
+                <c:if test="${param.recuperar != null}">
+                    <div class="form-control alert-danger text-center">Revise su Correo</div>
+                </c:if>
+                <c:if test="${param.inexistente != null}">
+                    <div class="form-control alert-danger text-center">El email no esta registrado</div>
+                </c:if>
                 <sec:authorize access="isAuthenticated()" url="https://localhost:8443/login">
                     <c:redirect url="/index" />                    
                 </sec:authorize>   
@@ -56,7 +62,7 @@
                 <div class="form-group">
                     <form:label path="contrasenha" class="h6" >Password:</form:label>
                     <div class="input-group">
-                    <form:password path="contrasenha" id="contrasenha" class="form-control" 
+                    <form:password path="contrasenha" class="form-control" 
                             placeholder="password" required="on"  />
                        <div class="input-group-append">
                             <button id="show_password" class="btn btn-primary" 
@@ -85,12 +91,12 @@
             </form:form>
             <div class="col-sm-12 main-section">
                 <div class="col-12 forgot">
-                    <a href="recuperar-password">Olvidaste tu Contraseña?</a>
+                    <a href="recuperar-password">¿Has olvidado la Contraseña?</a>
                 </div>
             </div>
         </div>
         <div class="footer text-center" style="margin-top: 75px ">
-            Copyright &copy; 2020 &mdash; Futuro 
+            Copyright &copy; 2021 &mdash; Futuro 
 		</div>
         <script src="<c:out value='resources/js/jquery-3.5.1.min.js'/>" 
             type="text/javascript"/> 

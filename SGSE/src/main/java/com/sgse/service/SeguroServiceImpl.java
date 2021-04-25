@@ -8,6 +8,7 @@ import com.sgse.entities.Seguro;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -22,26 +23,31 @@ public class SeguroServiceImpl implements SeguroService{
     
     // Implementacion de los metodos CRUD
     @Override
+    @Transactional
     public void create(Seguro seguro) {
         seguroDao.create(seguro);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Seguro findById(int id) {
         return seguroDao.findById(id);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Seguro> findAll() {
         return seguroDao.findAll();
     }
 
     @Override
+    @Transactional
     public void update(Seguro seguro) {
         seguroDao.update(seguro);
     }
 
     @Override
+    @Transactional
     public void delete(int id) {
         seguroDao.delete(id);
     }

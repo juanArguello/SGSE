@@ -8,6 +8,7 @@ import com.sgse.entities.Servicios;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -22,26 +23,31 @@ public class ServicioServiceImpl implements ServicioService{
     
     // Implementacion de los metodos CRUD
     @Override
+    @Transactional
     public void create(Servicios servicios) {
         servicioDao.create(servicios);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Servicios findById(int id) {
         return servicioDao.findById(id);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Servicios> findAll() {
         return servicioDao.findAll();
     }
 
     @Override
+    @Transactional
     public void update(Servicios servicios) {
         servicioDao.update(servicios);
     }
 
     @Override
+    @Transactional
     public void delete(int id) {
         servicioDao.delete(id);
     }

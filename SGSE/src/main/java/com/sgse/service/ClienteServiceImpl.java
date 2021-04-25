@@ -8,6 +8,7 @@ import com.sgse.entities.Cliente;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -22,26 +23,31 @@ public class ClienteServiceImpl implements ClienteService{
     
     // Implementacion de los metodos CRUD
     @Override
+    @Transactional
     public void create(Cliente cliente) {
         clienteDao.create(cliente);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Cliente findById(int id) {
         return clienteDao.findById(id);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Cliente> findAll() {
         return clienteDao.findAll();
     }
 
     @Override
+    @Transactional
     public void update(Cliente cliente) {
         clienteDao.update(cliente);
     }
 
     @Override
+    @Transactional
     public void delete(int id) {
         clienteDao.delete(id);
     }

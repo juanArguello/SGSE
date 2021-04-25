@@ -38,7 +38,10 @@
     </head>
     <body class="bg-light">
         <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
-            <a class="navbar-brand mr-auto mr-lg-0" href="#">FUTURO</a>
+            <a class="navbar-brand mr-auto mr-lg-0" href="#">
+                <img src="${pageContext.request.contextPath}/resources/images/logo.jpg" 
+                         height="30" width="30"  />
+            </a>
             <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -46,32 +49,46 @@
             <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">Dashboard <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="#">FUTURO<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Administración</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Servicios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Ventas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Auditoria</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Notificationes</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Perfil</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Switch account</a>
-                    </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Settings</a>
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdown01" 
+                           data-toggle="dropdown" aria-haspopup="true" 
+                           aria-expanded="false">Configuraciones</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown01">
-                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Acción</a>
                             <a class="dropdown-item" href="#">Another action</a>
                             <a class="dropdown-item" href="#">Something else here</a>
                         </div>
                     </li>
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
+<!--                <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="text" 
                            placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success my-2 my-sm-0" 
                             type="submit">Search</button>
-                </form>
+                </form>-->
+                <ul class="navbar-nav px-3">
+                    <li class="nav-item text-nowrap">
+                        <a class="nav-link" href="#">Usuario: ${nombre}</a>
+                    </li>
+                </ul>
+                
                 <ul class="navbar-nav px-3">
                     <li class="nav-item text-nowrap">
                         <a id="logout" class="nav-link" href="#">Cerrar Sesión</a>
@@ -87,16 +104,20 @@
         <main role="main" class="container">
             <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm">
                 <div class="lh-100">
-                    <h6 class="mb-0 text-white lh-100">Bootstrap</h6>
-                    <small>Since 2011</small>
+                    <h6 class="mb-0 text-white lh-100">Futuro</h6>
+                    <small>Desde 1977</small>
                 </div>
             </div>
 
             <div class="my-3 p-3 bg-white rounded shadow-sm">
-                <h6 class="border-bottom border-gray pb-2 mb-0">Recent updates</h6>
+                <h6 class="border-bottom border-gray pb-2 mb-0">Recientes Actualizaciones</h6>
                 <div class="media text-muted pt-3">
                     <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" 
-                         xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"/><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
+                         xmlns="http://www.w3.org/2000/svg" role="img" 
+                         aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" 
+                         focusable="false"><title>Placeholder</title><rect width="100%" 
+                         height="100%" fill="#007bff"/><text x="50%" y="50%" fill="#007bff" 
+                         dy=".3em">32x32</text></svg>
 
                     <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
                         <strong class="d-block text-gray-dark">@username</strong>
@@ -120,7 +141,7 @@
                     </p>
                 </div>
                 <small class="d-block text-right mt-3">
-                    <a href="#">All updates</a>
+                    <a href="#">Todas las Actualizaciones</a>
                 </small>
             </div>
 
@@ -160,7 +181,7 @@
                     </div>
                 </div>
                 <small class="d-block text-right mt-3">
-                    <a href="#">All suggestions</a>
+                    <a href="#">Todas las Sugerencias</a>
                 </small>
             </div>
         </main>
