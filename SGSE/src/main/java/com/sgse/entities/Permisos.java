@@ -5,13 +5,11 @@
 package com.sgse.entities;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
@@ -36,8 +34,8 @@ public class Permisos implements Serializable {
     @Column(name = "descripcion")
     private String descripcion;
     
-    @ManyToMany(mappedBy = "permisosList")
-    private List<Rol> rolList;
+//    @ManyToMany(mappedBy = "permisosList")
+//    private List<Rol> rolList;
 
     public Permisos() {
     }
@@ -75,13 +73,13 @@ public class Permisos implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public List<Rol> getRolList() {
-        return rolList;
-    }
-
-    public void setRolList(List<Rol> rolList) {
-        this.rolList = rolList;
-    }
+//    public List<Rol> getRolList() {
+//        return rolList;
+//    }
+//
+//    public void setRolList(List<Rol> rolList) {
+//        this.rolList = rolList;
+//    }
 
    
 }

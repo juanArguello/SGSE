@@ -4,10 +4,10 @@
  */
 package com.sgse.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,9 +16,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Size;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  *
@@ -36,16 +42,20 @@ public class Usuario implements Serializable {
     @Column(name = "id")
     private Integer id;
     
-    @Column(name = "cedula")
+    @Column(name = "cedula",nullable = false)
     private Integer cedula;
     
     @Column(name = "ruc")
     private String ruc;
     
-    @Column(name = "nombre")
+    @NotEmpty(message = " no puede estar vacio")
+    @Size(min = 5, max = 15)
+    @Column(name = "nombre",nullable = false)
     private String nombre;
     
-    @Column(name = "apellido")
+    @NotEmpty(message = " no puede estar vacio")
+    @Size(min = 5, max = 15)
+    @Column(name = "apellido",nullable = false)
     private String apellido;
     
     @Column(name = "direccion")
@@ -54,7 +64,9 @@ public class Usuario implements Serializable {
     @Column(name = "telefono")
     private String telefono;
     
-    @Column(name = "email")
+    @NotEmpty(message = " no puede estar vacio")
+    @Email(message = "No es una dirección de correo bien formada")
+    @Column(name = "email",nullable = false,unique = true)
     private String email;
     
     @Column(name = "fecha_ingreso")
@@ -70,10 +82,12 @@ public class Usuario implements Serializable {
     @Column(name = "contrasenha")
     private String contrasenha;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuario")
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<RegistrarVenta> registrarVentaList;
     
     @OneToMany(mappedBy = "idUsuario")
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Factura> facturaList;
     
     @JoinColumn(name = "id_empresa", referencedColumnName = "id")
@@ -85,6 +99,7 @@ public class Usuario implements Serializable {
     private Rol idRol;
     
     @OneToMany(mappedBy = "idUsuario")
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<ContratoVenta> contratoVentaList;
 
     public Usuario() {
@@ -100,6 +115,11 @@ public class Usuario implements Serializable {
         this.apellido = apellido;
         this.fechaIngreso = fechaIngreso;
         this.estado = estado;
+    }
+    
+    @PrePersist
+    public void prePersist(){
+        this.fechaIngreso = new Date();
     }
 
     public Integer getId() {

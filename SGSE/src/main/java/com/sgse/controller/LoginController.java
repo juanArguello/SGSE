@@ -9,8 +9,11 @@ import com.sgse.mail.Contrasenha;
 import com.sgse.service.UsuarioService;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.dao.DataAccessException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -35,21 +38,27 @@ public class LoginController {
 
     @Autowired
     private JavaMailSender javaMailSender;
+    
+    // Log permite realizar registrar las actividades de los eventos
+    private final Log log = LogFactory.getLog(LoginController.class);
 
     @RequestMapping("login")
-    public String page(@ModelAttribute(value = "usuario") Usuario usuario) {
+    public String loginPage(@ModelAttribute(value = "usuario") Usuario usuario) {
+        log.info("Despliegue de panatalla del login");
         return "login";
     }
 
     @RequestMapping(value = "/login?error=true")
     public String loginError(ModelMap model) {
+        log.error("Error de autenticación");
         model.addAttribute("error", true);
         return "login";
 
     }
 
     @RequestMapping(value = "/recuperar-password", method = RequestMethod.GET)
-    public ModelAndView recuperarPassword() {
+    public ModelAndView getPasswordPage() {
+        log.info("Despliegue de formulario de correo para recuperar password");
         return new ModelAndView("/recuperar-password", "command", new Usuario());
     }
 
@@ -62,16 +71,14 @@ public class LoginController {
             String nuevaContrasenha = contrasenha.generarContrasenha();
             String contrasenhaCifrada = bCryptPasswordEncoder.encode(nuevaContrasenha);
             usuario.setContrasenha(contrasenhaCifrada);
+            log.info("Se obtiene nueva contraseña para el usuario");
             usuarioService.update(usuario);
-            System.out.println("Email: " + usuario.getEmail());
-            System.out.println("Nueva Contrasenha: " + nuevaContrasenha);
-            System.out.println("Contrasenha  Cifrada: " + contrasenhaCifrada);
             enviarContrasenha(usuario, nuevaContrasenha);
             modelMap.addAttribute("recuperar", true);
             return "redirect:/login";
-        } catch (Exception e) {
+        } catch (DataAccessException e) {
             modelMap.addAttribute("inexistente", true);
-            System.out.println("ERROR...");
+            log.error("No existe el correo en el sistema");
             return "redirect:/login";
         }
 
@@ -96,7 +103,9 @@ public class LoginController {
             ClassPathResource classPathResource = new ClassPathResource("/images/logo.jpg");
             helper.addInline("Futuro", classPathResource);
             javaMailSender.send(message);
+            log.info("Envio exitosos de contraseña al correo del usuario");
         } catch (MessagingException e) {
+            log.error("No se pudo enviar el correo");
         }
     }
 

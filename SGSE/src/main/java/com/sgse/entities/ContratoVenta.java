@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -62,7 +63,7 @@ public class ContratoVenta implements Serializable {
     private String tipoServicio;
     
     @JoinColumn(name = "id_usuario", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.EAGER)
     private Usuario idUsuario;
 
     public ContratoVenta() {

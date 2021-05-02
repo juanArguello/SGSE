@@ -5,6 +5,7 @@
 package com.sgse.entities;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -150,7 +151,7 @@ public class Cliente implements Serializable {
     }
 
     public List<Compra> getCompraList() {
-        return compraList;
+        return Collections.unmodifiableList(compraList);
     }
 
     public void setCompraList(List<Compra> compraList) {

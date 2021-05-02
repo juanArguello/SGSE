@@ -10,7 +10,6 @@ import java.util.List;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -24,33 +23,28 @@ public class PlanDaoImpl implements PlanDao{
     private SessionFactory sessionFactory;
 
     // Implementacion de los metodos CRUD
-    @Transactional
     @Override
     public void create(Plan plan) {
        sessionFactory.getCurrentSession()
             .persist(plan);
     }
 
-    @Transactional(readOnly = true)
     @Override
     public Plan findById(int id) {
-        return (Plan) sessionFactory.getCurrentSession().get(Plan.class, id);
+        return sessionFactory.getCurrentSession().get(Plan.class, id);
     }
 
-    @Transactional(readOnly = true)
     @Override
     @SuppressWarnings("unchecked")
     public List<Plan> findAll() {
         return sessionFactory.getCurrentSession().createQuery("from Plan").list();
     }
         
-    @Transactional
     @Override
     public void update(Plan plan) {
         sessionFactory.getCurrentSession().update(plan);
     }
 
-    @Transactional
     @Override
     public void delete(int id) {
         sessionFactory.getCurrentSession()

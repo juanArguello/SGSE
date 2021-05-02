@@ -11,12 +11,13 @@ SELECT * FROM rol;
 
 
 
-/**
- * ADMINISTRADOR
- * user:        jarguello
- * password:    g7S/91P%
- * 
- * VENDEDOR
- * user:        jortiz
- * password:    rA5KMGtw
+
+/*
+ADMINISTRADOR
+user:        jarguello
+password:    g7S/91P%
+
+VENDEDOR
+user:        jortiz
+password:    rA5KMGtw
  */

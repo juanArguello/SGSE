@@ -8,7 +8,6 @@ import java.util.List;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -22,32 +21,27 @@ public class ServicioDaoImpl implements ServicioDao{
     private SessionFactory sessionFactory;
     
     //Implementacion de los metodos CRUD
-    @Transactional
     @Override
     public void create(Servicios servicios) {
         sessionFactory.getCurrentSession().save(servicios);
     }
 
-    @Transactional(readOnly = true)
     @Override
     public Servicios findById(int id) {
-        return (Servicios) sessionFactory.getCurrentSession().get(Servicios.class, id);
+        return sessionFactory.getCurrentSession().get(Servicios.class, id);
     }
 
-    @Transactional(readOnly = true)
     @Override
     @SuppressWarnings("unchecked")
     public List<Servicios> findAll() {
         return sessionFactory.getCurrentSession().createQuery("from Servicios").list();
     }
 
-    @Transactional
     @Override
     public void update(Servicios servicios) {
         sessionFactory.getCurrentSession().update(servicios);
     }
 
-    @Transactional
     @Override
     public void delete(int id) {
         sessionFactory.getCurrentSession()
