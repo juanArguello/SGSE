@@ -5,6 +5,7 @@
 package com.sgse.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -66,6 +67,7 @@ public class Cliente implements Serializable {
     private Salon idSalon;
 
     public Cliente() {
+        this.compraList = new ArrayList<>();
     }
 
     public Cliente(Integer id) {

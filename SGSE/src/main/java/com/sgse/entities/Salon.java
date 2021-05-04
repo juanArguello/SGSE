@@ -5,6 +5,7 @@
 package com.sgse.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -50,6 +51,7 @@ public class Salon implements Serializable {
     private List<Cliente> clienteList;
 
     public Salon() {
+        this.clienteList = new ArrayList<>();
     }
 
     public Salon(Integer id) {

@@ -1,6 +1,7 @@
 package com.sgse.entities;
 
 import javax.annotation.Generated;
+import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
@@ -10,6 +11,7 @@ public abstract class Permisos_ {
 
 	public static volatile SingularAttribute<Permisos, String> descripcion;
 	public static volatile SingularAttribute<Permisos, Integer> id;
+	public static volatile ListAttribute<Permisos, Rol> rolList;
 	public static volatile SingularAttribute<Permisos, String> nombre;
 
 }

@@ -8,6 +8,7 @@ com\sgse\entities\RegistrarVenta.class
 com\sgse\entities\Servicios_.class
 com\sgse\service\ServicioServiceImpl.class
 com\sgse\dao\SalonDao.class
+com\sgse\apirest\controller\ContratoVentaRestController.class
 com\sgse\entities\Cliente.class
 com\sgse\dao\ClienteDao.class
 com\sgse\entities\Empresa_.class
@@ -15,10 +16,14 @@ com\sgse\entities\Salon_.class
 com\sgse\service\ContratoVentaServiceImpl.class
 com\sgse\entities\Usuario.class
 com\sgse\service\FacturaService.class
+com\sgse\apirest\controller\SeguroRestController.class
+com\sgse\apirest\controller\ClienteRestController.class
 com\sgse\dao\PermisoDao.class
+com\sgse\apirest\controller\FacturaRestController.class
 com\sgse\dao\RegistrarVentaDaoImpl.class
 com\sgse\service\RegistrarVentaService.class
 com\sgse\service\UsuarioServiceImpl.class
+com\sgse\apirest\controller\ServicioRestController.class
 com\sgse\dao\ClienteDaoImpl.class
 com\sgse\service\RolService.class
 com\sgse\dao\SucursalDaoImpl.class
@@ -32,8 +37,9 @@ com\sgse\dao\SeguroDao.class
 com\sgse\service\ServicioService.class
 com\sgse\entities\Reporte_.class
 com\sgse\entities\Plan.class
-com\sgse\apirest\controller\EjemploRestController.class
+com\sgse\apirest\controller\RolRestController.class
 com\sgse\entities\CompraPK_.class
+com\sgse\apirest\controller\SucursalRestController.class
 com\sgse\apirest\controller\UsuarioRestController.class
 com\sgse\dao\EmpresaDao.class
 com\sgse\entities\Plan_.class
@@ -44,6 +50,7 @@ com\sgse\entities\ContratoVenta_.class
 com\sgse\entities\RegistrarVentaPK.class
 com\sgse\dao\InventarioDao.class
 com\sgse\dao\UsuarioDao.class
+com\sgse\apirest\controller\EmpresaRestController.class
 com\sgse\service\EmpresaServiceImpl.class
 com\sgse\dao\PermisoDaoImpl.class
 com\sgse\dao\FacturaDaoImpl.class
@@ -63,6 +70,7 @@ com\sgse\entities\Salon.class
 com\sgse\dao\SucursalDao.class
 com\sgse\dao\EmpresaDaoImpl.class
 com\sgse\service\ReporteService.class
+com\sgse\apirest\controller\PermisoRestController.class
 com\sgse\service\RegistrarVentaServiceImpl.class
 com\sgse\configuration\WebSecurityConfig.class
 com\sgse\entities\Compra.class

@@ -4,6 +4,7 @@
  */
 package com.sgse.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
@@ -62,8 +63,9 @@ public class ContratoVenta implements Serializable {
     @Column(name = "tipo_servicio")
     private String tipoServicio;
     
+    @JsonIgnoreProperties({"contrato_venta","hibernateLazyInitializer","handler"})
     @JoinColumn(name = "id_usuario", referencedColumnName = "id")
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne(fetch=FetchType.LAZY)
     private Usuario idUsuario;
 
     public ContratoVenta() {

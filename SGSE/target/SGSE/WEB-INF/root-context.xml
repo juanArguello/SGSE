@@ -71,6 +71,8 @@
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQL94Dialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.enable_lazy_load_no_trans">true</prop>
+<!--                <prop key="hibernate.hbm2ddl.auto">create-drop</prop>-->
 			</props>
 		</property>
 	</bean>

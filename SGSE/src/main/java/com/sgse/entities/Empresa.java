@@ -4,7 +4,9 @@
  */
 package com.sgse.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -46,13 +48,17 @@ public class Empresa implements Serializable {
     @Column(name = "rubro")
     private String rubro;
     
+    @JsonIgnoreProperties({"idEmpresa","hibernateLazyInitializer","handler"})
     @OneToMany(mappedBy = "idEmpresa")
     private List<Sucursal> sucursalList;
     
+    @JsonIgnoreProperties({"idEmpresa","hibernateLazyInitializer","handler"})
     @OneToMany(mappedBy = "idEmpresa", fetch=FetchType.LAZY)
     private List<Usuario> usuarioList;
 
     public Empresa() {
+        this.sucursalList = new ArrayList<>();
+        this.usuarioList = new ArrayList<>();
     }
 
     public Empresa(Integer id) {

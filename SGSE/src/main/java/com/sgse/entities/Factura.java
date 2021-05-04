@@ -4,10 +4,12 @@
  */
 package com.sgse.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -86,12 +88,14 @@ public class Factura implements Serializable {
     @Column(name = "liquidacion_iva")
     private Integer liquidacionIva;
     
+    @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
     @JoinColumn(name = "id_inventario", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Inventario idInventario;
     
+    @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
     @JoinColumn(name = "id_usuario", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Usuario idUsuario;
 
     public Factura() {

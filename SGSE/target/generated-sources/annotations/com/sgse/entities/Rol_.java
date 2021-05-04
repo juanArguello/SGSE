@@ -10,6 +10,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 public abstract class Rol_ {
 
 	public static volatile SingularAttribute<Rol, String> descripcion;
+	public static volatile ListAttribute<Rol, Usuario> usuarioList;
 	public static volatile ListAttribute<Rol, Permisos> permisosList;
 	public static volatile SingularAttribute<Rol, Integer> id;
 	public static volatile SingularAttribute<Rol, String> nombre;

@@ -5,11 +5,14 @@
 package com.sgse.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,8 +24,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -48,12 +49,12 @@ public class Usuario implements Serializable {
     @Column(name = "ruc")
     private String ruc;
     
-    @NotEmpty(message = " no puede estar vacio")
+    @NotEmpty(message = "no puede estar vacio")
     @Size(min = 5, max = 15)
     @Column(name = "nombre",nullable = false)
     private String nombre;
     
-    @NotEmpty(message = " no puede estar vacio")
+    @NotEmpty(message = "no puede estar vacio")
     @Size(min = 5, max = 15)
     @Column(name = "apellido",nullable = false)
     private String apellido;
@@ -64,7 +65,7 @@ public class Usuario implements Serializable {
     @Column(name = "telefono")
     private String telefono;
     
-    @NotEmpty(message = " no puede estar vacio")
+    @NotEmpty(message = "no puede estar vacio")
     @Email(message = "No es una dirección de correo bien formada")
     @Column(name = "email",nullable = false,unique = true)
     private String email;
@@ -79,30 +80,36 @@ public class Usuario implements Serializable {
     @Column(name = "nombre_usuario")
     private String nombreUsuario;
     
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(name = "contrasenha")
     private String contrasenha;
     
-    @OneToMany(mappedBy = "usuario")
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonIgnoreProperties({"usuario,hibernateLazyInitializer","handler"})
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario")
     private List<RegistrarVenta> registrarVentaList;
     
-    @OneToMany(mappedBy = "idUsuario")
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonIgnoreProperties({"idUsuario","hibernateLazyInitializer","handler"})
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "idUsuario")
     private List<Factura> facturaList;
     
     @JoinColumn(name = "id_empresa", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
     private Empresa idEmpresa;
     
     @JoinColumn(name = "id_rol", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"usuario","hibernateLazyInitializer","handler"})
     private Rol idRol;
     
-    @OneToMany(mappedBy = "idUsuario")
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonIgnoreProperties({"idUsuario","hibernateLazyInitializer","handler"})
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "idUsuario")
     private List<ContratoVenta> contratoVentaList;
 
     public Usuario() {
+        this.contratoVentaList = new ArrayList<>();
+        this.facturaList = new ArrayList<>();
+        this.registrarVentaList = new ArrayList<>();
     }
 
     public Usuario(Integer id) {

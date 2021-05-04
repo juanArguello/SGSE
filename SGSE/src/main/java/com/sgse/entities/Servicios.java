@@ -5,6 +5,7 @@
 package com.sgse.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -40,6 +41,7 @@ public class Servicios implements Serializable {
     private List<Plan> planList;
 
     public Servicios() {
+        this.planList = new ArrayList<>();
     }
 
     public Servicios(Integer id) {

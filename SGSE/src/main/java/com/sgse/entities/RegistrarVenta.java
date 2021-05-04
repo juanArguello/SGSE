@@ -4,6 +4,7 @@
  */
 package com.sgse.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
@@ -43,6 +44,7 @@ public class RegistrarVenta implements Serializable {
     @ManyToOne(optional = false)
     private Seguro seguro;
     
+    @JsonIgnoreProperties({"registrar_venta","hibernateLazyInitializer","handler"})
     @JoinColumn(name = "id_usuario", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Usuario usuario;

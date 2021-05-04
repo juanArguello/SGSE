@@ -87,7 +87,6 @@ public class UsuarioRestController {
             map.put("mensaje", "El usuario ID: "+id+" no existe en la base de datos");
             return new ResponseEntity<>(map,HttpStatus.NOT_FOUND);
         }
-        usuario.setContrasenha("********"); // Se envia el password en '*' por seguridad
         return new ResponseEntity<>(usuario,HttpStatus.OK);
     }
     

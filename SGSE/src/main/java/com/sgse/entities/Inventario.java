@@ -5,6 +5,7 @@
 package com.sgse.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -65,6 +66,8 @@ public class Inventario implements Serializable {
     private List<Factura> facturaList;
 
     public Inventario() {
+        this.reporteList = new ArrayList<>();
+        this.facturaList = new ArrayList<>();
     }
 
     public Inventario(Float id) {

@@ -13,7 +13,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.dao.DataAccessException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -76,7 +75,7 @@ public class LoginController {
             enviarContrasenha(usuario, nuevaContrasenha);
             modelMap.addAttribute("recuperar", true);
             return "redirect:/login";
-        } catch (DataAccessException e) {
+        } catch (Exception e) {
             modelMap.addAttribute("inexistente", true);
             log.error("No existe el correo en el sistema");
             return "redirect:/login";

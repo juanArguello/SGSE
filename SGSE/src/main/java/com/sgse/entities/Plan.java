@@ -5,6 +5,7 @@
 package com.sgse.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -50,6 +51,7 @@ public class Plan implements Serializable {
     private Seguro idSeguro;
 
     public Plan() {
+        this.serviciosList = new ArrayList<>();
     }
 
     public Plan(Integer id) {

@@ -4,7 +4,9 @@
  */
 package com.sgse.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,9 +17,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 /**
  *
@@ -41,17 +42,21 @@ public class Rol implements Serializable {
     @Column(name = "descripcion")
     private String descripcion;
     
+//    @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonIgnoreProperties({"rolList","hibernateLazyInitializer","handler"})
     @JoinTable(name = "rol_permisos", joinColumns = {
         @JoinColumn(name = "id_rol", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "id_permisos", referencedColumnName = "id")})
-    @ManyToMany(cascade = CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @ManyToMany
     private List<Permisos> permisosList;
     
-//    @OneToMany(mappedBy = "idRol")
-//    private List<Usuario> usuarioList;
+    @JsonIgnoreProperties({"idRol","hibernateLazyInitializer","handler"})
+    @OneToMany(mappedBy = "idRol")
+    private List<Usuario> usuarioList;
     
     public Rol() {
+        this.permisosList = new ArrayList<>();
+        this.usuarioList = new ArrayList<>();
     }
 
     public Rol(Integer id) {
@@ -95,12 +100,12 @@ public class Rol implements Serializable {
         this.permisosList = permisosList;
     }
 
-//    public List<Usuario> getUsuarioList() {
-//        return usuarioList;
-//    }
-//
-//    public void setUsuarioList(List<Usuario> usuarioList) {
-//        this.usuarioList = usuarioList;
-//    }
+    public List<Usuario> getUsuarioList() {
+        return usuarioList;
+    }
+
+    public void setUsuarioList(List<Usuario> usuarioList) {
+        this.usuarioList = usuarioList;
+    }
     
 }

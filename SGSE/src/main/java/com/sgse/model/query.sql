@@ -4,6 +4,7 @@
  */
 SELECT * FROM usuario;
 SELECT * FROM rol;
+SELECT * FROM permisos;
 
 
 

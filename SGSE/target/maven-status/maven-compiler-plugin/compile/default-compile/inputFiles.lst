@@ -7,10 +7,12 @@ C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sg
 C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\dao\ReporteDao.java
 C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\dao\EmpresaDao.java
 C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\service\SucursalService.java
+C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\apirest\controller\EmpresaRestController.java
 C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\dao\SalonDaoImpl.java
 C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\dao\SucursalDaoImpl.java
 C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\service\SeguroService.java
 C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\dao\SalonDao.java
+C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\apirest\controller\ServicioRestController.java
 C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\controller\LoginController.java
 C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\service\RolService.java
 C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\dao\UsuarioDao.java
@@ -19,11 +21,13 @@ C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sg
 C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\service\SalonService.java
 C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\dao\CompraDao.java
 C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\service\EmpresaService.java
+C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\apirest\controller\ClienteRestController.java
+C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\apirest\controller\SucursalRestController.java
 C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\service\RegistrarVentaServiceImpl.java
 C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\dao\InventarioDao.java
-C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\apirest\controller\EjemploRestController.java
 C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\entities\Empresa.java
 C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\service\ReporteService.java
+C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\apirest\controller\FacturaRestController.java
 C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\service\CompraService.java
 C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\mail\Contrasenha.java
 C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\service\ClienteServiceImpl.java
@@ -42,6 +46,7 @@ C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sg
 C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\service\InventarioService.java
 C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\service\SucursalServiceImpl.java
 C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\service\FacturaService.java
+C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\apirest\controller\ContratoVentaRestController.java
 C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\dao\FacturaDaoImpl.java
 C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\service\UsuarioServiceImpl.java
 C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\service\FacturaServiceImpl.java
@@ -58,10 +63,12 @@ C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sg
 C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\entities\Permisos.java
 C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\apirest\controller\UsuarioRestController.java
 C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\service\SeguroServiceImpl.java
+C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\apirest\controller\PermisoRestController.java
 C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\dao\ContratoVentaDaoImpl.java
 C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\dao\SeguroDao.java
 C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\configuration\WebSecurityConfig.java
 C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\entities\Compra.java
+C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\apirest\controller\RolRestController.java
 C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\dao\ReporteDaoImpl.java
 C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\entities\Salon.java
 C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\service\UsuarioService.java
@@ -70,6 +77,7 @@ C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sg
 C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\entities\Factura.java
 C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\entities\Rol.java
 C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\dao\InventarioDaoImpl.java
+C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\apirest\controller\SeguroRestController.java
 C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\service\InventarioServiceImpl.java
 C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\dao\PlanDao.java
 C:\Users\user\Documents\Sistema-gestion-ventas-seguros\SGSE\src\main\java\com\sgse\entities\Inventario.java

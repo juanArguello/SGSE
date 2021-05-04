@@ -4,9 +4,11 @@
  */
 package com.sgse.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -42,8 +44,9 @@ public class Sucursal implements Serializable {
     @Column(name = "estado")
     private String estado;
     
+    @JsonIgnoreProperties({"sucursal","hibernateLazyInitializer","handler"})
     @JoinColumn(name = "id_empresa", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Empresa idEmpresa;
 
     public Sucursal() {
