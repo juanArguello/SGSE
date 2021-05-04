@@ -1,3 +1,6 @@
+SGSE/lib/
+SGSE/target/
+
 # Object file
 *.o
 
