@@ -1,8 +1,11 @@
-SGSE/lib/
-SGSE/target/
+/lib/
+target/
 
 # Object file
 *.o
 
 # Ada Library Information
 *.ali
+
+*.class
+*.war

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 
+    xmlns="http://www.springframework.org/schema/beans"
+    xmlns:security="http://www.springframework.org/schema/security"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"     
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd 
+        http://www.springframework.org/schema/security 
+        http://www.springframework.org/schema/security/spring-security.xsd
+        http://www.springframework.org/schema/util 
+        http://www.springframework.org/schema/util/spring-util.xsd">
+      
+    <bean class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler"/>
+  
+    <!-- La etiqueta http define los patrones de url a interceptar de acuerdo a los roles otorgados. 
+    Ademas define los parametros de nombres de usuario y contraseña del formulario.-->        
+    <security:http auto-config="true" use-expressions="true" >
+        <security:intercept-url pattern="/login" access="permitAll()" 
+            requires-channel="https"/>
+        <security:intercept-url pattern="/recuperar-password" access="permitAll()" 
+            requires-channel="https"/>
+        <security:intercept-url pattern="/index" 
+            access="hasAnyRole('ROLE_ADMIN','ROLE_VEND','ROLE_CONT','ROLE_AUDT')"
+            requires-channel="https"/>
+        <security:intercept-url pattern="/administracion/**" access="hasRole('ROLE_ADMIN')"
+            requires-channel="https" />
+        <security:intercept-url pattern="/apirest/**" access="isAuthenticated()" 
+            requires-channel="https"/>
+        <security:cors configuration-source-ref="corsSource"  />
+        <security:form-login 
+            login-page="/login" 
+            default-target-url="/index"
+            always-use-default-target="true"
+            login-processing-url="/login"
+            username-parameter="nombreUsuario" 
+            password-parameter="contrasenha" 
+            authentication-failure-url="/login?error=true" />
+        <security:logout logout-url="/logout" logout-success-url="/login?logout=true" />
+        <security:access-denied-handler error-page="/acceso-denegado" />
+        <security:csrf request-matcher-ref="csrfMatcher" />
+        <security:remember-me key="recordarme"/>
+    </security:http>
+    
+    <!-- La etiqueta authentication-manager se encarga de referenciar el dataSource. 
+    Ademas consultar el nombre_usuario por usuario y por rol. Tambien realiza la 
+    encriptacion de la contraseña -->
+    <security:authentication-manager alias="authenticationManager" >
+        <security:authentication-provider>
+            <security:jdbc-user-service data-source-ref="dataSource" 
+                                        users-by-username-query="select nombre_usuario as username,contrasenha as password,	
+                    case estado when 'activo' then true else false end 
+                    from usuario where nombre_usuario = ?"
+                                        authorities-by-username-query="select nombre_usuario as username, rol.nombre as authority
+                    from usuario, rol, rol_permisos where usuario.id_rol = rol_permisos.id_rol and
+                    rol_permisos.id_rol = rol.id and nombre_usuario=?"  /> 
+            <security:password-encoder  hash="bcrypt" />     
+        </security:authentication-provider>
+    </security:authentication-manager>
+    
+    <!-- El bean csrfMatcher permite realizar peticiones del metodo POST PUT y DELETE con la 
+        url apirest la cual permite utilizar el servicio rest con la proteccion csrf -->
+    <bean id="csrfMatcher" class="org.springframework.security.web.util.matcher.AndRequestMatcher">
+        <constructor-arg>
+            <util:list value-type="org.springframework.security.web.util.matcher.RequestMatcher">
+                <bean class="org.springframework.security.web.util.matcher.AntPathRequestMatcher">
+                    <constructor-arg name="pattern" value="/apirest/**"/>
+                    <constructor-arg name="httpMethod" value="POST"/>
+                </bean>
+                <bean class="org.springframework.security.web.util.matcher.AntPathRequestMatcher">
+                    <constructor-arg name="pattern" value="/apirest/**"/>
+                    <constructor-arg name="httpMethod" value="PUT"/>
+                </bean>
+                <bean class="org.springframework.security.web.util.matcher.AntPathRequestMatcher">
+                    <constructor-arg name="pattern" value="/apirest/**"/>
+                    <constructor-arg name="httpMethod" value="DELETE"/>
+                </bean>
+            </util:list>
+        </constructor-arg>
+    </bean>
+    
+    <!-- bean CorSource que permite configurar el Cors de la aplicación -->
+    <bean id="corsSource" class="org.springframework.web.cors.UrlBasedCorsConfigurationSource">
+        <property name="corsConfigurations">
+            <util:map>
+                <entry key="/**">
+                    <bean class="org.springframework.web.cors.CorsConfiguration">
+                        <property name="allowCredentials" value="true" />
+                        <property name="allowedHeaders">
+                            <list>
+                                <value>Content-Type</value>
+                                <value>Authorization</value>
+                            </list>
+                        </property>
+                        <property name="allowedMethods">
+                            <list>
+                                <value>POST</value>
+                                <value>GET</value>
+                                <value>PUT</value>
+                                <value>DELETE</value>
+                            </list>
+                        </property>
+                        <property name="allowedOrigins" value="https://localhost:8443" />
+                        <property name="exposedHeaders">
+                            <list>
+                                <value>Location</value>
+                                <value>Content-Disposition</value>
+                            </list>
+                        </property>
+                    </bean>
+                </entry>
+            </util:map>
+        </property>
+    </bean>
+      
+</beans>

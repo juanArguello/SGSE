@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 
+    xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:jee="http://www.springframework.org/schema/jee"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop 
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/jee 
+        http://www.springframework.org/schema/jee/spring-jee.xsd
+        http://www.springframework.org/schema/tx 
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/jdbc
+        http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+    
+    <!-- Paquetes para escanear las las clases anotadas -->
+    <context:component-scan base-package="com.sgse.configuration" />
+    <context:component-scan base-package="com.sgse.model" />
+    <context:component-scan base-package="com.sgse.entities" />
+    <context:component-scan base-package="com.sgse.dao" />
+    <context:component-scan base-package="com.sgse.service" />
+    
+    <!-- Activa las anotaciones para ser detectadas en las clases bean de Spring
+        @Required, @Autowired y @Resourse -->
+    <context:annotation-config/>
+    
+    <!--  Importa el archivo xml de configuracion de la seguridad -->
+    <import resource="security-context.xml" />
+    
+    <!--  Definicion del bean DataSource de la aplicacion -->
+    <bean id="dataSource"
+        class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.postgresql.Driver"/>
+        <property name="url" value="jdbc:postgresql://localhost:5432/FUTURO"/>
+        <property name="username" value="postgres"/>
+        <property name="password" value="ABC+-*xyz123"/>
+    </bean>
+    
+    <!--  Inicializamos la base de datos y sus tablas -->
+<!--    <jdbc:initialize-database data-source="dataSource">
+        <jdbc:script location=""/>
+        <jdbc:script location=""/>
+    </jdbc:initialize-database>-->
+    
+    <!-- Definicion de Bean Hibernate 5 SessionFactory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+<!--        <property name="configLocation">
+            <value>classpath:com/sgse/model/hibernate.cfg.xml</value>
+        </property>-->
+		<property name="annotatedClasses">
+			<list>
+				<value>com.sgse.entities.Cliente</value>
+                <value>com.sgse.entities.Compra</value>
+                <value>com.sgse.entities.ContratoVenta</value>
+                <value>com.sgse.entities.Empresa</value>
+                <value>com.sgse.entities.Factura</value>
+                <value>com.sgse.entities.Inventario</value>
+                <value>com.sgse.entities.Permisos</value>
+                <value>com.sgse.entities.Plan</value>
+                <value>com.sgse.entities.RegistrarVenta</value>
+                <value>com.sgse.entities.Reporte</value>
+                <value>com.sgse.entities.Rol</value>
+                <value>com.sgse.entities.Salon</value>
+                <value>com.sgse.entities.Seguro</value>
+                <value>com.sgse.entities.Servicios</value>
+                <value>com.sgse.entities.Sucursal</value>
+                <value>com.sgse.entities.Usuario</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQL94Dialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.enable_lazy_load_no_trans">true</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
+		</property>
+	</bean>
+    
+    <!-- Hibernate Transaction Manager -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+ 
+	<!-- Activates annotation based transaction management -->
+    <tx:annotation-driven transaction-manager="transactionManager" />
+    
+    <!-- Bean hibernateTemplate es una plantilla que permite hacer CRUD a las entidades -->
+    <bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate" > 
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean> 
+    
+    <bean id="exceptionTranslator"
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>           
+
+</beans>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 
+    xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:security="http://www.springframework.org/schema/security"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop 
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx 
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/security 
+        http://www.springframework.org/schema/security/spring-security.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util.xsd">
+   
+    <!-- Se especifica los paquete base del proyecto 
+    Busca los paquetes de las clases beans anotados con Controller -->
+    <context:component-scan base-package="com.sgse.controller" />
+     <context:component-scan base-package="com.sgse.apirest.controller" />
+    
+    <!-- Mapea la ubicacion de los recursos estaticos de la Web App -->
+    <mvc:resources mapping="/recursos/css/**" location="/recursos/css/"/>
+    <mvc:resources mapping="/recursos/images/**" location="/recursos/images/"/>
+    <mvc:resources mapping="/recursos/js/**" location="/recursos/js/"/>
+  
+    <!--    Habilita la anotacion de Spring MVC Controller -->
+    <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager">
+        <mvc:message-converters>
+            <bean
+                class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="objectMapper" ref="objectMapper"/>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+    
+    <!--  Crea el beans contentNegotiationManager que permite habilitar el formato json -->
+    <bean id="contentNegotiationManager" 
+          class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+        <property name="favorPathExtension" value="true" />
+        <property name="favorParameter" value="false"/>
+        <property name="parameterName" value="mediaType"/>
+        <property name="ignoreAcceptHeader" value="false" />
+        <property name="defaultContentType" value="application/json" />
+        <property name="useJaf" value="false" />
+        <property name="mediaTypes">
+            <map>
+                <entry key="json" value="application/json" />
+            </map>
+        </property>
+    </bean>
+    
+    <!--  Bean objectMapper que permite formatear los datos de json -->
+    <bean id="objectMapper"
+          class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean">
+        <property name="indentOutput" value="true"/>
+        <property name="simpleDateFormat" value="dd-MM-yyyy"/>
+        <property name="locale" value="es_PY"/>
+        <property name="modulesToInstall" 
+            value="com.fasterxml.jackson.module.paramnames.ParameterNamesModule"/>
+    </bean>
+   
+    <!-- Cors que especifica las configuraciones para el procesamiento de las peticiones -->
+    <mvc:cors>
+        <mvc:mapping path="/apirest/**" 
+            allowed-origins="https://localhost:8443"
+            allowed-methods="GET, POST, PUT, DELETE"
+            allow-credentials="true"  />
+    </mvc:cors>
+    
+    <!-- Habilia las anotaciones PreFilter, PreAuthorize, PostFilter, PostAuthorize
+    y Secured para la seguridad de las clases y metodos -->
+    <security:global-method-security 
+        pre-post-annotations="enabled" secured-annotations="enabled"/>
+  
+    <!-- bean viewResolver especifica el path de las vistas y su extension del archivo -->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+    
+    <!-- Bean handlerMapping -->
+    <!--    <bean id="handlerMapping" 
+    class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>-->
+    
+    <!-- Bean javaMailSender especifica las propiedades de la configuracion del correo electronico -->
+    <bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="smtp.gmail.com"/>
+        <property name="port" value="587"/>
+        <property name="username" value="futuro.seguros.py@gmail.com"/>
+        <property name="password" value="futuro.seguros.py.2021"/>
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.transport.protocol">smtp</prop>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+            </props>
+        </property>
+    </bean>
+  
+</beans>

@@ -1,0 +1,26 @@
+/* 
+    Created on : 24-nov-2020, 20:54:45
+    Author     : Juan Carlos Argüello Ortiz
+*/
+body{
+    background-image: url(../../recursos/images/cementerio-parque.png) ;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.container{
+    background-color: skyblue;
+    border-radius: 10px;
+    padding: 25px;
+    margin-top: 75px;
+}
+
+.footer {
+	width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0; 
+	color: #000;
+	text-align: center;
+}
