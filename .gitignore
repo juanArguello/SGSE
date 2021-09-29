@@ -1,5 +1,5 @@
 /lib/
-target/
+/target/
 
 # Object file
 *.o
@@ -9,3 +9,6 @@ target/
 
 *.class
 *.war
+*.jar
+*.cer
+*.jks

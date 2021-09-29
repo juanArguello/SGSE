@@ -1,6 +1,6 @@
 $(document).ready(function () {
     var id, opcion;
-    opcion = 4;
+    var fila; //capturar la fila para editar o borrar el registro
     tablaPermiso = $('#tabla_permisos').DataTable({ 
         "ajax":{            
             "url": "https://localhost:8443/apirest/permisos", 
@@ -13,6 +13,7 @@ $(document).ready(function () {
             {"data": "descripcion"},
             {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-warning btn-sm btnEditar' data-toggle='tooltip' data-placement='top' title='Editar Permiso'><i class='bi bi-pencil-fill'></i></button><button class='btn btn-danger btn-sm btnBorrar' data-toggle='tooltip' data-placement='top' title='Eliminar Permiso'><i class='bit bi-trash-fill'></i></button></div></div>"}
         ],
+        responsive: true,
         "language": {
             "lengthMenu": "Mostrar _MENU_ registros",
             "zeroRecords": "No se encontraron resultados",
@@ -27,10 +28,9 @@ $(document).ready(function () {
                 "sPrevious": "Anterior"
             },
             "sProcessing":"Procesando..."
-        }  
-     
+        }
     });
-
+    
     //botón agregar nuevo permiso 
     $("#btnNuevoPermiso").click(function(){
         opcion = 1; //alta           
@@ -44,28 +44,52 @@ $(document).ready(function () {
     }); 
     
     
-    var fila; //capturar la fila para editar o borrar el registro
-    //botón EDITAR permiso   
-    $(document).on("click", ".btnEditar", function(){
+    //botón EDITAR permiso  
+    $("#tabla_permisos tbody").on("click", ".btnEditar", function(){
         fila = $(this).closest("tr");
-        id = parseInt(fila.find('td:eq(0)').text()); //capturo el ID
-        nombre = fila.find('td:eq(1)').text();
-        descripcion = fila.find('td:eq(2)').text();
-        $("#nombre").val(nombre);
-        $("#descripcion").val(descripcion);
+        datos = $('#tabla_permisos').DataTable().row(fila).data();
+        // Cuando la tabla de datos es responsive
+        if(datos === undefined) {
+            var selected_row = $(this).parents('tr');
+            if (selected_row.hasClass('child')) {
+                selected_row = selected_row.prev();
+            }
+            var rowData = $('#tabla_permisos').DataTable().row(selected_row).data();
+            id = parseInt(rowData.id); //capturo el ID
+            $("#nombre").val(rowData.nombre);
+            $("#descripcion").val(rowData.descripcion);
+        } else {
+            id = parseInt(datos.id); //capturo el ID
+            $("#nombre").val(datos.nombre);
+            $("#descripcion").val(datos.descripcion);
+        }
         opcion = 2; //editar
-        
+       
         $(".modal-header").css("background-color", "orange");
         $(".modal-title").css("color", "white");
         $(".modal-title").text("Editar Permiso");  
         $("#btnModalPermiso").text("Editar").css("background-color", "orange");
         $("#modal-permiso").modal("show");   
     });
+   
+    
     
     //Borrar permiso
-    $(document).on("click", ".btnBorrar", function(){
-        fila = $(this);           
-        id = parseInt($(this).closest('tr').find('td:eq(0)').text()) ;	
+    $("#tabla_permisos tbody").on("click", ".btnBorrar", function(){
+        var selected_row;
+        fila = $(this).closest("tr");
+        datos = $('#tabla_permisos').DataTable().row(fila).data();
+        // Cuando la tabla de datos es responsive
+        if(datos === undefined) {
+            selected_row = $(this).parents('tr');
+            if (selected_row.hasClass('child')) {
+                selected_row = selected_row.prev();
+            }
+            var rowData = $('#tabla_permisos').DataTable().row(selected_row).data();
+            id = parseInt(rowData.id); //capturo el ID
+        } else {
+            id = parseInt(datos.id); //capturo el ID
+        }
         swal({
             title: "Estas seguro de Eliminar?",
             text: "Una vez eliminado no se prodra restablecer!",
@@ -78,7 +102,12 @@ $(document).ready(function () {
                     url: "https://localhost:8443/apirest/permisos/"+id,
                     type: 'DELETE',
                     success: function () {
-                        tablaPermiso.row(fila.parents('tr')).remove().draw();
+                        // Cuando la tabla de datos es responsive
+                        if(datos === undefined) {
+                            tablaPermiso.row(selected_row).remove().draw();
+                        }else {
+                           tablaPermiso.row(fila).remove().draw();
+                        }
                         swal("Registro eliminado!", {icon: "success"});
                     },
                     error: function () {
@@ -89,17 +118,16 @@ $(document).ready(function () {
         });
      });
     
-    var fila; //captura la fila, para editar o eliminar
+   
     //submit para el Alta y Actualización
     $("#formPermiso").submit(function(e){
         //evita el comportambiento normal del submit, es decir, recarga total de la página
         e.preventDefault();    
         nombre = $("#nombre").val();
         descripcion = $("#descripcion").val();
-//        rolList = $("input[type=checkbox]:checked").map(function () {
-//            return this.value;
-//        }).get();
         if(opcion === 1){    // Crear nuevo permiso
+            $("#strongToastHeader").text("Registrado");
+            $(".toast-body").text("Se ha registrado el permiso exitosamente");
             $.ajax({
                 url: "https://localhost:8443/apirest/permisos",
                 type: "POST",
@@ -108,10 +136,13 @@ $(document).ready(function () {
                 data:  JSON.stringify({"nombre":nombre,"descripcion": descripcion}),
                 success: function(data) {
                     tablaPermiso.ajax.reload(null, false);
+                    $('#liveToast').toast('show');
                 }
             });
         }else if(opcion === 2){ // actualizar permiso
-           $.ajax({
+            $("#strongToastHeader").text("Actualizado");
+            $(".toast-body").text("Se ha actualizado el permiso exitosamente");
+            $.ajax({
                 url: "https://localhost:8443/apirest/permisos/"+id,
                 type: "PUT",
                 dataType:"JSON",
@@ -119,107 +150,42 @@ $(document).ready(function () {
                 data:  JSON.stringify({"nombre":nombre,"descripcion": descripcion}),
                 success: function(data) {
                     tablaPermiso.ajax.reload(null, false);
+                    $('#liveToast').toast('show');
                 }
             }); 
         }
-        
         $("#modal-permiso").modal("hide"); 
     }); 
-
-});
-
-
-/* global swal */
-function formPermiso() {
-    swal.withForm({
-    title: 'More complex Swal-Forms example',
-    text: 'This has different types of inputs',
-    showCancelButton: true,
-    confirmButtonColor: '#DD6B55',
-    confirmButtonText: 'Get form data!',
-    closeOnConfirm: true,
-    formFields: [
-      { id: 'name', placeholder: 'Name Field' },
-      { id: 'nickname', placeholder: 'Add a cool nickname' },
-      { id: 'password', type: 'password' },
-
-      { name: 'sex', value: 'Male', type: 'radio' },
-      { name: 'sex', value: 'Female', type: 'radio' },
-
-      { name: 'skills', value: 'JS', type: 'checkbox' },
-      { name: 'skills', value: 'Ruby', type: 'checkbox' },
-      { name: 'skills', value: 'Java', type: 'checkbox' },
-
-      { id: 'select',
-        type: 'select',
-        options: [
-          {value: 'test1', text: 'test1'},
-          {value: 'test2', text: 'test2'},
-          {value: 'test3', text: 'test3'},
-          {value: 'test4', text: 'test4'},
-          {value: 'test5', text: 'test5'}
-        ]}
-    ]
-  }, function (isConfirm) {
-    // do whatever you want with the form data
-    console.log(this.swalForm); // { name: 'user name', nickname: 'what the user sends' }
-  });
-}
-
-
-
-
-
-// // Consumir api REST de usuarios con el metodo GET
-//$(document).ready(function () {
-//    $.ajax({
-//        type: 'GET',
-//        url: "https://localhost:8443/apirest/permisos",
-//        dataType: 'json',
-//        success: function (datos) {
-//            var filas_permisos = '';
-//            $.each(datos, function (i, item) {
-//                filas_permisos += '<tr>';
-//                filas_permisos += '<td>' + item.id + '</td>';
-//                filas_permisos += '<td>' + item.nombre + '</td>';
-//                filas_permisos += '<td>' + item.descripcion + '</td>';
-//                filas_permisos += '<td class="text-center">'; 
-//                filas_permisos += '<a id="'+i+'" href="/administracion/edit-permiso" class="btn-warning">Editar</a>';      
-//                filas_permisos += ' <a id="'+i+'" onClick="confirmDeletePermiso('+item.id+')" class="btn-danger">Eliminar</a>';       
-//                filas_permisos += '</td></tr>';
-//            });
-//            $("#tabla_permisos").append(filas_permisos);
+    
+//    $("#formPermiso").validate({
+//        rules: {
+//            nombre: {
+//                required: true
+//            },
+//            descripcion: {
+//                required: true
+//            }
 //        },
-//        error: function (error) {
-//            alert(error);
+//        messages: {
+//            nombre: {
+//                required: "Por favor ingrese un nombre"
+//            },
+//            descripcion: {
+//                required: "Por favor ingrese la descripcion"
+//            }
+//        },
+//        errorElement: 'span',
+//        errorPlacement: function (error, element) {
+//        error.addClass('invalid-feedback');
+//        element.closest('.form-group').append(error);
+//        },
+//        highlight: function (element, errorClass, validClass) {
+//            $(element).addClass('is-invalid');
+//        },
+//        unhighlight: function (element, errorClass, validClass) {
+//            $(element).removeClass('is-invalid');
 //        }
 //    });
-//});
 
-//// obtiene rol 
-//function getRol(idRol) {
-//    return idRol.descripcion;
-//}
-//function getCadenaVacia(objecto) {
-//    if (objecto === null) {
-//        return "-----";
-//    } else {
-//        return objecto;
-//    }
-//}
-//function confirmDeletePermiso(idPermiso) {
-//    $("#modal_delete_permiso").modal("show");
-//    var confirmado = document.getElementById("#confirmado_del_permiso");
-//    confirmado.click(
-//        $.ajax({
-//        type: 'DELETE',
-//        url: "https://localhost:8443/apirest/permisos/"+idPermiso,
-//        success: function (data, textStatus, jqXHR) {
-//            
-//        }
-//        })    
-//    );
-//}
-
-
+});
 

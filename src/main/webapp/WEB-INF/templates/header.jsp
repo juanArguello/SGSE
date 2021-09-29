@@ -4,6 +4,7 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" ></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
     <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark" >
             <a class="navbar-brand mr-auto mr-lg-0" href="#">
                 <img src="${pageContext.request.contextPath}/recursos/images/logo.jpg" 
@@ -66,4 +67,4 @@
                     </li>
                 </ul>
             </div>
-        </nav>
+        </nav>            

@@ -10,8 +10,6 @@
         <meta name="robots" content="ALL" />
         <meta name="description" content="Futuro Servicios Exequiales" />
         <meta name="keywords" content="Futuro,Funeraria,Seguro Exequiales, Servicios Exequiales" />
-<!--        <link rel="shortcut icon" href="<c:out value='${pageContext.request.contextPath}/recursos/images/logo.ico'/>"
-              type="image/x-icon" />-->
         <link rel="icon" href="<c:out value='/recursos/images/favicon.png'/>"
               type="image/x-icon" />
         <link rel="stylesheet" 
