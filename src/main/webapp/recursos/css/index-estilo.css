@@ -2,6 +2,15 @@
     Created on : 20-abr-2021
     Author     : Juan Carlos Argüello Ortiz
 */
+
+/* Eliminar el subrayado de los enlaces (CSS) */
+a:link, a:visited, a:active {
+    text-decoration:none;
+}
+body{
+    background-color: gainsboro;
+}
+
 html,body {
     overflow-x: hidden; /* Prevent scroll on narrow devices */
 }
@@ -79,12 +88,16 @@ body {
 .lh-150 { line-height: 1.5; }
 
 /*Estilos css para el pie de pagina*/
-footer {
-    width: 100%;
-    margin-bottom: 0px;
+.footer {
+    	width: 100%;
+    position: absolute;
     bottom: 0;
     left: 0; 
+	color: #000;
 	text-align: center;
-    background-color: #191919;
-    color: #ADADAD;
+/*	width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0; 
+	text-align: center;*/
 }

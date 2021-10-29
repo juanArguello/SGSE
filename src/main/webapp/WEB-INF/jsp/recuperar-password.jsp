@@ -10,39 +10,35 @@
         <meta name="robots" content="ALL" />
         <meta name="description" content="Futuro Servicios Exequiales" />
         <meta name="keywords" content="Futuro,Funeraria,Seguro Exequiales, Servicios Exequiales" />
-<!--        <link rel="shortcut icon" href="<c:out value='/WEB-INF/recursos/images/logo.ico'/>"
-              type="image/x-icon" />-->
-        <link rel="icon" href="<c:out value='/WEB-INF/recursos/images/favicon.png'/>"
+        <link rel="shortcut icon" href="<c:out value='${pageContext.request.contextPath}/recursos/images/logo.ico'/>"
               type="image/x-icon" />
-        < <link rel="stylesheet" 
+        <link rel="stylesheet" 
               href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="<c:out value='recursos/css/login-estilo.css'/>"
+        <link rel="stylesheet" href="<c:out value='${pageContext.request.contextPath}/recursos/css/login-estilo.css'/>"
             type="text/css" /> 
         <title>Recuperar Contraseña</title>
     </head>
     <body>
         <div class="container col-lg-3">
-            <form:form  method="POST" action="/recuperar-password" 
+            <form:form modelAttribute="usuario" method="POST" action="/recuperar-password" 
                 class="form-horinzontal" autocomplete="on">
                 <div class="form-group text-center">
-                    <img src="<c:out value="recursos/images/logo.jpg"/>" 
+                    <img src="<c:out value="${pageContext.request.contextPath}/recursos/images/logo.jpg"/>" 
                          height="80" width="80"  />
                     <p><strong class="card-title">Recuperar Contraseña</strong></p>
                 </div>
                 <div class="form-group">
                     <form:label path="email" class="h5">Correo</form:label>
                     <form:input path="email" type="email" class="form-control" 
-                        placeholder="usuario@dominio.com" autofocus="on" required="on" />
-                    <sec:csrfInput/>
+                        placeholder="usuario@dominio.com" autofocus="on"/>
+                    <form:errors path="email" cssClass="alert text-danger" />
                 </div>
                 <div class="form-group" align="center">
+                    <sec:csrfInput/>
                     <form:button  class="btn btn-primary">Recuperar</form:button>
                 </div>
             </form:form>
         </div>
-<!--        <div class="footer text-center" style="margin-top: 230px  ">
-            Copyright &copy; 2021 &mdash; Futuro 
-		</div>-->
         <div class="footer text-center">
             Copyright &copy; 2021 &mdash; Futuro 
 		</div>

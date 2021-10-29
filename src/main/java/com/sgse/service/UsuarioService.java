@@ -15,6 +15,7 @@ public interface UsuarioService {
     // Definicion de los metodos CRUD de la interfaz UsuarioService
     public void create(Usuario usuario);
     public Usuario findById(int id);  
+    public Usuario findByUsername(String username);
     public Usuario findByEmail(String correo);
     public List<Usuario> findAll();
     public void update(Usuario usuario);

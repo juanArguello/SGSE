@@ -7,6 +7,7 @@ import com.sgse.entities.Rol;
 import java.util.List;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -31,6 +32,13 @@ public class RolDaoImpl implements RolDao{
     @Override
     public Rol findById(int id) {
         return sessionFactory.getCurrentSession().get(Rol.class, id);
+    }
+    
+    @Override
+    public Rol findByRolName(String nombreRol) {
+        return (Rol) sessionFactory.getCurrentSession()
+            .createCriteria(Rol.class)
+            .add(Restrictions.eq("nombre", nombreRol)).uniqueResult();
     }
 
     @Override

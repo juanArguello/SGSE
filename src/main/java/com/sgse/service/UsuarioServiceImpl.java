@@ -6,6 +6,7 @@ package com.sgse.service;
 import com.sgse.dao.UsuarioDao;
 import com.sgse.entities.Usuario;
 import java.util.List;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +33,12 @@ public class UsuarioServiceImpl implements UsuarioService{
     @Transactional(readOnly = true)
     public Usuario findById(int id) {
         return usuarioDao.findById(id);
+    }
+    
+    @Override
+    @Transactional(readOnly = true)
+    public Usuario findByUsername(String username) {
+        return usuarioDao.findByUsername(username);
     }
   
     @Override
@@ -63,5 +70,6 @@ public class UsuarioServiceImpl implements UsuarioService{
     public int cantidadFilas() {
         return usuarioDao.cantidadFilas();
     }
+
 
 }

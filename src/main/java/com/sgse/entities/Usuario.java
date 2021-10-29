@@ -64,10 +64,10 @@ public class Usuario implements Serializable {
     
     @Column(name = "telefono")
     private String telefono;
-    
-    @NotEmpty
-    @Email
-    @Column(name = "email")
+ 
+    @NotEmpty(message = "no puede estar vacio")
+    @Email(message = "No es un correo electronico válido")
+    @Column(name = "email",unique = true,nullable = false)
     private String email;
     
     @Column(name = "fecha_ingreso")
@@ -85,21 +85,26 @@ public class Usuario implements Serializable {
     @Column(name = "contrasenha")
     private String contrasenha;
     
+    @JsonIgnoreProperties({"idUsuario","hibernateLazyInitializer","handler"})
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario")
     private List<RegistrarVenta> registrarVentaList;
     
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "idUsuario")
+    @JsonIgnoreProperties({"idUsuario","hibernateLazyInitializer","handler"})
+    @OneToMany( mappedBy = "idUsuario",fetch = FetchType.LAZY)
     private List<Factura> facturaList;
     
+    @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
     @JoinColumn(name = "id_empresa", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Empresa idEmpresa;
     
+    @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
     @JoinColumn(name = "id_rol", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Rol idRol;
     
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "idUsuario")
+    @JsonIgnoreProperties({"idUsuario","hibernateLazyInitializer","handler"})
+    @OneToMany(mappedBy = "idUsuario",fetch = FetchType.LAZY)
     private List<ContratoVenta> contratoVentaList;
 
     public Usuario() {
@@ -123,6 +128,7 @@ public class Usuario implements Serializable {
     @PrePersist
     public void prePersist(){
         this.fechaIngreso = new Date();
+        this.estado = "activo";
     }
 
     public Integer getId() {

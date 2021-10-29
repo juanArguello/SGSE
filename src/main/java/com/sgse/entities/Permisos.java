@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -43,7 +44,7 @@ public class Permisos implements Serializable {
     
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @JsonIgnoreProperties(value = {"permisosList","hibernateLazyInitializer","handler"})
-    @ManyToMany(mappedBy = "permisosList",fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "permisosList",fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Rol> rolList;
 
     public Permisos() {

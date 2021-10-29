@@ -1,12 +1,50 @@
 /*  ADMINISTRADOR                               VENDEDOR
     user:        jarguello                      user:        jortiz
-    password:    gvpkGljB                       password:    rA5KMGtw
+    password:    gvpkGljB                       password:    9vouxZvQ
     correo:     juanarguello092@gmail.com       correo:      juanarguello092@fpuna.edu.py
 */
 SELECT * FROM usuario ORDER BY id;
 SELECT * FROM rol ORDER BY id;
 SELECT * FROM permisos ORDER BY id;
-SELECT * FROM rol_permisos ORDER BY id;
+SELECT * FROM rol_permisos;
+SELECT * FROM cliente ORDER BY id;
+
+
+UPDATE usuario SET estado = 'activo' WHERE id = 2;
+
+
+
+INSERT INTO rol (id,nombre, descripcion) VALUES(29,'a','b');
+
+
+$.ajax({
+    url: "https://localhost:8443/apirest/roles",
+    type: "POST",
+    dataType: 'JSON', 
+    contentType: 'application/json; charset=UTF-8',
+    data:  rolString,
+    success: function(data) {
+        location = "roles";
+    }
+});
+
+
+
+
+
+
+
+-- <div class="footer text-center" style="margin-top: 75px ">
+--     Copyright &copy; 2021 &mdash; Futuro 
+-- </div>
+
+-- <link   type="image/x-icon"
+--     rel="icon" href="<c:out value='${pageContext.request.contextPath}/recursos/images/favicon.png'/>"
+-- />
+
+-- <link rel="shortcut icon" href="<c:out value='${pageContext.request.contextPath}/recursos/images/logo.ico'/>"
+--       type="image/x-icon" />
+
 
 --     <link rel="shortcut icon" href="<c:out value='/WEB-INF/recursos/images/logo.ico'/>"
 --           type="image/x-icon"/>
@@ -87,3 +125,34 @@ SELECT * FROM rol_permisos ORDER BY id;
 --         })    
 --     );
 -- }
+
+
+--    $("#formPermiso").validate({
+--        rules: {
+--            nombre: {
+--                required: true
+--            },
+--            descripcion: {
+--                required: true
+--            }
+--        },
+--        messages: {
+--            nombre: {
+--                required: "Por favor ingrese un nombre"
+--            },
+--            descripcion: {
+--                required: "Por favor ingrese la descripcion"
+--            }
+--        },
+--        errorElement: 'span',
+--        errorPlacement: function (error, element) {
+--        error.addClass('invalid-feedback');
+--        element.closest('.form-group').append(error);
+--        },
+--        highlight: function (element, errorClass, validClass) {
+--            $(element).addClass('is-invalid');
+--        },
+--        unhighlight: function (element, errorClass, validClass) {
+--            $(element).removeClass('is-invalid');
+--        }
+--    });

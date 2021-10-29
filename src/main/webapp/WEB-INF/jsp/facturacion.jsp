@@ -1,6 +1,6 @@
 <%-- 
-    Document   : rol
-    Created on : 08-sep-2021, 18:40:43
+    Document   : facturacion
+    Created on : 05-oct-2021, 16:26:14
     Author     : user
 --%>
 
@@ -9,8 +9,6 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-         <link rel="stylesheet" 
-              href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
         <title>JSP Page</title>
     </head>
     <body>

@@ -10,13 +10,11 @@
         <meta name="robots" content="ALL" />
         <meta name="description" content="Futuro Servicios Exequiales" />
         <meta name="keywords" content="Futuro,Funeraria,Seguro Exequiales, Servicios Exequiales" />
-<!--        <link rel="shortcut icon" href="<c:out value='${pageContext.request.contextPath}/recursos/images/logo.ico'/>"
-              type="image/x-icon" />-->
-        <link rel="icon" href="<c:out value='recursos/images/favicon.png'/>"
+        <link rel="shortcut icon" href="<c:out value='${pageContext.request.contextPath}/recursos/images/logo.ico'/>"
               type="image/x-icon" />
          <link rel="stylesheet" 
               href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="<c:out value='/recursos/css/login-estilo.css'/>"
+        <link rel="stylesheet" href="<c:out value='${pageContext.request.contextPath}/recursos/css/login-estilo.css'/>"
             type="text/css" /> 
         <link rel="stylesheet" 
               href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"  />
@@ -69,14 +67,14 @@
                 <div class="form-group">
                     <form:label path="contrasenha" class="h6" >Password:</form:label>
                     <div class="input-group">
-                    <form:password path="contrasenha" class="form-control" 
-                            placeholder="password" required="on"  />
-                       <div class="input-group-append">
-                            <button id="show_password" class="btn btn-primary" 
-                                    type="button" onclick="mostrarPassword()"> 
-                                <i id="icono" class="bi bi-eye-fill"></i> 
-                            </button>
-                        </div>
+                        <form:password path="contrasenha" class="form-control" 
+                                placeholder="password" required="on"  />
+                           <div class="input-group-append">
+                                <button id="show_password" class="btn btn-primary" 
+                                        type="button" onclick="mostrarPassword()"> 
+                                    <i id="icono" class="bi bi-eye-fill"></i> 
+                                </button>
+                            </div>
                     </div>
                 </div>
                 <div class="form-group">
@@ -89,7 +87,7 @@
                     </div>
                 </div>
                 <div style="margin-top: 10px" class="form-group" align="center">
-                    <div class="col-sm-12 controls">
+                    <div class="col-sm-12">
                         <sec:csrfInput/>
                         <!-- Boton-->
                         <form:button class="btn btn-primary btn-block">Iniciar Sesión</form:button>
@@ -102,9 +100,6 @@
                 </div>
             </div>
         </div>
-<!--        <div class="footer text-center" style="margin-top: 75px ">
-            Copyright &copy; 2021 &mdash; Futuro 
-		</div>-->
         <div class="footer" >
             Copyright &copy; 2021 &mdash; Futuro 
 		</div>

@@ -27,7 +27,7 @@
         <link rel="stylesheet" 
               href="<c:out value='${pageContext.request.contextPath}/recursos/css/index-estilo.css'/>"
               type="text/css"  />
-        <title>Permisos</title>
+        <title>Roles</title>
     </head>
     <body id="bodyPermiso">
         <jsp:include page="header.jsp"/>
@@ -38,17 +38,17 @@
                     <div class="card">
                         <div class="card-header">
                             <h5 class="card-title">
-                                <i class="bi bi-table me-2"></i> Lista de Permisos
+                                <i class="bi bi-table me-2"></i> Lista de Roles
                             </h5> 
                         </div>
                         <div style="height: 10px;"></div>
                         <div class="col-lg-3">
-                            <a id="btnNuevoPermiso" class="btn btn-success btn-sm bi bi-plus"
-                                data-toggle="modal"  data-whatever="@mdo">Agregar</a>
+                            <a id="btnNuevoRol" class="btn btn-success btn-sm bi bi-plus"
+                               href="/administracion/roles/add" >Agregar</a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table id="tabla_permisos" 
+                                <table id="tabla_roles" 
                                        class="table table-bordered table-striped table-hover display responsive  nowrap"
                                        width="100%">
                                     <thead class="thead-dark">
@@ -66,79 +66,50 @@
             </div>
         </div>
 
-        <!--  Modal para agregar o editar permiso -->
-        <div class="modal fade" id="modal-permiso" tabindex="-1" role="dialog"
-             aria-labelledby="exampleModalLabel" aria-hidden="true" >
-            <div class="modal-dialog" role="document">
+        <!--  modal de lista de permisos asociado a un rol  -->
+        <div class="modal fade" id="listaPermisosModal" tabindex="-1" 
+            aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel"></h5>
+                    <div class="modal-header bg-info">
+                        <h5 class="modal-title text-white" id="tituloModal"></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form:form id="formPermiso" autocomplete="on">
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label for="nombre-label" class="col-form-label">Nombre:</label>
-                                <input id="nombre" class="form-control" required/>
-                                <div class="valid-feedback">Ok válido!</div>
-                                <div class="invalid-feedback">Complete el campo nombre</div>
-                            </div>
-                            <div class="form-group">
-                                <label for="descripcion-label" class="col-form-label">
-                                    Descripci&oacute;n:</label>
-                                <textarea id="descripcion" name="descripcion" class="form-control" rows="2" required="on"></textarea>
-                                <div class="valid-feedback">Ok válido!</div>
-                                <div class="invalid-feedback">Por favor introduzca una descripción</div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <sec:csrfInput/>
-                            <button id="btnModalPermiso" type="submit" 
-                                    class="btn text-white" ></button>
-                            <button type="button" class="btn btn-secondary" 
-                                    data-dismiss="modal">Cerrar</button>
-                        </div>
-                    </form:form>
+                    <div class="modal-body">
+                        <table id="tabla_lista_permisos" 
+                            class="table table-bordered table-striped table-hover table-responsive"
+                            width="100%">
+                            <thead>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Descripción</th>
+                            </thead>
+                            <tbody id="bodyModalPermiso"></tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    </div>
                 </div>
-            </div>
-        </div> 
-        
-        
-        
-        <div class="position-fixed bottom-0 right-0 p-3" 
-             style="z-index: 5; right: 0; bottom: 0;">
-            <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" 
-                 aria-atomic="true" data-delay="5000" 
-                 style="background-color: #28a745; color: white; font-weight: bold;">
-                <div class="toast-header">
-                    <i class="bi bi-check-circle-fill"></i>
-                    <strong id="strongToastHeader" class="mr-auto"></strong>
-                    <small>justo Ahora</small>
-                    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" 
-                        aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="toast-body"></div>
             </div>
         </div>
+
         
-        
-        <script src="<c:out value='${pageContext.request.contextPath}/recursos/js/permiso.js'/>"
-            type="text/javascript"></script>
+        <script src="<c:out value='${pageContext.request.contextPath}/recursos/js/roles.js'/>"
+        type="text/javascript"></script>
         <script src="https://code.jquery.com/jquery-3.5.1.min.js" ></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
-        <!--   Datatables -->
+        <!--   Datatables-->
         <script type="text/javascript" 
-            src="https://cdn.datatables.net/v/dt/dt-1.11.2/datatables.min.js"></script> 
+        src="https://cdn.datatables.net/v/dt/dt-1.11.2/datatables.min.js"></script> 
         <!-- extension responsive -->
         <script type="text/javascript" 
-            src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+        src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
         <!--  SweetAlert  -->
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        <!--  Footer de la pagina -->
+
     </body>
 </html>

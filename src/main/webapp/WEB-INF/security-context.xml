@@ -20,10 +20,12 @@
             requires-channel="https"/>
         <security:intercept-url pattern="/recuperar-password" access="permitAll()" 
             requires-channel="https"/>
-        <security:intercept-url pattern="/index" 
-            access="hasAnyRole('ROLE_ADMIN','ROLE_VEND','ROLE_CONT','ROLE_AUDT')"
+        <security:intercept-url pattern="/index/**" access="isAuthenticated()"
             requires-channel="https"/>
+<!--        access="hasAnyRole('ROLE_ADMIN','ROLE_VEND','ROLE_CONT','ROLE_AUDT')"-->
         <security:intercept-url pattern="/administracion/**" access="hasRole('ROLE_ADMIN')"
+            requires-channel="https" />
+        <security:intercept-url pattern="/ventas/registrar" access="hasRole('ROLE_VEND')"
             requires-channel="https" />
         <security:intercept-url pattern="/apirest/**" access="isAuthenticated()" 
             requires-channel="https"/>

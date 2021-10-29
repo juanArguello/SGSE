@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,8 +22,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 
 /**
  *
@@ -52,8 +51,7 @@ public class Rol implements Serializable {
         @JoinColumn(name = "id_rol", referencedColumnName = "id")}, 
             inverseJoinColumns = {
         @JoinColumn(name = "id_permisos", referencedColumnName = "id")})
-    @Cascade(CascadeType.ALL)
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Permisos> permisosList;
     
     

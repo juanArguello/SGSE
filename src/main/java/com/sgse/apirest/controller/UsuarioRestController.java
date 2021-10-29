@@ -149,5 +149,12 @@ public class UsuarioRestController {
         usuarioService.delete(Integer.valueOf(id)); // Elimina el usuario de acuerdo al ID
     }
     
+    @Secured("ROLE_ADMIN")
+    @GetMapping(path = "/usuarios/cantidad",produces = "text/plain")
+    @ResponseStatus(HttpStatus.OK)
+    public String cantidadUsuarios() {
+        return String.valueOf(usuarioService.cantidadFilas());
+    }
+    
     
 }

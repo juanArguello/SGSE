@@ -50,17 +50,22 @@ public class LoginController {
         log.error("Error de autenticación");
         model.addAttribute("error", true);
         return "login";
-
+    }
+    
+    @RequestMapping(value = "/acceso-denegado")
+    public String accesoDenegado(ModelMap model) {
+        return "acceso-denegado";
     }
 
     @RequestMapping(value = "/recuperar-password", method = RequestMethod.GET)
     public ModelAndView getPasswordPage() {
         log.info("Despliegue de formulario de correo para recuperar password");
-        return new ModelAndView("/recuperar-password", "command", new Usuario());
+        return new ModelAndView("/recuperar-password", "usuario", new Usuario());
     }
 
     @RequestMapping(value = "/recuperar-password", method = RequestMethod.POST)
-    public String obtenerPassword(Usuario user, ModelMap modelMap) throws MessagingException {
+    public String obtenerPassword(@ModelAttribute("usuario") Usuario user, 
+            ModelMap modelMap) throws MessagingException {
         try {
             Usuario usuario = usuarioService.findByEmail(user.getEmail());
             Contrasenha contrasenha = new Contrasenha();
@@ -76,7 +81,6 @@ public class LoginController {
             log.error("No existe el correo en el sistema");
             return "redirect:/login";
         }
-
     }
 
     private void enviarContrasenha(Usuario usuario, String nuevaContrasenha) {
