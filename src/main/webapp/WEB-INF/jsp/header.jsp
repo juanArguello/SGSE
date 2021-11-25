@@ -10,7 +10,7 @@
 <style>
     .dropdown-item:hover, .dropdown-item:focus {
         background-color: #007bff;
-    }  
+    } 
 </style>
 <nav id="navbar-example2" class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark" >
     <a class="navbar-brand mr-auto mr-lg-0" href="/">
@@ -24,10 +24,10 @@
     <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item"> 
-                <sec:authorize access="hasRole('ROLE_ADMIN')" var="isAdmin" ></sec:authorize>
+                <sec:authorize access="hasRole('ROLE_ADMIN')"  var="isAdmin"></sec:authorize>
                 <c:choose>
                     <c:when test="${isAdmin}">
-                        <a class="nav-link text-white" href="/administracion">Administración</a>
+                        <a class="nav-link text-white" href="<c:url value='${pageContext.request.contextPath}/administracion'/>">Administración</a>
                     </c:when>
                     <c:otherwise>
                         <a id="warningModal" href="#" class="nav-link">Administración</a>
@@ -69,9 +69,10 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle text-white" href="#" id="dropdown02" 
                    data-toggle="dropdown" aria-haspopup="true" 
-                   aria-expanded="false">Configuraciones</a>
+                   aria-expanded="false">Herramientas</a>
                 <div class="dropdown-menu bg-dark" aria-labelledby="dropdown02">
-                    <a class="dropdown-item text-white" href="#">Acción</a>
+                    <a href="<c:url value='${pageContext.request.contextPath}/herramientas/email'/>"
+                       class="dropdown-item text-white">Correo Electronico</a>
                     <a class="dropdown-item text-white" href="#">Another action</a>
                     <a class="dropdown-item text-white" href="#">Something else here</a>
                 </div>
@@ -80,7 +81,7 @@
         <ul class="navbar-nav px-3">
             <li class="nav-item col-6 col-md-auto">
                 <a href="" class="nav-link p-2 text-white"  
-                    type="button"  >
+                   type="button"  >
                     <i class="bi bi-bell-fill" data-toggle="tooltip" data-placement="bottom" 
                        title="Notificaciones"></i>
                 </a>
@@ -92,7 +93,7 @@
                 </a>
                 <div class="dropdown-menu bg-dark" aria-labelledby="dropdownUser">
                     <a id="perfil" class="dropdown-item text-white" 
-                       href="#">Perfil</a>
+                       href="<c:url value='${pageContext.request.contextPath}/index/user-perfil'/>">Perfil</a>
                     <a id="logout" class="dropdown-item text-white" href="#">Cerrar Sesión</a>
                     <form id="logout-form" action="<c:url value='/logout'/>" method="POST">
                         <sec:csrfInput/>
@@ -103,7 +104,27 @@
     </div>   
 </nav> 
 
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" 
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"><i class="bi bi-exclamation-triangle-fill"></i></h5>
 
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Hello world
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script type="text/javascript">
     /* 
      Created on : 20-abr-2021
@@ -121,6 +142,10 @@
         $("#logout-form").submit();
     });
 
+    $("#abc").click(function () {
+        $("#exampleModal").modal("show");
+    });
+
     $("#warningModal").click(function () {
         swal({
             title: "Acceso Denegado",
@@ -130,16 +155,6 @@
         });
     });
 
-    $('.popover-dismiss').popover({
-        trigger: 'focus'
-    });
 
 
-    $("#perfil").click(function (e) {
-        e.preventDefault();
-        let usermane = $("#perfil-form").attr("class");
-        $.ajax({
-
-        });
-    });
 </script>

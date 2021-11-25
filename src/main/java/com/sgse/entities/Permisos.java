@@ -19,6 +19,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  *
@@ -30,15 +31,17 @@ import javax.persistence.Table;
 public class Permisos implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+  
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Integer id;
     
-    @Column(name = "nombre")
+    @NotEmpty(message = "no puede estar vacio")
+    @Column(name = "nombre",unique = true)
     private String nombre;
     
+    @NotEmpty(message = "no puede estar vacio")
     @Column(name = "descripcion")
     private String descripcion;
     

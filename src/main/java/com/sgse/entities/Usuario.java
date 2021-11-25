@@ -107,29 +107,11 @@ public class Usuario implements Serializable {
     @OneToMany(mappedBy = "idUsuario",fetch = FetchType.LAZY)
     private List<ContratoVenta> contratoVentaList;
 
-    public Usuario() {
-        this.contratoVentaList = new ArrayList<>();
-        this.facturaList = new ArrayList<>();
-        this.registrarVentaList = new ArrayList<>();
-    }
-
-    public Usuario(Integer id) {
-        this.id = id;
-    }
-
-    public Usuario(Integer id, String nombre, String apellido, Date fechaIngreso, String estado) {
-        this.id = id;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.fechaIngreso = fechaIngreso;
-        this.estado = estado;
-    }
     
-    @PrePersist
+    /*@PrePersist
     public void prePersist(){
         this.fechaIngreso = new Date();
-        this.estado = "activo";
-    }
+    }*/
 
     public Integer getId() {
         return id;

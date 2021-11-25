@@ -11,7 +11,7 @@ $(document).ready(function () {
             {"data": "id"},
             {"data": "nombre"},
             {"data": "descripcion"},
-            {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-info btn-sm btnVerPermiso' data-toggle='tooltip' data-placement='top' title='Ver Permisos'><i class='bi bi-zoom-in'></i></button><button class='btn btn-warning btn-sm text-white btnEditar' data-toggle='tooltip' data-placement='top' title='Editar Rol'><i class='bi bi-pencil-fill'></i></button><button class='btn btn-danger btn-sm btnBorrar' data-toggle='tooltip' data-placement='top' title='Eliminar Rol'><i class='bit bi-trash-fill'></i></button></div></div>"}
+            {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-info btn-sm btnVerPermiso' data-toggle='tooltip' data-placement='top' title='Ver Permisos'><i class='bi bi-search'></i></button><button class='btn btn-warning btn-sm text-white btnEditar' data-toggle='tooltip' data-placement='top' title='Editar Rol'><i class='bi bi-pencil-fill'></i></button><button class='btn btn-danger btn-sm btnBorrar' data-toggle='tooltip' data-placement='top' title='Eliminar Rol'><i class='bit bi-trash-fill'></i></button></div></div>"}
         ],
         responsive: true,
         "language": {
@@ -31,12 +31,6 @@ $(document).ready(function () {
         }
     });
     
-    
-    
-    //botón agregar nuevo Rol 
-    $("#btnNuevoRol").click(function(){
-        
-    });
     
     // Boton para visualizar los permisos asociados al rol
     $("#tabla_roles tbody").on("click", ".btnVerPermiso", function(){
@@ -87,9 +81,10 @@ $(document).ready(function () {
             }
             var rowData = $('#tabla_roles').DataTable().row(selected_row).data();
             id = parseInt(rowData.id); //capturo el ID
-        } else {
+        } else { // Cuando la tabla de datos es formato escritorio
             id = parseInt(datos.id); //capturo el ID
         }
+        
         opcion = 2; //editar
         location = "https://localhost:8443/administracion/roles/edit/"+id;
     });
@@ -110,7 +105,7 @@ $(document).ready(function () {
             var rowData = $('#tabla_roles').DataTable().row(selected_row).data();
             id = parseInt(rowData.id); //capturo el ID
             nombreRol = rowData.nombre;
-        } else {
+        } else { // Cuando la tabla de datos es formato escritorio
             id = parseInt(datos.id); //capturo el ID
             nombreRol = datos.nombre;
         }
@@ -122,6 +117,7 @@ $(document).ready(function () {
             dangerMode: true
         }).then((OK) => {
             if (OK) {
+                // peticion ajax para delete del rol
                 $.ajax({
                     url: "https://localhost:8443/apirest/roles/"+id,
                     type: 'DELETE',
@@ -141,45 +137,6 @@ $(document).ready(function () {
             } 
         });
      });
-    
-   
-    //submit para el Alta y Actualización
-    $("#formPermiso").submit(function(e){
-        //evita el comportambiento normal del submit, es decir, recarga total de la página
-        e.preventDefault();    
-        nombre = $("#nombre").val();
-        descripcion = $("#descripcion").val();
-        if(opcion === 1){    // Crear nuevo permiso
-            $("#strongToastHeader").text("Registrado");
-            $(".toast-body").text("Se ha registrado el permiso exitosamente");
-            $.ajax({
-                url: "https://localhost:8443/apirest/permisos",
-                type: "POST",
-                dataType: 'JSON', 
-                contentType: 'application/json; charset=UTF-8',
-                data:  JSON.stringify({"nombre":nombre,"descripcion": descripcion}),
-                success: function(data) {
-                    tablaPermiso.ajax.reload(null, false);
-                    $('#liveToast').toast('show');
-                }
-            });
-        }else if(opcion === 2){ // actualizar permiso
-            $("#strongToastHeader").text("Actualizado");
-            $(".toast-body").text("Se ha actualizado el permiso exitosamente");
-            $.ajax({
-                url: "https://localhost:8443/apirest/permisos/"+id,
-                type: "PUT",
-                dataType:"JSON",
-                contentType: 'application/json; charset=UTF-8',
-                data:  JSON.stringify({"nombre":nombre,"descripcion": descripcion}),
-                success: function(data) {
-                    tablaPermiso.ajax.reload(null, false);
-                    $('#liveToast').toast('show');
-                }
-            }); 
-        }
-        $("#modal-permiso").modal("hide"); 
-    }); 
     
 
 });

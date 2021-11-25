@@ -122,7 +122,7 @@ $(document).ready(function () {
                 data: JSON.stringify(cliente),
                 success: function (data) {
                     tablaClientes.ajax.reload(null, false);
-                    $('#liveToast').toast('show'); // mostrar notificacion
+                    $('#clienteToast').toast('show'); // mostrar notificacion
                 }
             });
         } else if (opcion === 2) { // actualizar permiso
@@ -136,7 +136,7 @@ $(document).ready(function () {
                 data: JSON.stringify(cliente),
                 success: function (data) {
                     tablaClientes.ajax.reload(null, false);
-                    $('#liveToast').toast('show');
+                    $('#clienteToast').toast('show');
                 }
             });
         }

@@ -44,7 +44,7 @@
                         <div style="height: 10px;"></div>
                         <div class="col-lg-3">
                             <a id="btnNuevoRol" class="btn btn-success btn-sm bi bi-plus"
-                               href="/administracion/roles/add" >Agregar</a>
+                               href="<c:url value='${pageContext.request.contextPath}/administracion/roles/add'/>" >Agregar</a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -55,7 +55,7 @@
                                         <th>ID</th>
                                         <th>Nombre</th>
                                         <th>Descripción</th>
-                                        <th>Acciones</th>
+                                        <th>Operaciones</th>
                                     </thead>
                                     <tbody></tbody>
                                 </table>

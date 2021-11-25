@@ -33,19 +33,17 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-12">
-                            <form:form modelAttribute="editar-usuario" class="needs-validation" novalidate="on">
+                            <form:form modelAttribute="editar-usuario" autocomplete="on" >
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <form:label path="nombre" class="h5">Nombre</form:label>
                                         <form:input path="nombre" class="form-control" required="on" autofocus="on"/>
                                         <div class="valid-feedback">Ok válido!</div>
-                                        <div class="invalid-feedback">Complete el campo nombre</div>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <form:label path="apellido" class="h5">Apellido</form:label>
                                         <form:input path="apellido" class="form-control" required="on"/>
                                         <div class="valid-feedback">Ok válido!</div>
-                                        <div class="invalid-feedback">Complete el campo apellido</div>
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -59,7 +57,6 @@
                                                 </div>
                                             <form:input path="cedula" class="form-control" required="on"/>
                                             <div class="valid-feedback">Ok válido!</div>
-                                            <div class="invalid-feedback">Complete el campo cédula</div>
                                         </div>
                                     </div>
                                     <div class="form-group col-md-6">
@@ -78,21 +75,6 @@
                                                 </div>
                                             <form:input path="nombreUsuario" class="form-control" required="on"/>
                                             <div class="valid-feedback">Ok válido!</div>
-                                            <div class="invalid-feedback">Complete el campo nombre de usuario</div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <form:label path="contrasenha" class="h5">Contraseña</form:label>
-                                            <div class="input-group">
-                                            <form:password path="contrasenha" class="form-control" required="on"/>
-                                            <div class="input-group-append">
-                                                <button id="mostrar_password" class="btn btn-secondary" 
-                                                        type="button" onclick="mostrarPassword()" > 
-                                                    <i id="icono" class="bi bi-eye-fill"></i> 
-                                                </button>
-                                            </div>
-                                            <div class="valid-feedback">Ok válido!</div>
-                                            <div class="invalid-feedback">Complete el campo contraseña</div>
                                         </div>
                                     </div>
                                 </div>
@@ -115,7 +97,6 @@
                                             </c:forEach> 
                                         </form:select>
                                         <div class="valid-feedback">Ok válido!</div>
-                                        <div class="invalid-feedback">Por favor seleccione un Rol</div>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <form:label path="estado" class="h5">Estado</form:label>
@@ -124,7 +105,6 @@
                                             <form:option value="inactivo">inactivo</form:option>
                                         </form:select>
                                         <div class="valid-feedback">Ok válido!</div>
-                                        <div class="invalid-feedback">Por favor seleccione un Rol</div>
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -138,7 +118,6 @@
                                                 </div>
                                             <form:input path="email" type="email" class="form-control" required="on"/>
                                             <div class="valid-feedback">Ok válido!</div>
-                                            <div class="invalid-feedback">Complete el campo correo electronico</div>
                                         </div>
                                     </div>
                                     <div class="form-group col-md-6">
@@ -152,19 +131,31 @@
                                             <form:input path="telefono" type="tel" class="form-control" 
                                                         placeholder="+595 9xx xxxxxx" required="on"/>
                                             <div class="valid-feedback">Ok válido!</div>
-                                            <div class="invalid-feedback">Complete el campo telefono</div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <form:label path="direccion" class="h5">Direccion</form:label>
-                                    <form:textarea path="direccion" class="form-control" rows="2" required="on"></form:textarea>
-                                    <div class="valid-feedback">Ok válido!</div>
-                                    <div class="invalid-feedback">Complete el campo dirección</div>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="bi bi-geo-alt-fill"></i>
+                                            </div>
+                                        </div>
+                                        <form:input path="direccion" class="form-control" required="on"/>
+                                        <div class="valid-feedback">Ok válido!</div>
+                                    </div>
                                 </div>
-                                <div style="margin-top: 20px" class="form-group" align="center">
-                                    <div class="col-sm-4 justify-content-center">
-                                        <form:button class="btn btn-warning btn-block font-weight-bold" >Editar</form:button>
+                                <div class="form-row">
+                                    <div class="form-group col-md-3">
+                                        <a href="<c:out value='${pageContext.request.contextPath}/administracion/usuario'/>" 
+                                           class="btn btn-danger btn-block font-weight-bold">
+                                            <i class="bi bi-arrow-left-circle-fill"></i> Volver</a>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <sec:csrfInput/>
+                                        <form:button class="btn btn-block font-weight-bold text-white"
+                                            style="background-color: orange;" >Editar</form:button>
                                     </div>
                                 </div>
                             </form:form>
@@ -187,9 +178,14 @@
                     }
                 }
             </script>
+        <script src="<c:out value='${pageContext.request.contextPath}/recursos/js/edit-usuario.js'/>"
+            type="text/javascript"></script>
         <script src="https://code.jquery.com/jquery-3.5.1.min.js" ></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
+        <!-- jQuery Validation -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/additional-methods.min.js"></script>
     </body>
 </html>
 

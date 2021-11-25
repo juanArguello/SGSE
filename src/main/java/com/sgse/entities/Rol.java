@@ -13,7 +13,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,6 +21,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  *
@@ -39,13 +39,16 @@ public class Rol implements Serializable {
     @Column(name = "id")
     private Integer id;
     
-    @Column(name = "nombre")
+    @NotEmpty(message = "no puede estar vacio")
+    @Column(name = "nombre",unique = true)
     private String nombre;
     
+    @NotEmpty(message = "no puede estar vacio")
     @Column(name = "descripcion")
     private String descripcion;
     
 //    @LazyCollection(LazyCollectionOption.FALSE)
+    @NotEmpty(message = "no puede estar vacio")
     @JsonIgnoreProperties({"rolList","hibernateLazyInitializer","handler"})
     @JoinTable(name = "rol_permisos", joinColumns = {
         @JoinColumn(name = "id_rol", referencedColumnName = "id")}, 

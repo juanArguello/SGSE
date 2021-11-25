@@ -55,7 +55,7 @@
                                         <th>ID</th>
                                         <th>Nombre</th>
                                         <th>Descripción</th>
-                                        <th>Acciones</th>
+                                        <th>Operación</th>
                                     </thead>
                                     <tbody></tbody>
                                 </table>
@@ -77,20 +77,20 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form:form id="formPermiso" autocomplete="on">
+                    <form id="form-permiso" autocomplete="on" class="needs-validation" novalidate="on">
                         <div class="modal-body">
                             <div class="form-group">
-                                <label for="nombre-label" class="col-form-label">Nombre:</label>
+                                <label for="nombre" class="col-form-label">Nombre:</label>
                                 <input id="nombre" class="form-control" required/>
                                 <div class="valid-feedback">Ok válido!</div>
-                                <div class="invalid-feedback">Complete el campo nombre</div>
+                                <div id="nombre-invalid" class="invalid-feedback">El campo nombre no puede estar vacio</div>
                             </div>
                             <div class="form-group">
-                                <label for="descripcion-label" class="col-form-label">
+                                <label for="descripcion" class="col-form-label">
                                     Descripci&oacute;n:</label>
-                                <textarea id="descripcion" name="descripcion" class="form-control" rows="2" required="on"></textarea>
+                                <textarea id="descripcion" name="descripcion" class="form-control" rows="2" required></textarea>
                                 <div class="valid-feedback">Ok válido!</div>
-                                <div class="invalid-feedback">Por favor introduzca una descripción</div>
+                                <div id="descripcion-invalid" class="invalid-feedback">El campo descripción no puede estar vacio</div>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -100,7 +100,7 @@
                             <button type="button" class="btn btn-secondary" 
                                     data-dismiss="modal">Cerrar</button>
                         </div>
-                    </form:form>
+                    </form>
                 </div>
             </div>
         </div> 
@@ -109,11 +109,11 @@
         
         <div class="position-fixed bottom-0 right-0 p-3" 
              style="z-index: 5; right: 0; bottom: 0;">
-            <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" 
-                 aria-atomic="true" data-delay="5000" 
+            <div id="permisoToast" class="toast hide" role="alert" aria-live="assertive" 
+                 aria-atomic="true" data-delay="7000" 
                  style="background-color: #28a745; color: white; font-weight: bold;">
                 <div class="toast-header">
-                    <i class="bi bi-check-circle-fill"></i>
+                    <i id="iToast" class="bi bi-check-circle-fill"></i>
                     <strong id="strongToastHeader" class="mr-auto"></strong>
                     <small>justo Ahora</small>
                     <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" 

@@ -36,45 +36,64 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-12">
-                            <form:form modelAttribute="editar-rol" >
+                            <form:form modelAttribute="editar-rol" autocomplete="on" class="needs-validation" novalidate="on">
                                 <div class="form-group">
                                     <form:label path="nombre" class="h5">Nombre</form:label>
-                                    <form:input path="nombre" class="form-control" autofocus="on" />
+                                    <form:input path="nombre" class="form-control" required="on" autofocus="on" />
+                                    <div class="valid-feedback">Ok válido!</div>
+                                    <div id="nombre-invalid" class="invalid-feedback">El campo nombre no puede estar vacio</div>
                                 </div>
                                 <div class="form-group">
                                     <form:label path="descripcion" class="h5">Descripcion</form:label>
-                                    <form:textarea path="descripcion" class="form-control" rows="2"></form:textarea>
+                                    <form:textarea path="descripcion" class="form-control" rows="2" required="on"></form:textarea>
+                                    <div class="valid-feedback">Ok válido!</div>
+                                    <div id="descripcion-invalid" class="invalid-feedback">El campo descripción no puede estar vacio</div>
                                 </div>
                                 <div class="form-group">
-                                    <form:label path="permisosList" class="h5">Asociar Permisos</form:label>
-                                    <form:select path="permisosList" class="duallistbox" 
+                                    <label id="permisosList" class="h5">Asociar Permisos</label>
+                                    <select id="listaPermisos" class="duallistbox" required="on"
                                         size="7" multiple="multiple">
-                                        <c:forEach items="${permisoSeleccionado}" var="selected" >
-                                            <form:option value="${selected.id}" selected="selected"><c:out value="${selected.nombre}"/></form:option>
+                                        <c:forEach items="${permisosNoSeleccionado}" var="NoSeleccionado">
+                                            <option value="${NoSeleccionado.id}" ><c:out value="${NoSeleccionado.nombre}"/></option>
                                         </c:forEach>
-                                        <c:forEach items="${permisoNoSeleccionado}" var="notPermiso">
-                                            <form:option value="${notPermiso.id}"><c:out value="${notPermiso.nombre}"/></form:option>
+                                        <c:forEach items="${permisosSeleccionado}" var="selected" >
+                                            <option value="${selected.id}" selected="selected"><c:out value="${selected.nombre}"/></option>
                                         </c:forEach>
-                                    </form:select>
+                                    </select>
+                                    <div class="valid-feedback">Ok válido!</div>
+                                    <div class="invalid-feedback">Por favor seleccione un permiso</div>
                                 </div>
-                                <div  class="form-group">
-                                    <div class="col-sm-12 controls">
-                                        <form:button class="btn btn-success" >Editar</form:button>
+                                <div class="form-check">
+                                    <input id="confirm-permiso"  class="form-check-input" type="checkbox" value="" >
+                                    <label for="confirm-permiso" class="form-check-label" >
+                                        Confirmar los permisos Seleccionados
+                                    </label>
+                                </div>
+                                <div class="form-row mt-3">
+                                    <div class="form-group col-md-3">
+                                        <a href="<c:out value='${pageContext.request.contextPath}/administracion/roles'/>" 
+                                           class="btn btn-danger btn-block font-weight-bold">
+                                            <i class="bi bi-arrow-left-circle-fill"></i> Volver</a>
                                     </div>
-                                </div>
+                                    <div class="form-group col-md-3">
+                                        <sec:csrfInput/>
+                                        <form:button class="btn btn-block font-weight-bold text-white"
+                                                     style="background-color: orange;" >Editar</form:button>
+                                        </div>
+                                    </div>
                             </form:form>
                         </div>
                     </div>
                 </div>
             </div>
-                
-        <script src="<c:out value='${pageContext.request.contextPath}/recursos/js/edit-rol.js' />" 
+            <div style="height: 50px;"></div>       
+            <script src="<c:out value='${pageContext.request.contextPath}/recursos/js/edit-rol.js' />" 
             type="text/javascript"></script>
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js" ></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
-        <!-- Bootstrap4 Dual ListBox -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap4-duallistbox/4.0.1/jquery.bootstrap-duallistbox.min.js"></script>
+            <script src="https://code.jquery.com/jquery-3.5.1.min.js" ></script>
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
+            <!-- Bootstrap4 Dual ListBox -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap4-duallistbox/4.0.1/jquery.bootstrap-duallistbox.min.js"></script>
     </body>
 </html>
 

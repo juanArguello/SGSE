@@ -1,6 +1,6 @@
 $(document).ready(function () {
     //Bootstrap Duallistbox
-    bootstrapDualListbox = $('.duallistbox').bootstrapDualListbox({
+    var bootstrapDualListbox = $('.duallistbox').bootstrapDualListbox({
         filterTextClear: 'Mostrar todo',
         filterPlaceHolder: 'Filtrar',
         moveSelectedLabel: 'Mover seleccionado',
@@ -14,41 +14,92 @@ $(document).ready(function () {
         selectedListLabel: 'Seleccionado'
     });
     
+    var arrayPermisos = new Array(); // array de permisos
+    var arrayUsuarios = new Array(); // array de Usuarios
+    var path = location.pathname;
+    pathArray = path.split("/");
+    idRequest = pathArray[pathArray.length-1];
+    
+    $.getJSON("https://localhost:8443/apirest/roles/"+idRequest,function(data){
+        if(data.usuarioList.length > 0){
+            $.each(data.usuarioList,function(i,item) {
+                arrayUsuarios.push(item);
+            });
+        }
+    }); 
     
     
+    $('#confirm-permiso').on('click', function() {
+        if($(this).is(':checked')){
+            // Obtener los permisos si el checkboxes ha sido seleccionado
+            $.each($("#listaPermisos").val(),function(i,id){
+                getPermisos(id);
+            });
+        } else {
+            // Hacer algo si el checkbox ha sido deseleccionado
+            
+        }
+    });
+    
+   
     $("#editar-rol").submit(function (e) {
         e.preventDefault();
         nombre = $("#nombre").val();
         descripcion = $("#descripcion").val();
-        listaId = $("#listaPermisos").val();
-        rolString = JSON.stringify({"nombre": nombre, "descripcion": descripcion, "permisosList": [], "usuarioList": []});
-        listaPermisos = getPermisos(listaId);
-        rolObject = JSON.parse(rolString);
-        rolObject["permisosList"] = listaPermisos;
-        rolString = JSON.stringify(rolObject);
-
-        console.log(rolObject);
-        console.log(rolString);
+        // Bucle sobre ellos y evitar el submit
+        $.each($("#editar-rol"), function (i, item) {
+            if(item.checkValidity() === false){
+                e.stopPropagation();
+            }
+            item.classList.add('was-validated');
+        });
+        if( $('#confirm-permiso').is(':checked') && arrayPermisos.length !== 0 ) {
+            updateRol(nombre,descripcion);
+        }else{
+            $("label.form-check-label").addClass("text-danger");
+        }  
+    });
+    
+    function updateRol(nombre,descripcion){
+        
+        // datos del rol en formato object javascript
+        rolObject = {nombre: nombre,descripcion: descripcion,permisosList : arrayPermisos, 
+                    usuarioList : arrayUsuarios}; 
+        
+        // peticion ajax de actualizacion   
         $.ajax({
-            url: "https://localhost:8443/apirest/roles",
-            type: "POST",
+            url: "https://localhost:8443/apirest/roles/"+idRequest,
+            type: "PUT",
             dataType: 'JSON',
             contentType: 'application/json; charset=UTF-8',
-            data: rolString,
-            success: function (data) {
-                //location = "roles";
+            data: JSON.stringify(rolObject),
+            success: function (data, textStatus, jqXHR) { // cuando es exitoso el update del rol
+                location = "https://localhost:8443/administracion/roles";
+            },
+            error: function (jqXHR, textStatus, errorThrown) { //Error
+                if (jqXHR.status === 500) { // cuando ocurre error interno del servidor
+                    responseServer = JSON.parse(jqXHR.responseText);
+                    $('#add-rol-Toast').addClass("bg-danger");
+                    $("#strongToastHeader").text("Error 500");
+                    $(".toast-body").text(responseServer.mensaje);
+                    $('#add-rol-Toast').toast('show'); // mostrar notificacion
+                }else if(jqXHR.status === 400){ // cuando los campos son incompleto
+                    response = JSON.parse(jqXHR.responseText);
+                    $("#nombre-invalid").text(response.errores[0]);
+                    $("#descripcion-invalid").text(response.errores[2]);
+                   
+                }   
             }
         });
-    });
-
-    function getPermisos(listaId) {
-        arrayPermisos = new Array();
-        $.each(listaId, function (i, id) {
-            $.getJSON("https://localhost:8443/apirest/permisos/" + id, function (data) {
-                arrayPermisos.push(data);
-            });
-        });
-        return arrayPermisos;
     }
+
+    function getPermisos(id) {
+        // realiza la peticion ajax para obtener permiso de acuerdo al id
+        $.getJSON("https://localhost:8443/apirest/permisos/"+id,function(data){
+            arrayPermisos.push(data);
+        });
+         
+    }
+    
 });
 

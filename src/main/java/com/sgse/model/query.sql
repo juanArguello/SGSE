@@ -1,7 +1,8 @@
 /*  ADMINISTRADOR                               VENDEDOR
     user:        jarguello                      user:        jortiz
-    password:    gvpkGljB                       password:    9vouxZvQ
+    password:    gvpkGljB                       password:    SS1e4w3I
     correo:     juanarguello092@gmail.com       correo:      juanarguello092@fpuna.edu.py
+gvpkG123
 */
 SELECT * FROM usuario ORDER BY id;
 SELECT * FROM rol ORDER BY id;
@@ -15,6 +16,33 @@ UPDATE usuario SET estado = 'activo' WHERE id = 2;
 
 
 INSERT INTO rol (id,nombre, descripcion) VALUES(29,'a','b');
+
+//enviarContrasenha(usuario, contrasenhaPlana);
+
+private void enviarContrasenha(Usuario usuario, String nuevaContrasenha) {
+        final String CORREO_FUTURO = "futuro.seguros.py@gmail.com";
+        final String asunto = "Recuperación de contraseña";
+        String texto = "<p>Hola " + usuario.getNombre() + " " + usuario.getApellido() + "</p>"
+                + "<p>Su nueva contraseña es: " + nuevaContrasenha + "</p>"+
+                "<hr><p><strong>Futuro Avda. San Martin N° 615 esq. Sucre</strong></p>";
+        try {
+            MimeMessage message = javaMailSender.createMimeMessage();
+            // usa true para indicar que necesita un mensaje multiparte
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+            helper.setFrom(CORREO_FUTURO);
+            helper.setTo(usuario.getEmail());
+            helper.setSubject(asunto);
+            // usa true para indicar el texto incluye como HTML
+            texto += "<img src='cid:Futuro' height='100' width='120' />";
+            helper.setText(texto, true);
+            ClassPathResource classPathResource = new ClassPathResource("/images/logo.jpg");
+            helper.addInline("Futuro", classPathResource);
+            javaMailSender.send(message);
+            log.info("Envio exitosos de contraseña al correo del usuario");
+        } catch (MessagingException e) {
+            log.error("No se pudo enviar el correo");
+        }
+    }
 
 
 $.ajax({

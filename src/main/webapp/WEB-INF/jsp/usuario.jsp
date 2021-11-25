@@ -24,6 +24,9 @@
         <!--  extension responsive  -->
         <link rel="stylesheet" type="text/css"
               href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css"/>
+        <!--  extension select  -->
+        <link rel="stylesheet" type="text/css"
+              href="https://cdn.datatables.net/select/1.3.3/css/select.dataTables.min.css"/>
         <link rel="stylesheet" href="<c:out value='${pageContext.request.contextPath}/recursos/css/index-estilo.css'/>"
               type="text/css"  />
         <title>Usuario</title>    
@@ -42,8 +45,8 @@
                         </div>
                         <div style="height: 10px;"></div>
                         <div class="col-lg-3">
-                            <a id="btnNuevoUsuario" href="/administracion/usuario/add"
-                               class="btn btn-success btn-sm bi bi-person-plus-fill"> Agregar</a><br><br>
+                            <a id="btnNuevoUsuario" href="<c:out value='${pageContext.request.contextPath}/administracion/usuario/add'/>"
+                               class="btn btn-primary btn-sm bi bi-person-plus-fill"> Agregar</a><br><br>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -51,16 +54,16 @@
                                        class="table table-bordered table-striped table-hover display responsive  nowrap"
                                        width="100%">
                                     <thead class="thead-dark">
-                                        <th>ID</th>
-                                        <th>Cedula</th>
-                                        <th>RUC</th>
-                                        <th>Nombre</th>
-                                        <th>Apellido</th>
-                                        <th>Nombre Usuario</th>
-                                        <th>Estado</th>
-                                        <th>Fecha de Ingreso</th>
-                                        <th>E-mail</th>
-                                        <th>Acciones</th>
+                                    <th>ID</th>
+                                    <th>Cedula</th>
+                                    <th>RUC</th>
+                                    <th>Nombre</th>
+                                    <th>Apellido</th>
+                                    <th>Nombre Usuario</th>
+                                    <th>Estado</th>
+                                    <th>Fecha de Ingreso</th>
+                                    <th>E-mail</th>
+                                    <th>Acciones</th>
                                     </thead>
                                     <tbody></tbody>
                                 </table>
@@ -70,7 +73,32 @@
                 </div>
             </div>
         </div>
-        
+
+        <!--  Modal para visualizar datos detallado del usuario -->
+        <div class="modal fade" id="modal-usuario-detalle" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalLabel" aria-hidden="true" >
+            <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-info">
+                        <h5 class="modal-title text-white" id="tituloUser" style="align-content: center"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table id="tabla_user" 
+                            class="table table-bordered table-striped table-hover table-responsive"
+                            width="100%">
+                            <tbody id="bodyModalUsuario"></tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div> 
+
         <script src="<c:out value='${pageContext.request.contextPath}/recursos/js/usuario.js'/>"
         type="text/javascript"></script>
         <script src="https://code.jquery.com/jquery-3.5.1.min.js" ></script>
@@ -84,6 +112,8 @@
         src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
         <!--  SweetAlert  -->
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
+        <!-- extension select -->
+        <script type="text/javascript" 
+        src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script>
     </body>
 </html>

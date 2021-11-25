@@ -90,6 +90,14 @@
         <property name="suffix" value=".jsp"/>
     </bean>
     
+    <!--  Spring MVC File Upload -->
+    <bean id = "multipartResolver"
+        class = "org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- una de las propiedades disponibles; el tamaño máximo de archivo en bytes -->
+        <property name="maxUploadSize" value="33554432"/>
+        <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
+    
     <!-- Bean handlerMapping -->
     <!--    <bean id="handlerMapping" 
     class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>-->

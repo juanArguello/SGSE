@@ -85,7 +85,8 @@
                                     <div class="form-group col-md-6">
                                         <label for="contrasenha" class="h5">Contraseña</label>
                                             <div class="input-group">
-                                            <form:password path="contrasenha" class="form-control"  required="on"/>
+                                            <input type="password" id="contrasenha" class="form-control"  
+                                                value="" required/>
                                             <div class="input-group-append">
                                                 <button id="mostrar_password" class="btn btn-secondary" 
                                                         type="button" onclick="mostrarPassword()" > 

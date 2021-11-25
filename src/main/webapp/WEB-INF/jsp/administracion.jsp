@@ -33,7 +33,8 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-4 mb-4">
-                                    <a href="/administracion/usuario" class="card bg-primary text-white h-100 ">
+                                    <a href="<c:out value='${pageContext.request.contextPath}/administracion/usuario'/>" 
+                                       class="card bg-primary text-white h-100 ">
                                         <div class="card-body py-5">
                                             <h4>Usuarios</h4>
                                             <h2 class="justify-content-start">
@@ -49,7 +50,8 @@
                                     </a>
                                 </div>
                                 <div class="col-md-4 mb-4">
-                                    <a href="/administracion/roles" class="card bg-success text-white h-100">
+                                    <a href="<c:out value='${pageContext.request.contextPath}/administracion/roles'/>" 
+                                       class="card bg-success text-white h-100">
                                         <div class="card-body py-5">
                                             <h4>Roles</h4>                                               
                                             <h2 class="justify-content-start">
@@ -65,7 +67,8 @@
                                     </a>
                                 </div>
                                 <div class="col-md-4 mb-4">
-                                    <a href="/administracion/permiso" class="card bg-danger text-white h-100">
+                                    <a href="<c:out value='${pageContext.request.contextPath}/administracion/permiso'/>" 
+                                       class="card bg-danger text-white h-100">
                                         <div class="card-body py-5 ">
                                             <h4>Permisos</h4>                                               
                                             <h2 class="justify-content-start">

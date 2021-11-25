@@ -24,9 +24,10 @@ $(document).ready(function () {
             },
             {"data": "fechaIngreso"},
             {"data": "email"},
-            {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-warning btn-sm btnEditar' data-toggle='tooltip' data-placement='top' title='Editar Usuario'><i class='bi bi-pencil-fill'></i></button><button class='btn btn-danger btn-sm btnBorrar' data-toggle='tooltip' data-placement='top' title='Eliminar Usuario'><i class='bit bi-trash-fill'></i></button></div></div>"}
+            {"defaultContent": "<div class='text-center'><div class='btn-group'><a class='btnEditar' data-toggle='tooltip' data-placement='top' title='Editar Usuario'><i class='bi bi-pencil-fill' style='color:orange;'></i></a><a class='btnBorrar' data-toggle='tooltip' data-placement='top' title='Eliminar Usuario'><i class='bit bi-trash-fill text-danger'></i></a></div></div>"}
         ],
         responsive: true,
+        select: true,
         "language": {
             "lengthMenu": "Mostrar _MENU_ registros",
             "zeroRecords": "No se encontraron resultados",
@@ -44,6 +45,11 @@ $(document).ready(function () {
         }
     });
     
+    // Resetea el class del formulario al cerrar el modal
+    $('#modal-usuario-detalle').on('hidden.bs.modal', function (event) {
+        $("#tituloUser").empty();
+        $("#bodyModalUsuario").empty();
+    });
     
     //botón EDITAR Usuarios  
     $("#tabla_usuarios tbody").on("click", ".btnEditar", function(){
@@ -63,6 +69,19 @@ $(document).ready(function () {
         opcion = 2; //editar
         location = "https://localhost:8443/administracion/usuario/edit/"+id;
     });
+    
+    $('#tabla_usuarios tbody').on('click', 'tr', function () {
+        
+        if($(this).hasClass('selected')) {
+            data = tablaUsuarios.row('.selected').data();
+            visualizarUsuarioDetalle(data.id);
+            $(this).removeClass('selected');
+        }
+        else {
+            //tablaUsuarios.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+        }
+    } );
     
     //Borrar Usuario
     $("#tabla_usuarios tbody").on("click", ".btnBorrar", function(){
@@ -109,6 +128,47 @@ $(document).ready(function () {
             } 
         });
      });
+     
+     
+     function visualizarUsuarioDetalle(id){
+        $("#tituloUser").empty();
+        $("#bodyModalUsuario").empty();
+        $.getJSON("https://localhost:8443/apirest/usuarios/"+id,function(data) {
+            $("#tituloUser").text("Datos del Usuario: "+data.nombreUsuario);
+            $("#bodyModalUsuario").append(rellenarDatosUser(data));
+            $("#modal-usuario-detalle").modal("show");                   
+        });
+     }
+     
+     function rellenarDatosUser(data){
+        var userDetails = '';
+        atributos = Object.keys(data);
+        valores = Object.values(data);
+        $.each(atributos,function (i,item) {
+            if(item=="idRol") {
+                userDetails += '<tr>';
+                userDetails += '<td class="font-weight-bold">Rol:        </td>';
+                userDetails += '<td>' + valores[i].nombre + '</td>';
+                userDetails += '</tr>';
+            }else if(valores[i]==null) {
+                userDetails += '<tr>';
+                userDetails += '<td class="font-weight-bold">'+capitalizarPrimeraLetra(item)+':        </td>';
+                userDetails += '<td></td>';
+                userDetails += '</tr>';
+            }else {
+                userDetails += '<tr>';
+                userDetails += '<td class="font-weight-bold">'+capitalizarPrimeraLetra(item)+':        </td>';
+                userDetails += '<td>' + valores[i] + '</td>';
+                userDetails += '</tr>';
+            } 
+            
+        });
+        return userDetails;
+     }
+     
+    function capitalizarPrimeraLetra(str) {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    }
 });    
  
 
