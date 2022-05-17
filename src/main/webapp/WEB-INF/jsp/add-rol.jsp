@@ -22,7 +22,7 @@
         <link rel="stylesheet" 
               href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap4-duallistbox/4.0.1/bootstrap-duallistbox.min.css"/>
         <link rel="stylesheet" type="text/css" 
-              href="<c:out value='${pageContext.request.contextPath}/recursos/css/index-estilo.css'/>" />
+              href="<c:out value='${pageContext.request.contextPath}/recursos/css/global-estilo.css'/>" />
         <title>Roles</title>
     </head>
     <body style="background-color: gainsboro;">
@@ -105,9 +105,6 @@
            
             <script src="<c:out value='${pageContext.request.contextPath}/recursos/js/add-rol.js'/>"
             type="text/javascript"></script>
-            <script src="https://code.jquery.com/jquery-3.5.1.min.js" ></script>
-            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
             <!-- Bootstrap4 Dual ListBox -->
             <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap4-duallistbox/4.0.1/jquery.bootstrap-duallistbox.min.js"></script>
     </body>

@@ -4,17 +4,22 @@
  */
 package com.sgse.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  *
@@ -32,15 +37,20 @@ public class Servicios implements Serializable {
     @Column(name = "id")
     private Integer id;
     
-    @Column(name = "nombre")
+    @NotEmpty(message = "no puede estar vacio")
+    @Column(name = "nombre",unique = true)
     private String nombre;
     
+    @NotEmpty(message = "no puede estar vacio")
     @Column(name = "descripcion")
     private String descripcion;
     
-    @ManyToMany(mappedBy = "serviciosList")
+    //@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonProperty(access = JsonProperty.Access.READ_WRITE)
+    @JsonIgnoreProperties(value = {"serviciosList","hibernateLazyInitializer","handler"})
+    @ManyToMany(mappedBy = "serviciosList",fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Plan> planList;
-
+    
     public Servicios() {
         this.planList = new ArrayList<>();
     }

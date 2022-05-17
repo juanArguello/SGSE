@@ -19,7 +19,7 @@
         <link rel="stylesheet" 
               href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
         <link rel="stylesheet" type="text/css" 
-              href="<c:out value='${pageContext.request.contextPath}/recursos/css/index-estilo.css'/>" />
+              href="<c:out value='${pageContext.request.contextPath}/recursos/css/global-estilo.css'/>" />
         <title>Perfil</title>
     <body>
         <jsp:include page="header.jsp"/>
@@ -34,127 +34,100 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-12">
-                            <form:form modelAttribute="perfil-usuario" class="needs-validation" novalidate="on">
+                            <form:form modelAttribute="perfil-usuario">
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label for="nombre" class="h5">Nombre</label>
-                                        <input id="nombre" class="form-control" value="" readonly/>
-                                        <div class="valid-feedback">Ok válido!</div>
-                                        <div class="invalid-feedback">Complete el campo nombre</div>
+                                        <form:label path="nombre" class="h5">Nombre</form:label>
+                                        <form:input path="nombre" class="form-control" value="" readonly="on"/>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="apellido" class="h5">Apellido</label>
-                                        <input id="apellido" class="form-control" value="" readonly/>
-                                        <div class="valid-feedback">Ok válido!</div>
-                                        <div class="invalid-feedback">Complete el campo apellido</div>
+                                        <form:label path="apellido" class="h5">Apellido</form:label>
+                                        <form:input path="apellido" class="form-control" value="" readonly=""/>
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label for="cedula" class="h5">Cedula</label>
+                                        <form:label path="cedula" class="h5">Cedula</form:label>
                                             <div class="input-group mb-3">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">
                                                         <i class="bi bi-person-badge-fill"></i>
                                                     </div>
                                                 </div>
-                                            <input id="cedula" class="form-control" value="" readonly/>
-                                            <div class="valid-feedback">Ok válido!</div>
-                                            <div class="invalid-feedback">Complete el campo cédula</div>
+                                            <form:input path="cedula" class="form-control" value="" 
+                                                readonly=""/>
                                         </div>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="ruc" class="h5">RUC</label>
-                                        <input id="ruc" class="form-control" value=""  readonly/>
+                                        <form:label path="ruc" class="h5">RUC</form:label>
+                                        <form:input path="ruc" class="form-control" value=""  
+                                            readonly="" />
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label for="nombreUsuario" class="h5">Nombre Usuario</label>
+                                        <form:label path="nombreUsuario" class="h5">Nombre Usuario</form:label>
                                             <div class="input-group mb-3">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">
                                                         <i class="bi bi-person-fill"></i>
                                                     </div>
                                                 </div>
-                                            <input id="nombreUsuario" class="form-control" value="" readonly/>
-                                            <div class="valid-feedback">Ok válido!</div>
-                                            <div class="invalid-feedback">Complete el campo nombre de usuario</div>
+                                            <form:input path="nombreUsuario" class="form-control" value="" 
+                                                readonly="on"/>
                                         </div>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="contrasenha" class="h5">Contraseña</label>
-                                            <div class="input-group">
-                                            <input type="password" id="contrasenha" class="form-control"  
-                                                value="" required/>
-                                            <div class="input-group-append">
-                                                <button id="mostrar_password" class="btn btn-secondary" 
-                                                        type="button" onclick="mostrarPassword()" > 
-                                                    <i id="icono" class="bi bi-eye-fill"></i> 
-                                                </button>
-                                            </div>
-                                            <div class="valid-feedback">Ok válido!</div>
-                                            <div class="invalid-feedback">Complete el campo contraseña</div>
-                                        </div>
+                                        
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label for="idRol" class="h5">Asociar Rol</label>
-                                        <select id="idRol" class="form-control"  readonly>
-                                            <option id="rol" value=""></option>
-                                        </select>
-                                        <div class="valid-feedback">Ok válido!</div>
-                                        <div class="invalid-feedback">Por favor seleccione un Rol</div>
+                                        <form:label path="idRol" class="h5">Asociar Rol</form:label>
+                                        <form:input path="idRol.nombre" class="form-control" 
+                                            value="" readonly=""/>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="estado" class="h5">Estado</label>
-                                        <select  class="form-control"  readonly>
-                                            <option id="estado" value=""></option>
-                                        </select>
-                                        <div class="valid-feedback">Ok válido!</div>
+                                        <form:label path="estado" class="h5">Estado</form:label>
+                                        <form:input path="estado"  class="form-control"  readonly=""/>
                                         <div class="invalid-feedback">Por favor seleccione un Rol</div>
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label for="email" class="h5">Correo Electronico</label>
+                                        <form:label path="email" class="h5">Correo Electronico</form:label>
                                             <div class="input-group mb-3">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">
                                                         <i class="bi bi-envelope-fill"></i>
                                                     </div>
                                                 </div>
-                                                <input id="email" type="email" class="form-control" value=""/>
-                                            <div class="valid-feedback">Ok válido!</div>
-                                            <div class="invalid-feedback">Complete el campo correo electronico</div>
+                                                <form:input path="email" type="email" class="form-control" 
+                                                    value=""/>
                                         </div>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="telefono" class="h5">Telefono</label>
+                                        <form:label path="telefono" class="h5">Telefono</form:label>
                                             <div class="input-group mb-3">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">
                                                         <i class="bi bi-telephone-fill"></i>
                                                     </div>
                                                 </div>
-                                            <input id="telefono" type="tel" class="form-control" value=""/>
-                                            <div class="valid-feedback">Ok válido!</div>
-                                            <div class="invalid-feedback">Complete el campo telefono</div>
+                                            <form:input path="telefono" class="form-control" 
+                                                value="" readonly="on"/>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="direccion" class="h5">Direccion</label>
-                                    <textarea id="direccion" class="form-control" rows="2" value=""></textarea>
-                                        <div class="valid-feedback">Ok válido!</div>
-                                        <div class="invalid-feedback">Complete el campo dirección</div>
+                                    <form:label path="direccion" class="h5">Direccion</form:label>
+                                    <form:textarea path="direccion" class="form-control" rows="2" value=""></form:textarea>
+                                </div>
+                                <div style="margin-top: 20px" class="form-group" align="center">
+                                    <div class="col-sm-4 justify-content-center">
+                                        <button type="submit" class="btn btn-primary">Guardar</button>
                                     </div>
-                                    <div style="margin-top: 20px" class="form-group" align="center">
-                                        <div class="col-sm-4 justify-content-center">
-                                            <button type="submit" class="btn btn-primary">Guardar</button>
-                                        </div>
-                                    </div>
+                                </div>
                             </form:form>
                         </div>
                     </div>
@@ -163,7 +136,7 @@
         </div>
         <div style="height: 50px;"></div>
         <script type="text/javascript">
-            $.ajax({
+            /*$.ajax({
                 url: "https://localhost:8443/apirest/usuarios/"+1,
                 type: "GET",
                 dataType: 'JSON',
@@ -179,7 +152,7 @@
                     $("#telefono").val(data.telefono);
                     $("#direccion").val(data.direccion);
                 }
-            });
+            });*/
             
             // visualizar u ocultar la contraseña ingresada
             function mostrarPassword() {
@@ -194,8 +167,5 @@
                 }
             }
         </script>
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js" ></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
     </body>
 </html>

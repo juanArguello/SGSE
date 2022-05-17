@@ -5,6 +5,10 @@
  */
 package com.sgse.controller;
 
+import com.sgse.entities.Usuario;
+import com.sgse.service.UsuarioService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,8 +19,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author user
  */
 @Controller
-@RequestMapping("ventas")
+@RequestMapping("/ventas")
 public class VentasController {
+    
+    @Autowired
+    private UsuarioService usuarioService;
+    
+    private Usuario usuario;
     
     @RequestMapping(value = "/clientes",method = RequestMethod.GET)
     public String getClientes(Model model) {
@@ -26,7 +35,7 @@ public class VentasController {
     
     @RequestMapping(value = "/registrar",method = RequestMethod.GET)
     public String registrarVentas(Model model) {
-        model.addAttribute("attribute", "value");
+        model.addAttribute("", "");
         return "registrar-venta";
     }
     

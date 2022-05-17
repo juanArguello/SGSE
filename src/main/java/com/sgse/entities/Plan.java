@@ -4,10 +4,12 @@
  */
 package com.sgse.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,6 +20,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  *
@@ -35,17 +38,22 @@ public class Plan implements Serializable {
     @Column(name = "id")
     private Integer id;
     
-    @Column(name = "nombre")
+    @NotEmpty(message = "no puede estar vacio")
+    @Column(name = "nombre",unique = true)
     private String nombre;
     
+    @NotEmpty(message = "no puede estar vacio")
     @Column(name = "descripcion")
     private String descripcion;
     
+    @NotEmpty(message = "no puede estar vacio")
+    @JsonIgnoreProperties({"planList","hibernateLazyInitializer","handler"})
     @JoinTable(name = "plan_servicios", joinColumns = {
         @JoinColumn(name = "id_plan", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "id_servicio", referencedColumnName = "id")})
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Servicios> serviciosList;
+    
     
     @JoinColumn(name = "id_seguro", referencedColumnName = "id")
     @ManyToOne

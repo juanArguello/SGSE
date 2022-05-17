@@ -1,10 +1,22 @@
 $(document).ready(function () {
     
-    let usuarioEditado, rol;
+    var usuarioEditado, usuario;
     var path = location.pathname;
     pathArray = path.split("/");
     idRequest = pathArray[pathArray.length-1];
+    let urlEndPoint = sessionStorage.getItem("urlEndPoint");
+    let urlRoot = sessionStorage.getItem("urlRoot");
 
+    $.getJSON(urlEndPoint+"/usuarios/"+idRequest,function(data){
+        usuario = data;
+        rol = usuario.idRol;
+        /*if(usuarioLista.length > 0){
+            $.each(usuarioLista,function(i,item) {
+                arrayUsuarios.push(item);
+            });
+        }*/
+    });
+    
     // detecta el evento del cambio de un select del Rol
     $("#idRol").change(function(){
         var id;
@@ -13,16 +25,7 @@ $(document).ready(function () {
             getRol(id);
         });
     }).change();
-    
-    $.getJSON("https://localhost:8443/apirest/usuarios/"+idRequest,function(data){
-        usuario = data;
-        /*if(usuarioLista.length > 0){
-            $.each(usuarioLista,function(i,item) {
-                arrayUsuarios.push(item);
-            });
-        }*/
-    });
-    
+  
     // valida los inputs del formulario de acuerdo a las reglas
     $('#editar-usuario').validate({
         rules: {
@@ -79,18 +82,24 @@ $(document).ready(function () {
                 direccion: $("#direccion").val(),
                 telefono: $("#telefono").val(),
                 email: $("#email").val(),
+                fechaIngreso: usuario.fechaIngreso,
                 estado: $("#estado").val(),
                 nombreUsuario: $("#nombreUsuario").val(),
-                idRol: rol
+                contrasenha: usuario.contrasenha,
+                registrarVentaList: usuario.registrarVentaList,
+                facturaList: usuario.facturaList,
+                idEmpresa: usuario.idEmpresa,
+                idRol: rol,
+                contratoVentaList: usuario.contratoVentaList
             };
             $.ajax({
-                url: "https://localhost:8443/apirest/usuarios/"+idRequest,
+                url: urlEndPoint+"/usuarios/"+idRequest,
                 type: "PUT",
                 dataType: "JSON",
-                contentType: 'application/json; charset=UTF-8',
+                contentType: 'application/json;charset=UTF-8',
                 data: JSON.stringify(usuarioEditado),
                 success: function (data, textStatus, jqXHR) { // cuando es exitoso la actualizacion de un usuario
-                    location = "https://localhost:8443/administracion/usuario";
+                    location = urlRoot+"/administracion/usuario";
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     console.log(jqXHR.responseText.errores);
@@ -101,7 +110,7 @@ $(document).ready(function () {
     
     
     function getRol(id) {
-        $.getJSON("https://localhost:8443/apirest/roles/"+id, function(data){
+        $.getJSON(urlEndPoint+"/roles/"+id, function(data){
             rol = data;
         });
     }

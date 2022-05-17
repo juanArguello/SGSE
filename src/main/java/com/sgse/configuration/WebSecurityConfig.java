@@ -6,10 +6,8 @@ package com.sgse.configuration;
 
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -18,11 +16,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  * @author Juan Carlos Argüello Ortiz
  * @version 1.0
  */
-@Configuration
-@EnableWebSecurity
+//@Configuration
+//@EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     
-   
     private static final String CONSULTA_POR_USUARIO = "select nombre_usuario as username,contrasenha as password,\n" +
         "	case estado\n" +
         "		when 'activo' then true\n" +

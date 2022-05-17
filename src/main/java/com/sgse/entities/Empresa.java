@@ -17,6 +17,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  *
@@ -43,7 +45,9 @@ public class Empresa implements Serializable {
     @Column(name = "nombre_marca")
     private String nombreMarca;
     
-    @Column(name = "email")
+    @NotEmpty(message = "no puede estar vacio")
+    @Email(message = "No es un correo electronico válido")
+    @Column(name = "email",unique = true)
     private String email;
     
     @Column(name = "rubro")

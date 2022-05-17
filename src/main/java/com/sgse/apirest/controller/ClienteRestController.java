@@ -5,6 +5,7 @@
 package com.sgse.apirest.controller;
 
 import com.sgse.entities.Cliente;
+import com.sgse.resources.NombreServidor;
 import com.sgse.service.ClienteService;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -33,13 +35,14 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @version 1.0
  */
 @RestController
-@CrossOrigin(origins = {"https://localhost:8443"})
+@CrossOrigin(origins = {NombreServidor.DOMINIO_LOCAL})
 @RequestMapping("/apirest")
 public class ClienteRestController {
     
     @Autowired
     private ClienteService clienteService;
     
+    @Secured("ROLE_VEND")
     @PostMapping(path = "/clientes",consumes = "application/json")
     public ResponseEntity<?> crearCliente(@Valid @RequestBody Cliente cliente, BindingResult result) {
         Map<String,Object> map = new HashMap<>();
@@ -89,6 +92,7 @@ public class ClienteRestController {
         return new ResponseEntity<>(cliente,HttpStatus.OK);
     }
     
+    @Secured("ROLE_VEND")
     @PutMapping(path = "/clientes/{id}",consumes = "application/json")
     public ResponseEntity<?> updateCliente(@Valid @RequestBody Cliente cliente,BindingResult result,
         @PathVariable("id") String id ) {
@@ -133,6 +137,12 @@ public class ClienteRestController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCliente(@PathVariable("id") String id) {
         clienteService.delete(Integer.valueOf(id)); // Elimina el cliente de acuerdo al ID
+    }
+    
+    @GetMapping(path = "/clientes/cantidad",produces = "text/plain")
+    @ResponseStatus(HttpStatus.OK)
+    public int cantidadClientes() {
+        return clienteService.cantidadClientes();
     }
     
 }

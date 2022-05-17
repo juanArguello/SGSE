@@ -2,9 +2,10 @@ $(document).ready(function () {
     var id, opcion;
     var fila; //capturar la fila para editar o borrar el registro
     var form = $(".needs-validation");
+    let urlEndPoint = sessionStorage.getItem("urlEndPoint");
     var tablaPermiso = $('#tabla_permisos').DataTable({
         "ajax": {
-            "url": "https://localhost:8443/apirest/permisos",
+            "url": urlEndPoint+"/permisos",
             "method": 'GET',
             "dataSrc": ""
         },
@@ -95,14 +96,12 @@ $(document).ready(function () {
             createOrUpdatePermiso(nombre,descripcion);
         }
         $('#form-permiso').addClass('was-validated');
-        
-        
     });
    
     function createOrUpdatePermiso(nombre,descripcion){
         if (opcion === 1) {    // Crear nuevo permiso
             $.ajax({
-                url: "https://localhost:8443/apirest/permisos",
+                url: urlEndPoint+"/permisos",
                 type: "POST",
                 dataType: 'JSON',
                 contentType: 'application/json; charset=UTF-8',
@@ -132,7 +131,7 @@ $(document).ready(function () {
             });
         } else if (opcion === 2) { // actualizar permiso
             $.ajax({
-                url: "https://localhost:8443/apirest/permisos/" + id,
+                url: urlEndPoint+"/permisos/"+id,
                 type: "PUT",
                 dataType: "JSON",
                 contentType: 'application/json; charset=UTF-8',
@@ -193,7 +192,7 @@ $(document).ready(function () {
         }).then((OK) => {
             if (OK) {
                 $.ajax({
-                    url: "https://localhost:8443/apirest/permisos/"+id,
+                    url: urlEndPoint+"/permisos/"+id,
                     type: 'DELETE',
                     success: function (data, textStatus, jqXHR) {
                         // Cuando la tabla de datos es responsive

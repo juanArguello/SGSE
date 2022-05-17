@@ -5,6 +5,7 @@
 package com.sgse.apirest.controller;
 
 import com.sgse.entities.Permisos;
+import com.sgse.resources.NombreServidor;
 import com.sgse.service.PermisoService;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,14 +35,14 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @version 1.0
  */
 @RestController
-@CrossOrigin(origins = {"https://localhost:8443"})
+@CrossOrigin(origins = {NombreServidor.DOMINIO_LOCAL})
 @RequestMapping("/apirest")
 public class PermisoRestController {
     
     @Autowired
     private PermisoService permisoService;
     
-    @Secured("ROLE_ADMIN")
+    @Secured("ROLE_ADMINISTRADOR")
     @PostMapping(path = "/permisos", consumes = "application/json")
     public ResponseEntity<?> crearPermisos(@Valid @RequestBody Permisos permisos,BindingResult result) {
         Map<String,Object> map = new HashMap<>();
@@ -57,8 +58,12 @@ public class PermisoRestController {
         try {
             permisoService.create(permisos); // crea el permiso
         } catch (DataAccessException e) { // Envia una excepcion con el error de insert en la BBDD
+            String[] a = e.getMostSpecificCause().getMessage().replaceAll("[()]", "").split("\n");
             map.put("mensaje", "Error al realizar insert en la base de datos");
             map.put("error", e.getMessage()+": "+e.getMostSpecificCause().getMessage());
+            map.put("a",a[0]);
+            map.put("b",a[1]);
+            map.put("c",e.getMostSpecificCause().getMessage());
             return new ResponseEntity<>(map,HttpStatus.INTERNAL_SERVER_ERROR);
         }
         
@@ -66,14 +71,14 @@ public class PermisoRestController {
         return new ResponseEntity<>(map,HttpStatus.CREATED);
     }
         
-    @Secured("ROLE_ADMIN")
+    @Secured("ROLE_ADMINISTRADOR")
     @GetMapping(path = "/permisos",produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     public List<Permisos> getPermisos() {
         return permisoService.findAll();
     }
     
-    @Secured("ROLE_ADMIN")
+    @Secured("ROLE_ADMINISTRADOR")
     @GetMapping(path = "/permisos/{id}",produces = "application/json")
     public ResponseEntity<?> getPermisoById(@PathVariable("id") String id) {
         Permisos permisos = null;
@@ -93,7 +98,7 @@ public class PermisoRestController {
         return new ResponseEntity<>(permisos,HttpStatus.OK);
     }
     
-    @Secured("ROLE_ADMIN")
+    @Secured("ROLE_ADMINISTRADOR")
     @PutMapping(path = "/permisos/{id}",consumes = "application/json")
     public ResponseEntity<?> updatePermiso(@Valid @RequestBody Permisos permisos, BindingResult result,
         @PathVariable("id") String id) {
@@ -129,7 +134,7 @@ public class PermisoRestController {
         return new ResponseEntity<>(map,HttpStatus.NO_CONTENT);
     }
 
-    @Secured("ROLE_ADMIN")
+    @Secured("ROLE_ADMINISTRADOR")
     @DeleteMapping("/permisos/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletePermiso(@PathVariable("id") String id) {

@@ -1,21 +1,33 @@
-/*  ADMINISTRADOR                               VENDEDOR
-    user:        jarguello                      user:        jortiz
-    password:    gvpkGljB                       password:    SS1e4w3I
-    correo:     juanarguello092@gmail.com       correo:      juanarguello092@fpuna.edu.py
-gvpkG123
+/*  
+ADMINISTRADOR                                   VENDEDOR
+    user:        jarguello                          user:        jortiz
+    password:    gvpkGljB                           password:    ONZRP2zc
+    correo:     juanarguello092@gmail.com           correo:      juanarguello092@fpuna.edu.py
+AUDITOR                              
+    user:        jgonzalez                      
+    password:    abcxyzpow                       
+    correo:     juan.arguello@yandex.com
 */
+SELECT * FROM registrar_venta;
 SELECT * FROM usuario ORDER BY id;
 SELECT * FROM rol ORDER BY id;
 SELECT * FROM permisos ORDER BY id;
 SELECT * FROM rol_permisos;
 SELECT * FROM cliente ORDER BY id;
-
+SELECT * FROM servicios ORDER BY id;
+SELECT * FROM plan ORDER BY id;
+SELECT * FROM plan_servicios;
+SELECT * FROM seguro ORDER BY id;
 
 UPDATE usuario SET estado = 'activo' WHERE id = 2;
 
 
 
 INSERT INTO rol (id,nombre, descripcion) VALUES(29,'a','b');
+
+ALTER TABLE servicios
+ADD CONSTRAINT servicios_unique UNIQUE (nombre);
+
 
 //enviarContrasenha(usuario, contrasenhaPlana);
 

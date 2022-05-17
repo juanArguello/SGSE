@@ -51,5 +51,11 @@ public class ClienteServiceImpl implements ClienteService{
     public void delete(int id) {
         clienteDao.delete(id);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public int cantidadClientes() {
+        return clienteDao.cantidadClientes();
+    }
     
 }

@@ -5,6 +5,7 @@
 package com.sgse.apirest.controller;
 
 import com.sgse.entities.Factura;
+import com.sgse.resources.NombreServidor;
 import com.sgse.service.FacturaService;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,7 +35,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 
 @RestController
-@CrossOrigin(origins = {"https://localhost:8443"})
+@CrossOrigin(origins = {NombreServidor.DOMINIO_LOCAL})
 @RequestMapping(value = "/apirest")
 public class FacturaRestController {
     

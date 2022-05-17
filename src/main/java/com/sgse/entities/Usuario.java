@@ -7,11 +7,9 @@ package com.sgse.entities;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,11 +19,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -45,10 +41,10 @@ public class Usuario implements Serializable {
     @Column(name = "id")
     private Integer id;
     
-    @Column(name = "cedula",nullable = false)
+    @Column(name = "cedula",unique = true,nullable = false)
     private Integer cedula;
     
-    @Column(name = "ruc")
+    @Column(name = "ruc",unique = true)
     private String ruc;
     
     @NotEmpty(message = "no puede estar vacio")
@@ -78,11 +74,12 @@ public class Usuario implements Serializable {
     private String estado;
     
     @NotEmpty(message = "no puede estar vacio")
-    @Column(name = "nombre_usuario",unique = true)
+    @Column(name = "nombre_usuario",unique = true,nullable = false)
     private String nombreUsuario;
     
     @NotEmpty(message = "no puede estar vacio")
     @Column(name = "contrasenha")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String contrasenha;
     
     @JsonIgnoreProperties({"idUsuario","hibernateLazyInitializer","handler"})

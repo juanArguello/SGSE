@@ -18,7 +18,7 @@
         <link rel="stylesheet" 
               href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
         <link rel="stylesheet"
-              href="<c:out value='${pageContext.request.contextPath}/recursos/css/index-estilo.css'/>"
+              href="<c:out value='${pageContext.request.contextPath}/recursos/css/global-estilo.css'/>"
               type="text/css"  />
         <title>SGSE</title>
     </head>
@@ -62,16 +62,14 @@
                         Will you do the same for me? It's time to face the music I'm no longer your muse. Heard it's beautiful, be the judge and my girls gonna take a vote. I can feel a phoenix inside of me. Heaven is jealous of our love, angels are crying from up above. Yeah, you take me to utopia.
                     </p>
                 </div>
+                <c:if test="${param.enviado != null}">
+                    <div class="alert alert-success text-center">Email enviado</div>
+                </c:if>
                 <small class="d-block text-right mt-3">
                     <a href="#">Todas las Actualizaciones</a>
                 </small>
             </div>
         </main>
-
- 
         <jsp:include page="footer.jsp"/>
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js" ></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
     </body>
 </html>

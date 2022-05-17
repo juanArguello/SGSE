@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- *
+ * 
  * @author Juan Carlos Argüello Ortiz
  * @version 1.0
  */
@@ -47,7 +47,7 @@ public class LoginController {
         model.addAttribute("error", true);
         return "login";
     }
-    
+
     @RequestMapping(value = "/acceso-denegado")
     public String accesoDenegado(ModelMap model) {
         log.warn("\n\tAcceso Denegado");

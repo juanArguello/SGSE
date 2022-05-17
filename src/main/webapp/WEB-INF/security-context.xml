@@ -12,21 +12,39 @@
         http://www.springframework.org/schema/util/spring-util.xsd">
       
     <bean class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler"/>
-  
+
     <!-- La etiqueta http define los patrones de url a interceptar de acuerdo a los roles otorgados. 
     Ademas define los parametros de nombres de usuario y contraseña del formulario.-->        
+    <!--        access="hasAnyRole('ROLE_ADMIN','ROLE_VEND','ROLE_CONT','ROLE_AUDT')"-->
     <security:http auto-config="true" use-expressions="true" >
+        <!-- Interceptar URL de la aplicación-->
         <security:intercept-url pattern="/login" access="permitAll()" 
             requires-channel="https"/>
         <security:intercept-url pattern="/recuperar-password" access="permitAll()" 
             requires-channel="https"/>
         <security:intercept-url pattern="/index/**" access="isAuthenticated()"
             requires-channel="https"/>
-<!--        access="hasAnyRole('ROLE_ADMIN','ROLE_VEND','ROLE_CONT','ROLE_AUDT')"-->
-        <security:intercept-url pattern="/administracion/**" access="hasRole('ROLE_ADMIN')"
+        <security:intercept-url pattern="/user/perfil" access="isAuthenticated()"
+            requires-channel="https"/>
+        <security:intercept-url pattern="/administracion/**" access="hasRole('ROLE_ADMINISTRADOR')"
             requires-channel="https" />
-        <security:intercept-url pattern="/ventas/registrar" access="hasRole('ROLE_VEND')"
+        <security:intercept-url pattern="/ventas/registrar" access="hasRole('ROLE_VENDEDOR')"
             requires-channel="https" />
+        <security:intercept-url pattern="/herramientas/email" access="hasRole('ROLE_ADMINISTRADOR')"
+            requires-channel="https" />
+        <!-- Interceptar URL de Api Rest-->
+        <security:intercept-url pattern="/apirest/usuarios/{id}" access="isAuthenticated()" 
+            method="GET" requires-channel="https"/>
+        <security:intercept-url pattern="/apirest/usuarios/**" access="hasRole('ROLE_ADMINISTRADOR')" 
+            requires-channel="https"/>
+        <security:intercept-url pattern="/apirest/permisos/**" access="hasRole('ROLE_ADMINISTRADOR')" 
+            requires-channel="https"/>
+        <security:intercept-url pattern="/apirest/roles/**" access="hasRole('ROLE_ADMINISTRADOR')" 
+            requires-channel="https"/>
+        <security:intercept-url pattern="/apirest/clientes" access="hasRole('ROLE_VEND')" 
+            method="POST" requires-channel="https"/>
+        <security:intercept-url pattern="/apirest/clientes/{id}" access="hasRole('ROLE_VEND')" 
+            method="PUT" requires-channel="https"/>
         <security:intercept-url pattern="/apirest/**" access="isAuthenticated()" 
             requires-channel="https"/>
         <security:cors configuration-source-ref="corsSource"  />
@@ -38,24 +56,27 @@
             username-parameter="nombreUsuario" 
             password-parameter="contrasenha" 
             authentication-failure-url="/login?error=true" />
-        <security:logout logout-url="/logout" logout-success-url="/login?logout=true" />
+        <security:logout logout-url="/logout" logout-success-url="/login?logout=true" 
+            delete-cookies="JSESSIONID" />
         <security:access-denied-handler error-page="/acceso-denegado" />
         <security:csrf request-matcher-ref="csrfMatcher" />
         <security:remember-me key="recordarme"/>
     </security:http>
+  
     
     <!-- La etiqueta authentication-manager se encarga de referenciar el dataSource. 
     Ademas consultar el nombre_usuario por usuario y por rol. Tambien realiza la 
     encriptacion de la contraseña -->
     <security:authentication-manager alias="authenticationManager" >
-        <security:authentication-provider>
-            <security:jdbc-user-service data-source-ref="dataSource" 
-                                        users-by-username-query="select nombre_usuario as username,contrasenha as password,	
-                    case estado when 'activo' then true else false end 
-                    from usuario where nombre_usuario = ?"
-                                        authorities-by-username-query="select nombre_usuario as username, rol.nombre as authority
-                    from usuario, rol, rol_permisos where usuario.id_rol = rol_permisos.id_rol and
-                    rol_permisos.id_rol = rol.id and nombre_usuario=?"  /> 
+        <security:authentication-provider >
+            <security:jdbc-user-service data-source-ref="dataSource"  
+                users-by-username-query="select nombre_usuario as username,contrasenha as password,	
+                case estado when 'activo' then true else false end as enabled 
+                from usuario where nombre_usuario = ?"
+                authorities-by-username-query="select nombre_usuario as username, rol.nombre as authority
+                from usuario, rol 
+                where usuario.id_rol = rol.id and nombre_usuario=?"
+                role-prefix="ROLE_" /> 
             <security:password-encoder  hash="bcrypt" />     
         </security:authentication-provider>
     </security:authentication-manager>

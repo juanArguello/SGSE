@@ -28,6 +28,7 @@
     <context:component-scan base-package="com.sgse.dao" />
     <context:component-scan base-package="com.sgse.service" />
     
+    
     <!-- Activa las anotaciones para ser detectadas en las clases bean de Spring
         @Required, @Autowired y @Resourse -->
     <context:annotation-config/>
@@ -45,8 +46,8 @@
     </bean>
     
     <!--  Inicializamos la base de datos y sus tablas -->
-<!--    <jdbc:initialize-database data-source="dataSource">
-        <jdbc:script location=""/>
+<!--    <jdbc:initialize-database data-source="dataSource" >
+        <jdbc:script location="classpath:com/sgse/model/import.sql" encoding="UTF-8" />
         <jdbc:script location=""/>
     </jdbc:initialize-database>-->
     

@@ -43,7 +43,7 @@ public class HerramientaController {
         }
         
         modelMap.addAttribute("enviado", true);
-        return "email";
+        return "redirect:/index";
     }
     
 }

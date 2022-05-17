@@ -5,6 +5,7 @@
 package com.sgse.apirest.controller;
 
 import com.sgse.entities.Salon;
+import com.sgse.resources.NombreServidor;
 import com.sgse.service.SalonService;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,7 +34,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @version 1.0
  */
 @RestController
-@CrossOrigin(origins = {"https://localhost:8443"})
+@CrossOrigin(origins = {NombreServidor.DOMINIO_LOCAL})
 @RequestMapping("/apirest")
 public class SalonRestController {
     

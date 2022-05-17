@@ -16,7 +16,7 @@
               href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" 
               href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-        <link rel="stylesheet" href="<c:out value='${pageContext.request.contextPath}/recursos/css/index-estilo.css'/>"
+        <link rel="stylesheet" href="<c:out value='${pageContext.request.contextPath}/recursos/css/global-estilo.css'/>"
               type="text/css"  />
         <title>Administración</title>    
     </head>
@@ -89,9 +89,5 @@
                 </div>
             </div>
         </div>
-        
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js" ></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
     </body>
 </html>

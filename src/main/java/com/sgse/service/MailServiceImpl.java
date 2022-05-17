@@ -43,7 +43,7 @@ public class MailServiceImpl implements MailService {
         javaMailSenderImpl.setHost("smtp.gmail.com");
         javaMailSenderImpl.setPort(587);
         javaMailSenderImpl.setUsername("futuro.seguros.py@gmail.com");
-        javaMailSenderImpl.setPassword("futuro.seguros.py.2021");
+        javaMailSenderImpl.setPassword("futuro.seguros.py.2022");
         javaMailSenderImpl.setJavaMailProperties(javaMailProperties);
     }
 

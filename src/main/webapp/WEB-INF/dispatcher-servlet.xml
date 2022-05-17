@@ -27,8 +27,11 @@
     <!-- Se especifica los paquete base del proyecto 
     Busca los paquetes de las clases beans anotados con Controller -->
     <context:component-scan base-package="com.sgse.controller" />
-     <context:component-scan base-package="com.sgse.apirest.controller" />
+    <context:component-scan base-package="com.sgse.apirest.controller" />
+    <context:component-scan base-package="com.sgse.configuration" />
+    <context:component-scan base-package="com.sgse.config.custom" />
     
+    <context:spring-configured/>
     <!-- Mapea la ubicacion de los recursos estaticos de la Web App -->
     <mvc:resources mapping="/recursos/css/**" location="/recursos/css/"/>
     <mvc:resources mapping="/recursos/images/**" location="/recursos/images/"/>
@@ -78,11 +81,30 @@
             allow-credentials="true"  />
     </mvc:cors>
     
-    <!-- Habilia las anotaciones PreFilter, PreAuthorize, PostFilter, PostAuthorize
+    <!-- Habilia las anotaciones PreFilter, PreAuthorize, PostFilter, PostAuthorize, RolesAllowed
     y Secured para la seguridad de las clases y metodos -->
     <security:global-method-security 
-        pre-post-annotations="enabled" secured-annotations="enabled"/>
-  
+        pre-post-annotations="enabled" secured-annotations="enabled"
+        jsr250-annotations="enabled" >
+        <security:expression-handler ref="expressionHandler"/>
+    </security:global-method-security>
+    
+    
+    <bean id="expressionHandler" 
+       class="com.sgse.config.custom.CustomExpressionHandler">
+    </bean>
+    
+<!--    <bean id="expressionHandler" 
+        class="org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler">
+        <property name="permissionEvaluator" ref="permissionEvaluator"/>
+     </bean>-->
+   
+    
+    <bean id="permissionEvaluator" 
+        class="com.sgse.config.custom.CustomPermissionEvaluator">
+    </bean>
+    
+ 
     <!-- bean viewResolver especifica el path de las vistas y su extension del archivo -->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
@@ -107,7 +129,7 @@
         <property name="host" value="smtp.gmail.com"/>
         <property name="port" value="587"/>
         <property name="username" value="futuro.seguros.py@gmail.com"/>
-        <property name="password" value="futuro.seguros.py.2021"/>
+        <property name="password" value="futuro.seguros.py.2022"/>
         <property name="javaMailProperties">
             <props>
                 <prop key="mail.transport.protocol">smtp</prop>

@@ -18,4 +18,5 @@ public interface ClienteService {
     public List<Cliente> findAll();
     public void update(Cliente cliente);
     public void delete(int id);
+    public int cantidadClientes();
 }

@@ -18,4 +18,5 @@ public interface ClienteDao {
     public List<Cliente> findAll();
     public void update(Cliente cliente);
     public void delete(int id);
+    public int cantidadClientes();
 }

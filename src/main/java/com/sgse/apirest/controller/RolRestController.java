@@ -5,6 +5,7 @@
 package com.sgse.apirest.controller;
 
 import com.sgse.entities.Rol;
+import com.sgse.resources.NombreServidor;
 import com.sgse.service.RolService;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,14 +35,14 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @version 1.0
  */
 @RestController
-@CrossOrigin(origins = {"https://localhost:8443"})
+@CrossOrigin(origins = {NombreServidor.DOMINIO_LOCAL})
 @RequestMapping("/apirest")
 public class RolRestController {
     
     @Autowired
     private RolService rolService;
      
-    @Secured("ROLE_ADMIN")
+    @Secured("ROLE_ADMINISTRADOR")
     @PostMapping(path = "/roles",consumes = "application/json")
     public ResponseEntity<?> crearRol(@Valid @RequestBody Rol rol, BindingResult result) {
         Map<String,Object> map = new HashMap<>();
@@ -66,14 +67,14 @@ public class RolRestController {
         return new ResponseEntity<>(map,HttpStatus.CREATED);
     }
     
-    @Secured("ROLE_ADMIN")
+    @Secured("ROLE_ADMINISTRADOR")
     @GetMapping(path = "/roles",produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     public List<Rol> getRoles() {
         return rolService.findAll();
     }
     
-    @Secured("ROLE_ADMIN")
+    @Secured("ROLE_ADMINISTRADOR")
     @GetMapping(path = "/roles/{id}",produces = "application/json")
     public ResponseEntity<?> getRolById(@PathVariable("id") String id) {
         Rol rol = null;
@@ -93,7 +94,7 @@ public class RolRestController {
         return new ResponseEntity<>(rol,HttpStatus.OK);
     }
     
-    @Secured("ROLE_ADMIN")
+    @Secured("ROLE_ADMINISTRADOR")
     @PutMapping(path = "/roles/{id}",consumes = "application/json")
     public ResponseEntity<?> updateRol(@Valid @RequestBody Rol rol, BindingResult result,
         @PathVariable("id") String id ) {
@@ -130,7 +131,7 @@ public class RolRestController {
         return new ResponseEntity<>(map,HttpStatus.NO_CONTENT);
     }
    
-    @Secured("ROLE_ADMIN")
+    @Secured("ROLE_ADMINISTRADOR")
     @DeleteMapping(path = "/roles/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteRol(@PathVariable("id") String id) {

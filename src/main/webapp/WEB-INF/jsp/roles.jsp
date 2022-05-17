@@ -25,7 +25,7 @@
         <link rel="stylesheet" type="text/css"
               href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css"/>
         <link rel="stylesheet" 
-              href="<c:out value='${pageContext.request.contextPath}/recursos/css/index-estilo.css'/>"
+              href="<c:out value='${pageContext.request.contextPath}/recursos/css/global-estilo.css'/>"
               type="text/css"  />
         <title>Roles</title>
     </head>
@@ -99,17 +99,11 @@
         
         <script src="<c:out value='${pageContext.request.contextPath}/recursos/js/roles.js'/>"
         type="text/javascript"></script>
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js" ></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
         <!--   Datatables-->
         <script type="text/javascript" 
         src="https://cdn.datatables.net/v/dt/dt-1.11.2/datatables.min.js"></script> 
         <!-- extension responsive -->
         <script type="text/javascript" 
         src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
-        <!--  SweetAlert  -->
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
     </body>
 </html>

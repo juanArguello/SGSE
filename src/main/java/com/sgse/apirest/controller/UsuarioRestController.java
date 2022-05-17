@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.sgse.entities.Usuario;
 import com.sgse.mail.Contrasenha;
+import com.sgse.resources.NombreServidor;
 import com.sgse.service.MailService;
 import com.sgse.service.UsuarioService;
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 
 @RestController
-@CrossOrigin(origins = {"https://localhost:8443"})
+@CrossOrigin(origins = {NombreServidor.DOMINIO_LOCAL})
 @RequestMapping(value = "/apirest")
 public class UsuarioRestController {
     
@@ -48,8 +49,8 @@ public class UsuarioRestController {
     @Autowired
     private MailService mailService;
     
-    
-    @Secured("ROLE_ADMIN")
+  
+    @Secured("ROLE_ADMINISTRADOR")
     @PostMapping(path = "/usuarios",consumes = "application/json")
     public ResponseEntity<?> crearUsuario(@Valid @RequestBody Usuario usuario, BindingResult result) {
         Map<String,Object> map = new HashMap<>();
@@ -88,14 +89,13 @@ public class UsuarioRestController {
         return new ResponseEntity<>(map,HttpStatus.CREATED);
     }
     
-    @Secured({"ROLE_VEND", "ROLE_ADMIN"})
+    @Secured("ROLE_ADMINISTRADOR")
     @GetMapping(path = "/usuarios",produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     public List<Usuario> getUsuarios() {
         return usuarioService.findAll();
     }
  
-    @Secured("ROLE_ADMIN")
     @GetMapping(path = "/usuarios/{id}",produces = "application/json")
     public ResponseEntity<?> getUsuarioById(@PathVariable("id") String id){
         Usuario usuario = null;
@@ -115,7 +115,28 @@ public class UsuarioRestController {
         return new ResponseEntity<>(usuario,HttpStatus.OK);
     }
     
-    @Secured("ROLE_ADMIN")
+    
+    @GetMapping(path = "/usuarios/username={nombreUsuario}",produces = "application/json")
+    public ResponseEntity<?> getUsuarioByUsername(@PathVariable("nombreUsuario") String nombreUsuario) {
+        Usuario usuario = null;
+        Map<String,Object> map = new HashMap<>();
+        
+        try {
+            usuario = usuarioService.findByUsername(nombreUsuario);
+        } catch (DataAccessException e) {
+            map.put("mensaje", "Error al realizar la consulta en la base de datos");
+            map.put("error", e.getMessage()+": "+e.getMostSpecificCause().getMessage());
+            return new ResponseEntity<>(map,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        
+        if(usuario == null){ // Si no existe el usuario con el username ingresado retorna 404
+            map.put("mensaje", "El nombre de usuario: "+nombreUsuario+" no existe en la base de datos");
+            return new ResponseEntity<>(map,HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(usuario,HttpStatus.OK);
+    }
+    
+    @Secured("ROLE_ADMINISTRADOR")
     @PutMapping(path = "/usuarios/{id}",consumes = "application/json")
     public ResponseEntity<?> updateUsuario(@Valid @RequestBody Usuario usuario, BindingResult result,
         @PathVariable("id") String id) {
@@ -163,14 +184,14 @@ public class UsuarioRestController {
         return new ResponseEntity<>(map,HttpStatus.NO_CONTENT);
     }
     
-    @Secured("ROLE_ADMIN")
+    @Secured("ROLE_ADMINISTRADOR")
     @DeleteMapping(path = "/usuarios/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteUsuario(@PathVariable("id") String id) {
         usuarioService.delete(Integer.valueOf(id)); // Elimina el usuario de acuerdo al ID
     }
     
-    @Secured("ROLE_ADMIN")
+    @Secured("ROLE_ADMINISTRADOR")
     @GetMapping(path = "/usuarios/cantidad",produces = "text/plain")
     @ResponseStatus(HttpStatus.OK)
     public int cantidadUsuarios() {

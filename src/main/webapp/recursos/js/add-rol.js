@@ -1,5 +1,8 @@
 $(document).ready(function () {
-
+    
+    let urlEndPoint = sessionStorage.getItem("urlEndPoint");
+    let urlRoot = sessionStorage.getItem("urlRoot");
+    
     //Bootstrap Duallistbox
     var bootstrapDualListbox = $('.duallistbox').bootstrapDualListbox({
         filterTextClear: 'Mostrar todo',
@@ -55,13 +58,13 @@ $(document).ready(function () {
         
         // peticion ajax de creacion
         $.ajax({
-            url: "https://localhost:8443/apirest/roles",
+            url: urlEndPoint + "/roles",
             type: "POST",
             dataType: 'JSON',
             contentType: 'application/json; charset=UTF-8',
             data: JSON.stringify(rolObject),
             success: function (data, textStatus, jqXHR) { // cuando es exitoso el insert del rol
-                location = "https://localhost:8443/administracion/roles";
+                location = urlRoot + "/administracion/roles";
             },
             error: function (jqXHR, textStatus, errorThrown) { //Error
                 if (jqXHR.status === 500) { // cuando ocurre error interno del servidor
@@ -81,7 +84,7 @@ $(document).ready(function () {
 
     function getPermisos(id) {
         // realiza la peticion ajax para obtener permiso de acuerdo al id
-        $.getJSON("https://localhost:8443/apirest/permisos/"+id, function(data){
+        $.getJSON(urlEndPoint+"/permisos/"+id, function(data){
             arrayPermisos.push(data);
         });
     }

@@ -28,7 +28,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 @Entity
 @Table(name = "permisos")
-public class Permisos implements Serializable {
+public class Permisos implements Serializable{
 
     private static final long serialVersionUID = 1L;
   

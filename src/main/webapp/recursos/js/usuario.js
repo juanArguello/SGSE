@@ -1,9 +1,11 @@
 $(document).ready(function () {
     var id, opcion;
     var fila; //capturar la fila para editar o borrar el registro
+    let urlEndPoint = sessionStorage.getItem("urlEndPoint");
+    let urlRoot = sessionStorage.getItem("urlRoot");
     tablaUsuarios = $("#tabla_usuarios").DataTable({
         "ajax":{            
-            "url": "https://localhost:8443/apirest/usuarios", 
+            "url": urlEndPoint+"/usuarios", 
             "method": 'GET', 
             "dataSrc":""
         },
@@ -67,7 +69,7 @@ $(document).ready(function () {
             id = parseInt(datos.id); //capturo el ID
         }
         opcion = 2; //editar
-        location = "https://localhost:8443/administracion/usuario/edit/"+id;
+        location = urlRoot+"/administracion/usuario/edit/"+id;
     });
     
     $('#tabla_usuarios tbody').on('click', 'tr', function () {
@@ -110,7 +112,7 @@ $(document).ready(function () {
         }).then((OK) => {
             if (OK) {
                 $.ajax({
-                    url: "https://localhost:8443/apirest/usuarios/"+id,
+                    url: urlEndPoint+"/usuarios/"+id,
                     type: 'DELETE',
                     success: function () {
                         // Cuando la tabla de datos es responsive
@@ -133,7 +135,7 @@ $(document).ready(function () {
      function visualizarUsuarioDetalle(id){
         $("#tituloUser").empty();
         $("#bodyModalUsuario").empty();
-        $.getJSON("https://localhost:8443/apirest/usuarios/"+id,function(data) {
+        $.getJSON(urlEndPoint+"/usuarios/"+id,function(data) {
             $("#tituloUser").text("Datos del Usuario: "+data.nombreUsuario);
             $("#bodyModalUsuario").append(rellenarDatosUser(data));
             $("#modal-usuario-detalle").modal("show");                   

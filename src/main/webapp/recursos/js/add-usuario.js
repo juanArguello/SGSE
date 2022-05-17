@@ -1,6 +1,8 @@
 $(document).ready(function () {
 
     let usuarioNuevo, rol;
+    let urlEndPoint = sessionStorage.getItem("urlEndPoint");
+    let urlRoot = sessionStorage.getItem("urlRoot");
 
     // detecta el evento del cambio de un select del Rol
     $("select").change(function(){
@@ -65,6 +67,7 @@ $(document).ready(function () {
             $(element).removeClass('is-invalid').addClass('is-valid');
         },
         submitHandler: function (form) {
+            console.log(form);
             usuarioNuevo = {
                 cedula: parseInt($("#cedula").val()),
                 ruc: $("#ruc").val(),
@@ -73,6 +76,7 @@ $(document).ready(function () {
                 direccion: $("#direccion").val(),
                 telefono: $("#telefono").val(),
                 email: $("#email").val(),
+                fechaIngreso: new Date(),
                 nombreUsuario: $("#nombreUsuario").val(),
                 contrasenha: $("#contrasenha").val(),
                 registrarVentaList: [],
@@ -82,13 +86,13 @@ $(document).ready(function () {
                 contratoVentaList: []
             };
             $.ajax({
-                url: "https://localhost:8443/apirest/usuarios/",
+                url: urlEndPoint + "/usuarios",
                 type: "POST",
                 dataType: "JSON",
                 contentType: 'application/json; charset=UTF-8',
                 data: JSON.stringify(usuarioNuevo),
                 success: function (data, textStatus, jqXHR) { // cuando es exitoso el insert de un usuario
-                    location = "https://localhost:8443/administracion/usuario";
+                    location = urlRoot + "/administracion/usuario";
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
 
@@ -99,7 +103,7 @@ $(document).ready(function () {
     
     
     function getRol(id) {
-        $.getJSON("https://localhost:8443/apirest/roles/" + id, function (data) {
+        $.getJSON(urlEndPoint+"/roles/" + id, function (data) {
             rol = data;
         });
     }

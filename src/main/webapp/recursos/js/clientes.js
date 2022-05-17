@@ -1,9 +1,10 @@
 $(document).ready(function () {
     var id, opcion;
     var fila; //capturar la fila para editar o borrar el registro
+    let urlEndPoint = sessionStorage.getItem("urlEndPoint");
     tablaClientes = $('#tabla_clientes').DataTable({
         "ajax": {
-            "url": "https://localhost:8443/apirest/clientes",
+            "url": urlEndPoint+"/clientes",
             "method": 'GET',
             "dataSrc": ""
         },
@@ -115,7 +116,7 @@ $(document).ready(function () {
             $("#strongToastHeader").text("Registrado");
             $(".toast-body").text("Se ha registrado el cliente exitosamente");
             $.ajax({
-                url: "https://localhost:8443/apirest/clientes",
+                url: urlEndPoint+"/clientes",
                 type: "POST",
                 dataType: 'JSON',
                 contentType: 'application/json; charset=UTF-8',
@@ -129,7 +130,7 @@ $(document).ready(function () {
             $("#strongToastHeader").text("Actualizado");
             $(".toast-body").text("Se ha actualizado el cliente exitosamente");
             $.ajax({
-                url: "https://localhost:8443/apirest/clientes/" + id,
+                url: urlEndPoint+"/clientes/"+id,
                 type: "PUT",
                 dataType: "JSON",
                 contentType: 'application/json; charset=UTF-8',
@@ -173,7 +174,7 @@ $(document).ready(function () {
         }).then((OK) => {
             if (OK) {
                 $.ajax({
-                    url: "https://localhost:8443/apirest/clientes/" + id,
+                    url: urlEndPoint+"/clientes/"+id,
                     type: 'DELETE',
                     success: function () {
                         // Cuando la tabla de datos es responsive

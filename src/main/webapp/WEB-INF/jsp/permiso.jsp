@@ -1,5 +1,4 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -25,7 +24,7 @@
         <link rel="stylesheet" type="text/css"
               href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css"/>
         <link rel="stylesheet" 
-              href="<c:out value='${pageContext.request.contextPath}/recursos/css/index-estilo.css'/>"
+              href="<c:out value='${pageContext.request.contextPath}/recursos/css/global-estilo.css'/>"
               type="text/css"  />
         <title>Permisos</title>
     </head>
@@ -106,7 +105,7 @@
         </div> 
         
         
-        
+        <!--  Toast de confirmacion de exito o fracaso -->
         <div class="position-fixed bottom-0 right-0 p-3" 
              style="z-index: 5; right: 0; bottom: 0;">
             <div id="permisoToast" class="toast hide" role="alert" aria-live="assertive" 
@@ -128,17 +127,12 @@
         
         <script src="<c:out value='${pageContext.request.contextPath}/recursos/js/permiso.js'/>"
             type="text/javascript"></script>
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js" ></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
         <!--   Datatables -->
         <script type="text/javascript" 
             src="https://cdn.datatables.net/v/dt/dt-1.11.2/datatables.min.js"></script> 
         <!-- extension responsive -->
         <script type="text/javascript" 
             src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
-        <!--  SweetAlert  -->
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <!--  Footer de la pagina -->
     </body>
 </html>

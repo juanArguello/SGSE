@@ -26,7 +26,7 @@ public class PlanDaoImpl implements PlanDao{
     @Override
     public void create(Plan plan) {
        sessionFactory.getCurrentSession()
-            .persist(plan);
+            .save(plan);
     }
 
     @Override

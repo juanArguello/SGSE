@@ -49,5 +49,11 @@ public class ClienteDaoImpl implements ClienteDao{
         sessionFactory.getCurrentSession()
             .delete(sessionFactory.getCurrentSession().get(Cliente.class, id));
     }
+
+    @Override
+    public int cantidadClientes() {
+        return ((Number) sessionFactory.getCurrentSession().createQuery("SELECT COUNT(*) FROM Cliente")
+                .uniqueResult()).intValue();
+    }
     
 }

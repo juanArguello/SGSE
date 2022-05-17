@@ -6,7 +6,6 @@ package com.sgse.service;
 import com.sgse.dao.UsuarioDao;
 import com.sgse.entities.Usuario;
 import java.util.List;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +20,7 @@ public class UsuarioServiceImpl implements UsuarioService{
     
     @Autowired
     private UsuarioDao usuarioDao;
-
+    
     // Implementacion de los metodos CRUD
     @Override
     @Transactional
@@ -71,5 +70,6 @@ public class UsuarioServiceImpl implements UsuarioService{
         return usuarioDao.cantidadFilas();
     }
 
+   
 
 }

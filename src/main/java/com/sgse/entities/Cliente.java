@@ -18,6 +18,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  *
@@ -35,16 +37,18 @@ public class Cliente implements Serializable {
     @Column(name = "id")
     private Integer id;
     
-    @Column(name = "cedula")
+    @Column(name = "cedula",unique = true)
     private Integer cedula;
     
-    @Column(name = "ruc")
+    @Column(name = "ruc",unique = true)
     private String ruc;
-    
-    @Column(name = "nombre")
+     
+    @NotEmpty(message = "no puede estar vacio")
+    @Column(name = "nombre",nullable = false)
     private String nombre;
     
-    @Column(name = "apellido")
+    @NotEmpty(message = "no puede estar vacio")
+    @Column(name = "apellido",nullable = false)
     private String apellido;
     
     @Column(name = "direccion")
@@ -53,7 +57,9 @@ public class Cliente implements Serializable {
     @Column(name = "telefono")
     private String telefono;
     
-    @Column(name = "email")
+    @NotEmpty(message = "no puede estar vacio")
+    @Email(message = "No es un correo electronico válido")
+    @Column(name = "email",unique = true,nullable = false)
     private String email;
     
     @Column(name = "estado_cuenta")
