@@ -56,8 +56,10 @@ public class ServicioRestController {
         try {
             servicioService.create(servicios); // crea el servicio
         } catch (DataAccessException e) { // Envia una excepcion con el error de insert en la BBDD
-            map.put("mensaje", "Error al realizar insert en la base de datos");
-            map.put("error", e.getMessage()+": "+e.getMostSpecificCause().getMessage());
+            String[] mensajeString = e.getMostSpecificCause().getMessage().replaceAll("[()]", "").split("\n");
+            map.put("mensaje", "Error al realizar inserción en la base de datos");
+            map.put("error",mensajeString[0].replaceAll("ERROR: ", ""));
+            map.put("detalle",mensajeString[1].replaceAll(" Detail: ", "").replaceAll("=", ": "));
             return new ResponseEntity<>(map,HttpStatus.INTERNAL_SERVER_ERROR);
         }
         
@@ -115,8 +117,10 @@ public class ServicioRestController {
             servicioNuevo.setDescripcion(servicios.getDescripcion());
             servicioService.update(servicioNuevo);
         } catch (DataAccessException e) {
+            String[] mensajeString = e.getMostSpecificCause().getMessage().replaceAll("[()]", "").split("\n");
             map.put("mensaje", "Error al actualizar el servicio en la base de datos");
-            map.put("error", e.getMessage()+": "+e.getMostSpecificCause().getMessage());
+            map.put("error",mensajeString[0].replaceAll("ERROR: ", ""));
+            map.put("detalle",mensajeString[1].replaceAll(" Detail: ", "").replaceAll("=", ": "));
             return new ResponseEntity<>(map,HttpStatus.INTERNAL_SERVER_ERROR);
         }
         

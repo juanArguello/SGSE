@@ -21,12 +21,29 @@ SELECT * FROM seguro ORDER BY id;
 
 UPDATE usuario SET estado = 'activo' WHERE id = 2;
 
-
-
 INSERT INTO rol (id,nombre, descripcion) VALUES(29,'a','b');
 
 ALTER TABLE servicios
 ADD CONSTRAINT servicios_unique UNIQUE (nombre);
+
+cd C:\Users\user\Documents\SGSE
+mvn clean
+mvn install
+mvn deploy
+mvn tomcat7:deploy
+mvn tomcat7:undeploy
+mvn tomcat7:redeploy
+tomcat8
+startup
+catalina
+catalina start
+catalina stop
+start brave https://localhost:8443
+start chrome https://localhost:8443
+start firefox https://localhost:8443
+cd C:\ngrok
+ngrok http https://localhost:8443
+
 
 
 //enviarContrasenha(usuario, contrasenhaPlana);

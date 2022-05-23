@@ -45,8 +45,7 @@ public class Servicios implements Serializable {
     @Column(name = "descripcion")
     private String descripcion;
     
-    //@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @JsonProperty(access = JsonProperty.Access.READ_WRITE)
+    @JsonProperty(access = JsonProperty.Access.AUTO)
     @JsonIgnoreProperties(value = {"serviciosList","hibernateLazyInitializer","handler"})
     @ManyToMany(mappedBy = "serviciosList",fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Plan> planList;
